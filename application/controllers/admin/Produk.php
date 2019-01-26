@@ -67,6 +67,6 @@ class Produk extends CI_Controller
     public function print()
     {
         var_dump($this->input->post());
-		//TEST
+		
     }
 }

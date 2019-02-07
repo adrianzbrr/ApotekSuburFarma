@@ -36,7 +36,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <a class="dropdown-item" href="<?php echo site_url('admin/faktur') ?>">Faktur</a>
-            <a class="dropdown-item" href="<?php echo site_url('admin/dokumen/kontraBon') ?>">Kontra Bon</a>
+            <a class="dropdown-item" href="<?php echo site_url('admin/kontraBon') ?>">Kontra Bon</a>
         </div>
     </li>
     

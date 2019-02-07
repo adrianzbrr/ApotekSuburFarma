@@ -29,37 +29,36 @@
 							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
 								<thead>
 									<tr>
-										<th>Nomor Faktur</th>
+										<th>Nomor Kontra Bon</th>
 										<th>Tanggal Cetak</th>
-										<th>Tanggal Jatuh Tempo</th>
-										<th>Perusahaan</th>
+										<th>Tanggal Kembali</th>
 										<th>Total Pembayaran</th>
+										<th>STATUS</th>
 										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($faktur as $faktur): ?>
+									<?php foreach ($kontraBon as $kontraBon): ?>
 									<tr>
 										<td width="150">
-											<?php echo $faktur->noFaktur ?>
+											<?php echo $kontraBon->noKontraBon ?>
 										</td>
 										<td>
-											<?php echo $faktur->tanggalCetak ?>
+											<?php echo $kontraBon->tanggalCetak ?>
 										</td>
 										<td>
-											<?php echo $faktur->tanggalJatuhTempo ?>
+											<?php echo $kontraBon->tanggalKembali ?>
 										</td>
 										<td>
-											<?php echo $faktur->namaPerusahaan ?>
+											<?php echo $kontraBon->totalPembayaran ?>
 										</td>
 										<td>
-											<?php echo $faktur->TotalPembayaran ?>
+											<?php echo $kontraBon->status ?>
 										</td>
-
 										<td width="250">
-											<a href="<?php echo site_url('admin/faktur/edit/'.$faktur->noFaktur) ?>"
+											<a href="<?php echo site_url('admin/kontraBon/edit/'.$kontrabon->noKontraBon) ?>"
 											 class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
-											<a onclick="deleteConfirm('<?php echo site_url('admin/faktur/delete/'.$faktur->noFaktur) ?>')"
+											<a onclick="deleteConfirm('<?php echo site_url('admin/kontraBon/delete/'.$kontrabon->noKontraBon) ?>')"
 											 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
 										</td>
 									</tr>

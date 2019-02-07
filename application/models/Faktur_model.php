@@ -3,6 +3,7 @@
 class Faktur_model extends CI_Model
 {
     private $_table = "faktur";
+    private $_table1 = "faktur_view";
 
     public $noFaktur;
     public $tanggalCetak;
@@ -33,7 +34,7 @@ class Faktur_model extends CI_Model
     }
 
     public function getAll(){
-        return $this->db->get($this->_table)->result();
+        return $this->db->get($this->_table1)->result();
     }
 
     public function getById($id){

@@ -9,6 +9,23 @@ class KontraBon_model extends CI_Model
     public $tanggalKembali;
     public $totalPembayaran;
 
+    public function rules()
+    {
+        return [
+                ['field' => 'noKontraBon',
+                'label' => 'noKontraBon',
+                'rules' => 'required'],
+                
+                ['field' => 'tanggalCetak',
+                'label' => 'tanggalCetak',
+                'rules' => 'required'],
+
+                ['field' => 'tanggalKembali',
+                'label' => 'tanggalKembali',
+                'rules' => 'required']
+            ];
+    }
+
     public function getAll(){
         return $this->db->get($this->_table)->result();
     }

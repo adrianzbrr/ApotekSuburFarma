@@ -7,7 +7,6 @@ class Produk_model extends CI_Model
 
     public $idProduk;
     public $namaProduk;
-    public $hargaProduk;
     public $idJenis;
     public $idBentuk;
     public $idRak;
@@ -20,9 +19,9 @@ class Produk_model extends CI_Model
                 'label' => 'Nama Produk',
                 'rules' => 'required'],
                 
-                ['field' => 'hargaProduk',
-                'label' => 'Harga Produk',
-                'rules' => 'numeric'],
+                // ['field' => 'hargaProduk',
+                // 'label' => 'Harga Produk',
+                // 'rules' => 'numeric'],
                 
                 ['field' => 'idJenis',
                 'label' => 'Jenis Produk',
@@ -49,7 +48,6 @@ class Produk_model extends CI_Model
     public function save(){
         $post = $this->input->post();
         $this->namaProduk = $post["namaProduk"];
-        $this->hargaProduk = $post["hargaProduk"];
         $this->idJenis = $post["idJenis"];
         $this->idBentuk = $post["idBentuk"];
         $this->idRak = $post["idRak"];        
@@ -58,8 +56,7 @@ class Produk_model extends CI_Model
     public function update($id)
     {
         $post = $this->input->post();
-        $this->namaProduk = $post["namaProduk"];
-        $this->hargaProduk = $post["hargaProduk"];       
+        $this->namaProduk = $post["namaProduk"];     
         $this->idJenis = $post["idJenis"];
         $this->idBentuk = $post["idBentuk"];
         $this->idRak = $post["idRak"];

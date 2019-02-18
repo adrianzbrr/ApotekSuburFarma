@@ -41,15 +41,6 @@
 							</div>
 
 							<div class="form-group">
-								<label for="hargaProduk">Harga*</label>
-								<input class="form-control <?php echo form_error('hargaProduk') ? 'is-invalid':'' ?>"
-								 type="number" name="hargaProduk" min="0" placeholder="Harga" />
-								<div class="invalid-feedback">
-									<?php echo form_error('hargaProduk') ?>
-								</div>
-							</div>
-
-							<div class="form-group">
 								<label for="idJenis"> Jenis*</label>
 								<select class="form-control <?php echo form_error('idJenis') ? 'is-invalid':'' ?>"
 								 type="number" name="idJenis" min="0" placeholder="Jenis">

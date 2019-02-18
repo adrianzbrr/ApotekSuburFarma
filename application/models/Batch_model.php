@@ -17,13 +17,13 @@ class Batch_model extends CI_Model
         return $this->db->get_where($this->_table, ["noBatch" => $id])->row();
     }
 
+    public function getByProduk($id){
+        return $this->db->get_where($this->_table, ["idProduk" => $id])->row();
+    }
+
     public function save(){
         $post = $this->input->post();
-        $this->noBatch = $post["noBatch"];
-        $this->exp = $post["exp"];
-        $this->kuota = $post["kuota"];
-        $this->idProduk = $post["idProduk"];       
-        $this->db->insert($this->_table,$this);
+        $this->db->on_duplicate($this->_table,array('noBatch'=> $post["noBatch"], 'exp' => $post["exp"],'idProduk' => $post["idProduk"]));
     }
 
     public function update($id)

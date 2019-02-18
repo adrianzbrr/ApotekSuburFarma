@@ -541,4 +541,64 @@ class CI_DB_mysqli_driver extends CI_DB {
 		$this->conn_id->close();
 	}
 
+	// --------------------------------------------------------------------
+
+	/**
+	 * ON DUPLICATE
+	 *
+	 */
+
+	function _duplicate_insert($table, $values)
+{
+    $updatestr = array();
+    $keystr    = array();
+    $valstr    = array();
+
+    foreach($values as $key => $val)
+    {
+        $updatestr[] = $key." = ".$val;
+        $keystr[]    = $key;
+        $valstr[]    = $val;
+    }
+
+    $sql  = "INSERT INTO ".$table." (".implode(', ',$keystr).") ";
+    $sql .= "VALUES (".implode(', ',$valstr).") ";
+    $sql .= "ON DUPLICATE KEY UPDATE ".implode(', ',$updatestr);
+
+    return $sql;
+}
+
+function _multi_duplicate_insert($table, $values)
+{
+    $updatestr = array();
+    $keystr    = array();
+    $valstr    = null;
+    $entries   = array();
+
+    $temp = array_keys($values);
+    $first = $values[$temp[0]];
+
+    foreach($first as $key => $val)
+    {
+        $updatestr[] = $key." = VALUES(".$key.")";
+        $keystr[]    = $key;
+    }
+
+    foreach($values as $entry)
+    {
+        $valstr = array();
+        foreach($entry as $key => $val)
+        {
+            $valstr[] = $val;
+        }
+        $entries[] = '('.implode(', ', $valstr).')';
+    }
+
+    $sql  = "INSERT INTO ".$table." (".implode(', ',$keystr).") ";
+
+    $sql .= "VALUES ".implode(', ',$entries);
+    $sql .= "ON DUPLICATE KEY UPDATE ".implode(', ',$updatestr);
+
+    return $sql;
+}
 }

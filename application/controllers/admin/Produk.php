@@ -11,6 +11,7 @@ class Produk extends CI_Controller
         $this->load->model("jenis_model");
         $this->load->model("bentuk_model");
         $this->load->model("rak_model");
+        $this->load->model("batch_model");
         $this->load->library('form_validation');
     }
 

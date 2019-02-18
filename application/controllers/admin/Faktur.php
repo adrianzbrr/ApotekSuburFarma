@@ -12,6 +12,9 @@ class Faktur extends CI_Controller
         $this->load->model("perusahaan_model");
         $this->load->model("faktur_model");
         $this->load->model("produkBeli_model");
+        $this->load->model("jenis_model");
+        $this->load->model("bentuk_model");
+        $this->load->model("rak_model");
         $this->load->library('form_validation');
     }
 
@@ -21,7 +24,7 @@ class Faktur extends CI_Controller
         $this->load->view("admin/faktur/list",$data);
     }
 
-    public function addFaktur()
+    public function tambahFaktur()
     {
         $faktur = $this->faktur_model;
         $data["perusahaan"] = $this->perusahaan_model->getAll();
@@ -31,16 +34,19 @@ class Faktur extends CI_Controller
             $faktur->save();
             $this->session->set_flashdata('success', 'Berhasil disimpan');
         }
-        $this->load->view("admin/faktur/new_form",$data);
+        $this->load->view("admin/faktur/tambahFaktur",$data);
     }
 
-    public function addProduk($id = null)
+    public function tambahProduk($id = null)
     {
         $data = array(
             'faktur' => $this->faktur_model->getById($id),
             'batchProduk' => $this->faktur_model->getProdukById($id),
             'produk' => $this->produk_model->getAll(),
-            'batch' => $this->batch_model->getAll()
+            'batch' => $this->batch_model->getAll(),
+            'jenis' => $this->jenis_model->getAll(),
+            'bentuk' => $this->bentuk_model->getAll(),
+            'rak' => $this->rak_model->getAll()
         );
         $batch = $this->batch_model;
         $pb = $this->produkBeli_model;
@@ -72,11 +78,24 @@ class Faktur extends CI_Controller
         $this->load->view("admin/faktur/edit_form", $data);
     }
 
-    public function delete($id=null)
+    public function deleteFaktur($id=null)
     {
         if (!isset($id)) show_404();
-        $this->faktur_model->delete($id);
+        $this->produkBeli->deleteFaktur($id);
+        $this->faktur_model->delete($id){
+            redirect(site_url('admin/faktur'))
+        };
     }
+
+    public function deleteProduk($id=null)
+    {
+        if (!isset($id)) show_404();
+        $this->produkBeli->deleteBatch($id);
+        $this->batch_model->delete($id){
+            redirect(site_url('admin/faktur'))
+        };
+    }
+
     public function print()
     {
         var_dump($this->input->post());

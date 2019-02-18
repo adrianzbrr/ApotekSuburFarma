@@ -34,12 +34,27 @@ class KontraBon_model extends CI_Model
         return $this->db->get_where($this->_table, ["noKontraBon" => $id])->row();
     }
 
+    public function getFakturById($id){
+        $this->db->select('faktur.noFaktur,faktur.totalPembayaran,perusahaan.namaPerusahaan');
+        $this->db->from('faktur');
+        $this->db->join('perusahaan','perusahaan.idPerusahaan=faktur.idPerusahaan');
+        $this->db->where('faktur.noKontraBon',$id);
+        return $query = $this->db->get()->result();
+    }
+
+    public function getNotFaktur(){
+        $this->db->select('faktur.noFaktur,faktur.totalPembayaran,perusahaan.namaPerusahaan');
+        $this->db->from('faktur');
+        $this->db->join('perusahaan','perusahaan.idPerusahaan=faktur.idPerusahaan');
+        $this->db->where('noKontraBon IS NULL');
+        return $query = $this->db->get()->result();
+    }
+
     public function save(){
         $post = $this->input->post();
         $this->noKontraBon = $post["noKontraBon"];
         $this->tanggalCetak = $post["tanggalCetak"];
-        $this->tanggalKembali = $post["tanggalKembali"];
-        $this->totalPembayaran = $post["totalPembayaran"];     
+        $this->tanggalKembali = $post["tanggalKembali"];   
         $this->db->insert($this->_table,$this);
     }
     public function update($id)

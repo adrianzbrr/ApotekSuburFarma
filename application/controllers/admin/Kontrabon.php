@@ -9,6 +9,7 @@ class Kontrabon extends CI_Controller
         parent::__construct();
         $this->load->model("kontraBon_model");
         $this->load->model("faktur_model");
+        $this->load->library('form_validation');
     }
 
     public function index()
@@ -19,7 +20,7 @@ class Kontrabon extends CI_Controller
 
     public function add()
     {
-        $kontrabon = $this->faktur_model;
+        $kontrabon = $this->kontraBon_model;
         $data["faktur"] = $this->faktur_model->getAll();
         $validation = $this->form_validation;
         $validation->set_rules($kontrabon->rules());        
@@ -27,7 +28,24 @@ class Kontrabon extends CI_Controller
             $kontrabon->save();
             $this->session->set_flashdata('success', 'Berhasil disimpan');
         }
-        $this->load->view("admin/kontrabon/tambah",$data);
+        $this->load->view("admin/kontraBon/tambah",$data);
+    }
+
+    public function tambahFaktur($id = null)
+    {
+        $data = array(
+            'noKontraBon' => $this->kontraBon_model->getById($id),
+            'noFaktur' => $this->kontraBon_model->getFakturById($id),
+            'notFaktur' => $this->kontraBon_model->getNotFaktur(),
+        );
+        $faktur = $this->faktur_model;
+        $validation = $this->form_validation;
+        $validation->set_rules($faktur->rules());        
+        if ($validation->run()) {
+            $faktur->masukKontraBon($id);
+            $this->session->set_flashdata('success', 'Berhasil disimpan');
+        }
+        $this->load->view("admin/kontraBon/tambahFaktur",$data);
     }
 
 
@@ -35,7 +53,7 @@ class Kontrabon extends CI_Controller
     {
         if (!isset($id)) redirect('admin/kontrabon');
        
-        $kontrabon = $this->kontra_model;
+        $kontrabon = $this->kontraBon_model;
         $validation = $this->form_validation;
         $validation->set_rules($kontrabon->rules());
         if ($validation->run()) {
@@ -53,6 +71,11 @@ class Kontrabon extends CI_Controller
     {
         if (!isset($id)) show_404();
         $this->faktur_model->delete($id);
+    }
+
+    public function masukKontraBon($id,$noKontraBon){
+        if (!isset($id)) show_404();
+        $this->faktur_model->masukKontrabon($id,$noKontraBon);
     }
     public function print()
     {

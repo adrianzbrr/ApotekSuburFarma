@@ -28,9 +28,12 @@
 			<div class="card text-white bg-primary o-hidden h-100">
 				<div class="card-body">
 				<div class="card-body-icon">
-					<i class="fas fa-fw fa-comments"></i>
+					<i class="fas fa-fw fa-money"></i>
 				</div>
-				<div class="mr-5">26 New Messages!</div>
+				<div class="mr-5">Jumlah Tunggakan</div>
+				<?php foreach ($tunggak as $tunggak): ?>
+				<div class="mr-5"><?php echo $tunggak->hutang ?></div>
+				<?php endforeach; ?>
 				</div>
 				<a class="card-footer text-white clearfix small z-1" href="#">
 				<span class="float-left">View Details</span>

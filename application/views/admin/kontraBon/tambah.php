@@ -18,14 +18,14 @@
 
 				<div class="card mb-3">
 					<div class="card-header">
-						<a href="<?php echo site_url('admin/faktur/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
+						<a href="<?php echo site_url('admin/kontraBon/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
 					</div>
 					<div class="card-body">
-						<form action="<?php base_url('admin/faktur/addProduk') ?>" method="post" >
+						<form action="<?php base_url('admin/kontraBon/add') ?>" method="post" >
 							<div class="form-group">
-								<label for="noFaktur">Nomor Faktur*</label>
-								<input class="form-control <?php echo form_error('noFaktur') ? 'is-invalid':'' ?>"
-								 type="text" name="noFaktur" placeholder="Nomor Faktur" />
+								<label for="noKontraBon">Nomor Kontra Bon*</label>
+								<input class="form-control <?php echo form_error('noKontraBon') ? 'is-invalid':'' ?>"
+								 type="text" name="noKontraBon" placeholder="Nomor Kontra Bon" />
 								<div class="invalid-feedback">
 									<?php echo form_error('noFaktur') ?>
 								</div>
@@ -41,26 +41,12 @@
 							</div>
 
 							<div class="form-group">
-								<label for="tanggalJatuhTempo">Tanggal Jatuh Tempo*</label>
-								<input class="form-control <?php echo form_error('tanggalJatuhTempo') ? 'is-invalid':'' ?>"
-								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalJatuhTempo" placeholder="Tanggal Jatuh Tempo" />
+								<label for="tanggalKembali">Tanggal Kembali*</label>
+								<input class="form-control <?php echo form_error('tanggalKembali') ? 'is-invalid':'' ?>"
+								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalKembali" placeholder="Tanggal Kembali" />
 								<div class="invalid-feedback">
-									<?php echo form_error('tanggalJatuhTempo') ?>
+									<?php echo form_error('tanggalKembali') ?>
 								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="idPerusahaan"> Perusahaan*</label>
-								<input class="form-control" list="listPerusahaan" <?php echo form_error('idPerusahaan') ? 'is-invalid':'' ?>
-								 type="text" name="idPerusahaan" id="idPerusahaan" placeholder="Perusahaan">
-								<datalist id="listPerusahaan">
-								<?php
-          						foreach($perusahaan as $data){
-            						echo "<option value= ".$data->idPerusahaan." >".$data->namaPerusahaan."</option>";
-								}
-								?>
-								</datalist>
-								
 							</div>
 							<input class="btn btn-success" type="submit" name="btn" value="Save" />
 						</form>
@@ -70,8 +56,6 @@
 						* required fields
 					</div>
 				</div>
-
-
 				</div>
 				<!-- /.container-fluid -->
 

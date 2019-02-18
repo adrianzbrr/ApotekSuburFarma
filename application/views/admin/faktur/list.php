@@ -21,7 +21,7 @@
 				<!-- DataTables -->
 				<div class="card mb-3">
 					<div class="card-header">
-						<a href="<?php echo site_url('admin/faktur/addFaktur') ?>"><i class="fas fa-plus"></i> Add New</a>
+						<a href="<?php echo site_url('admin/faktur/tambahFaktur') ?>"><i class="fas fa-plus"></i> Tambah</a>
 					</div>
 					<div class="card-body">
 
@@ -33,15 +33,18 @@
 										<th>Tanggal Cetak</th>
 										<th>Tanggal Jatuh Tempo</th>
 										<th>Perusahaan</th>
+										<th>Jumlah Produk</th>
 										<th>Total Pembayaran</th>
-										<th>Action</th>
+										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php foreach ($faktur as $faktur): ?>
 									<tr>
 										<td width="150">
+										<a href="<?php echo site_url('admin/faktur/tambahProduk/'.$faktur->noFaktur) ?>">
 											<?php echo $faktur->noFaktur ?>
+											</a>
 										</td>
 										<td>
 											<?php echo $faktur->tanggalCetak ?>
@@ -53,10 +56,15 @@
 											<?php echo $faktur->namaPerusahaan ?>
 										</td>
 										<td>
-											<?php echo $faktur->TotalPembayaran ?>
+											<?php echo $faktur->jumlahProduk ?>
+										</td>
+										<td>
+											<?php echo $faktur->totalPembayaran ?>
 										</td>
 
 										<td width="250">
+											<a href="<?php echo site_url('admin/faktur/tambahProduk/'.$faktur->noFaktur) ?>"
+											 class="btn btn-small text-success"><i class="fas fa-plus-circle"></i>Tambah Produk</a>
 											<a href="<?php echo site_url('admin/faktur/edit/'.$faktur->noFaktur) ?>"
 											 class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
 											<a onclick="deleteConfirm('<?php echo site_url('admin/faktur/delete/'.$faktur->noFaktur) ?>')"

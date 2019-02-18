@@ -33,10 +33,13 @@ class ProdukBeli_model extends CI_Model
         $this->db->insert($this->_table,$this);
     }
 
-    public function delete($id)
+    public function deleteFaktur($id)
+    {
+        return $this->db->delete($this->_table, array("noFaktur" => $id));
+    }
+
+    public function deleteBatch($id)
     {
         return $this->db->delete($this->_table, array("noBatch" => $id));
     }
-
-
 }

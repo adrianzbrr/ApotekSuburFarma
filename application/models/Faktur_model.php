@@ -8,7 +8,6 @@ class Faktur_model extends CI_Model
     public $noFaktur;
     public $tanggalCetak;
     public $tanggalJatuhTempo;
-    public $totalPembayaran;
     public $noKontraBon;
     public $idPerusahaan;
 
@@ -29,6 +28,15 @@ class Faktur_model extends CI_Model
 
                 ['field' => 'idPerusahaan',
                 'label' => 'idPerusahaan',
+                'rules' => 'required']
+            ];
+    }
+
+    public function rules1()
+    {
+        return [
+                ['field' => 'noKontraBon',
+                'label' => 'noKontraBon',
                 'rules' => 'required']
             ];
     }
@@ -65,10 +73,16 @@ class Faktur_model extends CI_Model
         $this->noFaktur = $post["noFaktur"];
         $this->tanggalCetak = $post["tanggalCetak"];
         $this->tanggalJatuhTempo = $post["tanggalJatuhTempo"];
-        $this->totalPembayaran = $post["totalPembayaran"];
         $this->noKontraBon = $post["noKontraBon"];
         $this->idPerusahaan = $post["idPerusahaan"];
         $this->db->update($this->_table, $this, array('noFaktur' => $post[$id]));
+    }
+
+    public function masukKontrabon($id)
+    {
+        $this->db->set('noKontraBon', $noKontraBon);
+        $this->db->where('noFaktur', $post["noFaktur"]);
+        $this->db->update('faktur');
     }
 
     public function delete($id)

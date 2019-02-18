@@ -2805,4 +2805,55 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 		));
 	}
 
+	function on_duplicate($table = '', $set = NULL )
+{
+    if ( ! is_null($set))
+    {
+        $this->set($set);
+    }
+
+    if (count($this->qb_set) == 0)
+    {
+        if ($this->db_debug)
+        {
+            return $this->display_error('db_must_use_set');
+        }
+        return FALSE;
+    }
+
+    if ($table == '')
+    {
+        if ( ! isset($this->qb_from[0]))
+        {
+            if ($this->db_debug)
+            {
+                return $this->display_error('db_must_set_table');
+            }
+            return FALSE;
+        }
+
+        $table = $this->qb_from[0];
+    }
+
+    $is_multi = false;
+    foreach (array_keys($set) as $k => $v) {
+        if ($k === $v) {
+            $is_multi = true; //is not assoc
+            break;
+        }
+    }
+
+    if($is_multi)
+    {
+        $sql = $this->_multi_duplicate_insert($this->protect_identifiers($table, TRUE, NULL, FALSE), $this->qb_set );
+    }
+    else
+    {
+        $sql = $this->_duplicate_insert($this->protect_identifiers($table, TRUE, NULL, FALSE), $this->qb_set );
+    }
+
+    $this->_reset_write();
+    return $this->query($sql);
+}
+
 }

@@ -21,7 +21,7 @@
 				<!-- DataTables -->
 				<div class="card mb-3">
 					<div class="card-header">
-						<a href="<?php echo site_url('admin/faktur/addFaktur') ?>"><i class="fas fa-plus"></i> Add New</a>
+						<a href="<?php echo site_url('admin/kontraBon/add') ?>"><i class="fas fa-plus"></i> Tambah</a>
 					</div>
 					<div class="card-body">
 
@@ -33,7 +33,7 @@
 										<th>Tanggal Cetak</th>
 										<th>Tanggal Kembali</th>
 										<th>Total Pembayaran</th>
-										<th>STATUS</th>
+										<th>Status</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -53,12 +53,14 @@
 											<?php echo $kontraBon->totalPembayaran ?>
 										</td>
 										<td>
-											<?php echo $kontraBon->status ?>
+											<?php echo $kontraBon->idStatus ?>
 										</td>
 										<td width="250">
-											<a href="<?php echo site_url('admin/kontraBon/edit/'.$kontrabon->noKontraBon) ?>"
+											<a href="<?php echo site_url('admin/kontraBon/tambahFaktur/'.$kontraBon->noKontraBon) ?>"
+											 class="btn btn-small text-success"><i class="fas fa-plus-circle"></i>Tambah Faktur</a>
+											<a href="<?php echo site_url('admin/kontraBon/edit/'.$kontraBon->noKontraBon) ?>"
 											 class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
-											<a onclick="deleteConfirm('<?php echo site_url('admin/kontraBon/delete/'.$kontrabon->noKontraBon) ?>')"
+											<a onclick="deleteConfirm('<?php echo site_url('admin/kontraBon/delete/'.$kontraBon->noKontraBon) ?>')"
 											 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
 										</td>
 									</tr>

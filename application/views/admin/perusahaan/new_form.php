@@ -63,44 +63,9 @@
 
 					<div class="card-footer small text-muted">
 						* required fields
+					</div>				
 					</div>
-
-
-				</div>
-				<div class="table-responsive">
-							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-								<thead>
-									<tr>
-										<th>Nama</th>
-										<th>Alamat</th>
-										<th>Nomor Telepon</th>
-										<th>Aksi</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php foreach ($perusahaan as $perusahaan): ?>
-									<tr>
-										<td width="150">
-											<?php echo $perusahaan->namaPerusahaan ?>
-										</td>
-										<td>
-											<?php echo $perusahaan->alamatPerusahaan ?>
-										</td>
-										<td>
-											<?php echo $perusahaan->noTelp ?>
-										</td>
-										<td width="250">
-											<a href="<?php echo site_url('admin/perusahaan/edit/'.$perusahaan->idPerusahaan) ?>"
-											 class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
-											<a onclick="deleteConfirm('<?php echo site_url('admin/perusahaan/deleteNew/'.$perusahaan->idPerusahaan) ?>')"
-											 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
-										</td>
-									</tr>
-									<?php endforeach; ?>
-								</body>
-							</table>
-						</div>
-				<!-- /.container-fluid -->
+					<!-- /.container-fluid -->
 				
 
 				<!-- Sticky Footer -->

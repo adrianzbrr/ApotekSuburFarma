@@ -21,7 +21,7 @@
 						<a href="<?php echo site_url('admin/faktur/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
 					</div>
 					<div class="card-body">
-						<form action="<?php base_url('admin/faktur/addProduk') ?>" method="post" >
+						<form action="<?php base_url('admin/faktur/') ?>" method="post" >
 							<div class="form-group">
 								<label for="noFaktur">Nomor Faktur*</label>
 								<input class="form-control <?php echo form_error('noFaktur') ? 'is-invalid':'' ?>"

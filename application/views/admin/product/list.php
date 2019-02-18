@@ -30,10 +30,11 @@
 								<thead>
 									<tr>
 										<th>Nama</th>
-										<th>Harga</th>
+										<!-- <th>Harga</th> -->
 										<th>Jenis</th>
 										<th>Bentuk</th>
 										<th>Rak</th>
+										<th>Jumlah</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -44,9 +45,6 @@
 											<?php echo $produk->namaProduk ?>
 										</td>
 										<td>
-											<?php echo $produk->hargaProduk ?>
-										</td>
-										<td>
 											<?php echo $produk->namaJenis ?>
 										</td>
 										<td>
@@ -54,6 +52,9 @@
 										</td>
 										<td>
 											<?php echo $produk->namaRak ?>
+										</td>
+										<td>
+											<?php echo $produk->Jumlah ?>
 										</td>
 										<td width="250">
 											<a href="<?php echo site_url('admin/produk/edit/'.$produk->idProduk) ?>"

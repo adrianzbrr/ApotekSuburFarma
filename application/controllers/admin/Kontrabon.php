@@ -9,6 +9,7 @@ class Kontrabon extends CI_Controller
         parent::__construct();
         $this->load->model("kontraBon_model");
         $this->load->model("faktur_model");
+        $this->load->model("perusahaan_model");
         $this->load->library('form_validation');
     }
 
@@ -21,7 +22,11 @@ class Kontrabon extends CI_Controller
     public function add()
     {
         $kontrabon = $this->kontraBon_model;
-        $data["faktur"] = $this->faktur_model->getAll();
+
+        $data = array(
+            'faktur' => $this->faktur_model->getAll(),
+            'perusahaan' => $this->perusahaan_model->getAll()
+        );
         $validation = $this->form_validation;
         $validation->set_rules($kontrabon->rules());        
         if ($validation->run()) {
@@ -36,7 +41,7 @@ class Kontrabon extends CI_Controller
         $data = array(
             'noKontraBon' => $this->kontraBon_model->getById($id),
             'noFaktur' => $this->kontraBon_model->getFakturById($id),
-            'notFaktur' => $this->kontraBon_model->getNotFaktur(),
+            'notFaktur' => $this->kontraBon_model->getFakturByPerusahaan($id)
         );
         $faktur = $this->faktur_model;
         $validation = $this->form_validation;

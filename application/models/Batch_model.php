@@ -3,6 +3,7 @@
 class Batch_model extends CI_Model
 {
     private $_table = "batch";
+    private $_table1 = "batch_view";
 
     public $noBatch;
     public $exp;
@@ -18,7 +19,7 @@ class Batch_model extends CI_Model
     }
 
     public function getByProduk($id){
-        return $this->db->get_where($this->_table, ["idProduk" => $id])->row();
+        return $this->db->get_where($this->_table1, ["idProduk" => $id])->result();
     }
 
     public function save(){

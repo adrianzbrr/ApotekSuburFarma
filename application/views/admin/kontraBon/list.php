@@ -53,7 +53,7 @@
 											<?php echo $kontraBon->totalPembayaran ?>
 										</td>
 										<td>
-											<?php echo $kontraBon->idStatus ?>
+											<?php echo $kontraBon->namaStatus ?>
 										</td>
 										<td width="250">
 											<a href="<?php echo site_url('admin/kontraBon/tambahFaktur/'.$kontraBon->noKontraBon) ?>"

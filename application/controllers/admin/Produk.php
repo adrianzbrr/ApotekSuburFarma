@@ -21,6 +21,12 @@ class Produk extends CI_Controller
         $this->load->view("admin/product/list", $data);
     }
 
+    public function getBatch($id)
+    {
+        $data["batch"] = $this->batch_model->getByProduk($id);
+        $this->load->view("admin/product/listBatch", $data);
+    }
+
     public function add()
     {
         $produk = $this->produk_model;

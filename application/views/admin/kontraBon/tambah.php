@@ -48,6 +48,20 @@
 									<?php echo form_error('tanggalKembali') ?>
 								</div>
 							</div>
+
+							<div class="form-group">
+								<label for="idPerusahaan"> Perusahaan*</label>
+								<input class="form-control" list="listPerusahaan" <?php echo form_error('idPerusahaan') ? 'is-invalid':'' ?>
+								 type="text" name="idPerusahaan" id="idPerusahaan" placeholder="Perusahaan">
+								<datalist id="listPerusahaan">
+								<?php
+          						foreach($perusahaan as $data){
+            						echo "<option value= ".$data->idPerusahaan." >".$data->namaPerusahaan."</option>";
+								}
+								?>
+								</datalist>	
+							</div>
+
 							<input class="btn btn-success" type="submit" name="btn" value="Save" />
 						</form>
 					</div>

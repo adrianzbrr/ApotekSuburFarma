@@ -20,48 +20,28 @@
 
 				<!-- DataTables -->
 				<div class="card mb-3">
-					<div class="card-header">
-						<a href="<?php echo site_url('admin/produk/add') ?>"><i class="fas fa-plus"></i> Add New</a>
-					</div>
+					<div class="card-header"></div>
 					<div class="card-body">
-
 						<div class="table-responsive">
 							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
 								<thead>
 									<tr>
 										<th>Nama</th>
-										<!-- <th>Harga</th> -->
-										<th>Jenis</th>
-										<th>Bentuk</th>
-										<th>Rak</th>
-										<th>Jumlah</th>
-										<th>Action</th>
+										<th>Expired Date</th>
+										<th>Kuota</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($produk as $produk): ?>
+									<?php foreach ($batch as $batch): ?>
 									<tr>
 										<td width="150">
-										<a href="<?php echo site_url('admin/produk/getBatch/'.$produk->idProduk) ?>">
-											<?php echo $produk->namaProduk ?>
+											<?php echo $batch->noBatch ?>
 										</td>
 										<td>
-											<?php echo $produk->namaJenis ?>
+											<?php echo $batch->exp ?>
 										</td>
 										<td>
-											<?php echo $produk->namaBentuk ?>
-										</td>
-										<td>
-											<?php echo $produk->namaRak ?>
-										</td>
-										<td>
-											<?php echo $produk->Jumlah ?>
-										</td>
-										<td width="250">
-											<a href="<?php echo site_url('admin/produk/edit/'.$produk->idProduk) ?>"
-											 class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
-											<a onclick="deleteConfirm('<?php echo site_url('admin/produk/delete/'.$produk->idProduk) ?>')"
-											 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
+											<?php echo $batch->kuota ?>
 										</td>
 									</tr>
 									<?php endforeach; ?>
@@ -89,14 +69,6 @@
 	<?php $this->load->view("admin/_partials/modal.php") ?>
 
 	<?php $this->load->view("admin/_partials/js.php") ?>
-
-    <script>
-    function deleteConfirm(url){
-        $('#btn-delete').attr('href', url);
-        $('#deleteModal').modal();
-        }
-    </script>
-
 </body>
 
 </html>

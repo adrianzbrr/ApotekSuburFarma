@@ -47,7 +47,7 @@
             <span>Laporan</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="<?php echo site_url('admin/faktur') ?>">Laporan Stok Opname</a>
+            <a class="dropdown-item" href="<?php echo site_url('admin/laporan') ?>">Laporan Stok Opname</a>
             <a class="dropdown-item" href="<?php echo site_url('admin/kontraBon') ?>">Laporan Defekta</a>
         </div>
     </li>

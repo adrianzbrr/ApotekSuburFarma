@@ -25,8 +25,8 @@
 					<div class="card-header">
 						<a href="<?php echo site_url('admin/kontraBon/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
 					</div>
-					<button type="button" class="btn btn-info btn-success" data-toggle="modal" data-target="#myModal">Tambah Produk</button>
-					 <!-- Modal -->
+					<button type="button" class="btn btn-info btn-success" data-toggle="modal" data-target="#myModal">Tambah Faktur</button>
+					<!-- Modal -->
 					<div class="modal fade" id="myModal" role="dialog">
 						<div class="modal-dialog">	
 						<!-- Modal content-->

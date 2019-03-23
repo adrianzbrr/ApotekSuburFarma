@@ -25,14 +25,14 @@
 		<!-- Icon Cards-->
 		<div class="row">
 			<div class="col-xl-3 col-sm-6 mb-3">
-			<div class="card text-white bg-primary o-hidden h-100">
+			<div class="card text-white bg-warning o-hidden h-100">
 				<div class="card-body">
 				<div class="card-body-icon">
 					<i class="fas fa-fw fa-money"></i>
 				</div>
 				<div class="mr-5">Jumlah Tunggakan</div>
-				<?php foreach ($tunggak as $tunggak): ?>
-				<div class="mr-5"><?php echo $tunggak->hutang ?></div>
+				<?php foreach ($tunggak as $data): ?>
+				<div class="h4"><?php echo $data->hutang ?></div>
 				<?php endforeach; ?>
 				</div>
 				<a class="card-footer text-white clearfix small z-1" href="#">
@@ -44,12 +44,15 @@
 			</div>
 			</div>
 			<div class="col-xl-3 col-sm-6 mb-3">
-			<div class="card text-white bg-warning o-hidden h-100">
+			<div class="card text-white bg-danger o-hidden h-100">
 				<div class="card-body">
 				<div class="card-body-icon">
-					<i class="fas fa-fw fa-list"></i>
+					<i class="fas fa-fw fa-warning"></i>
 				</div>
-				<div class="mr-5">11 New Tasks!</div>
+				<?php foreach ($kdl as $data): ?>
+				<div class="h4"><?php echo $data->total ?></div>
+				<?php endforeach; ?>
+				<div class="mr-5">Produk Segera Kadaluarsa</div>
 				</div>
 				<a class="card-footer text-white clearfix small z-1" href="#">
 				<span class="float-left">View Details</span>

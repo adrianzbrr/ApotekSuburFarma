@@ -41,17 +41,23 @@ class KontraBon_model extends CI_Model
 
 
     public function getFakturById($id){
-        $this->db->select('faktur.noFaktur,faktur.totalPembayaran,perusahaan.namaPerusahaan');
-        $this->db->from('faktur');
-        $this->db->join('perusahaan','perusahaan.idPerusahaan=faktur.idPerusahaan');
-        $this->db->where('faktur.noKontraBon',$id);
+        $this->db->select('faktur_view.noFaktur,faktur_view.totalPembayaran,perusahaan.namaPerusahaan');
+        $this->db->from('faktur_view');
+        $this->db->join('perusahaan','perusahaan.idPerusahaan=faktur_view.idPerusahaan');
+        $this->db->where('faktur_view.noKontraBon',$id);
         return $query = $this->db->get()->result();
+    }
+
+    public function getPerusahaan($id){
+        $query = $this->db->query("select idPerusahaan from kontraBon where noKontraBon = '$id'");
+        return $row =$query->row();
     }
 
     public function getFakturByPerusahaan($id){
         $this->db->select('noFaktur');
         $this->db->from('faktur');
-        $this->db->where('idPerusahaan',("SELECT idPerusahaan FROM KontraBon WHERE noKontraBon ='$id'"));
+        $this->db->where('noKontraBon',NULL);
+        $this->db->where('idPerusahaan',$id);
         return $query = $this->db->get()->result();
     }
 

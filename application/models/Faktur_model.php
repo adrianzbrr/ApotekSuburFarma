@@ -3,7 +3,8 @@
 class Faktur_model extends CI_Model
 {
     private $_table = "faktur";
-    private $_table1 = "faktur_view";
+    private $_tableView = "faktur_view";
+    private $_tablePB = "ProdukBeli";
 
     public $noFaktur;
     public $tanggalCetak;
@@ -42,7 +43,7 @@ class Faktur_model extends CI_Model
     }
 
     public function getAll(){
-        return $this->db->get($this->_table1)->result();
+        return $this->db->get($this->_tableView)->result();
     }
 
     public function getById($id){
@@ -50,11 +51,11 @@ class Faktur_model extends CI_Model
     }
 
     public function getProdukById($id){
-        $this->db->select('produkbeli.noFaktur,produk.namaProduk, produkbeli.noBatch, batch.exp, produkbeli.kuotaBeli, produkbeli.diskon, produkBeli.HargaBeli');
-        $this->db->from('ProdukBeli');
-        $this->db->join('Batch','produkbeli.noBatch = batch.noBatch');
+        $this->db->select('produkbeli_view.noFaktur,produk.namaProduk, produkbeli_view.noBatch, batch.exp, produkbeli_view.kuotaBeli, produkbeli_view.hargaSatuan, produkbeli_view.diskon, produkBeli_view.hargaBeli');
+        $this->db->from('ProdukBeli_view');
+        $this->db->join('Batch','produkbeli_view.noBatch = batch.noBatch');
         $this->db->join('Produk','batch.idProduk = produk.idProduk');
-        $this->db->where('ProdukBeli.noFaktur',$id);
+        $this->db->where('ProdukBeli_view.noFaktur',$id);
         return $query = $this->db->get()->result();
     }
 
@@ -67,7 +68,7 @@ class Faktur_model extends CI_Model
         $this->db->insert($this->_table,$this);
     }
     
-    public function update($id)
+    public function update()
     {
         $post = $this->input->post();
         $this->noFaktur = $post["noFaktur"];
@@ -75,7 +76,7 @@ class Faktur_model extends CI_Model
         $this->tanggalJatuhTempo = $post["tanggalJatuhTempo"];
         $this->noKontraBon = $post["noKontraBon"];
         $this->idPerusahaan = $post["idPerusahaan"];
-        $this->db->update($this->_table, $this, array('noFaktur' => $post[$id]));
+        $this->db->update($this->_table, $this, array('noFaktur' => $post["id"]));
     }
 
     public function masukKontrabon($id)
@@ -84,6 +85,12 @@ class Faktur_model extends CI_Model
         $this->db->where('noFaktur', $post["noFaktur"]);
         $this->db->update('faktur');
     }
+
+    public function deleteBatch($id)
+    {
+        return $this->db->delete($this->_tablePB, array("noBatch" => $id));
+    }
+
 
     public function delete($id)
     {

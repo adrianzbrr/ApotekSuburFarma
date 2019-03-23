@@ -21,54 +21,31 @@
 				<!-- DataTables -->
 				<div class="card mb-3">
 					<div class="card-header">
-						<a href="<?php echo site_url('admin/faktur/tambahFaktur') ?>"><i class="fas fa-plus"></i> Tambah</a>
 					</div>
 					<div class="card-body">
-
 						<div class="table-responsive">
 							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
 								<thead>
 									<tr>
-										<th>Nomor Faktur</th>
-										<th>Tanggal Cetak</th>
-										<th>Tanggal Jatuh Tempo</th>
-										<th>Perusahaan</th>
-										<th>Jumlah Produk</th>
-										<th>Total Pembayaran</th>
+										<th>Nomor Batch</th>
+										<th>Nama Produk</th>
+										<th>Sisa Hari</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($faktur as $faktur): ?>
+									<?php foreach ($kdl as $kdl): ?>
 									<tr>
 										<td width="150">
-										<a href="<?php echo site_url('admin/faktur/tambahProduk/'.$faktur->noFaktur) ?>">
-											<?php echo $faktur->noFaktur ?>
-											</a>
+											<?php echo $kdl->noBatch ?>
 										</td>
 										<td>
-											<?php echo $faktur->tanggalCetak ?>
+											<?php echo $kdl->namaProduk ?>
 										</td>
 										<td>
-											<?php echo $faktur->tanggalJatuhTempo ?>
+											<?php echo $kdl->Sisa ?>
 										</td>
-										<td>
-											<?php echo $faktur->namaPerusahaan ?>
-										</td>
-										<td>
-											<?php echo $faktur->jumlahProduk ?>
-										</td>
-										<td>
-											<?php echo $faktur->totalPembayaran ?>
-										</td>
-
 										<td width="250">
-											<a href="<?php echo site_url('admin/faktur/tambahProduk/'.$faktur->noFaktur) ?>"
-											 class="btn btn-small text-success"><i class="fas fa-plus-circle"></i>Tambah Produk</a>
-											<a href="<?php echo site_url('admin/faktur/edit/'.$faktur->noFaktur) ?>"
-											 class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
-											<a onclick="deleteConfirm('<?php echo site_url('admin/faktur/deleteFaktur/'.$faktur->noFaktur) ?>')"
-											 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
 										</td>
 									</tr>
 									<?php endforeach; ?>

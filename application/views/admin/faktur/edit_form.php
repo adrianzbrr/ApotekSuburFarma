@@ -22,10 +22,11 @@
 					</div>
 					<div class="card-body">
 						<form action="<?php base_url('admin/faktur/') ?>" method="post" >
+						<input type="hidden" name="id" value="<?php echo $faktur->noFaktur ?>" />
 							<div class="form-group">
 								<label for="noFaktur">Nomor Faktur*</label>
 								<input class="form-control <?php echo form_error('noFaktur') ? 'is-invalid':'' ?>"
-								 type="text" name="noFaktur" placeholder="Nomor Faktur" />
+								 type="text" name="noFaktur" placeholder="Nomor Faktur" value="<?php echo $faktur->noFaktur ?>" />
 								<div class="invalid-feedback">
 									<?php echo form_error('noFaktur') ?>
 								</div>
@@ -34,7 +35,7 @@
 							<div class="form-group">
 								<label for="tanggalCetak">Tanggal Cetak*</label>
 								<input class="form-control <?php echo form_error('tanggalCetak') ? 'is-invalid':'' ?>"
-								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalCetak" placeholder="Tanggal Cetak" />
+								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalCetak" placeholder="Tanggal Cetak" value="<?php echo $faktur->tanggalCetak ?>"/>
 								<div class="invalid-feedback">
 									<?php echo form_error('tanggalCetak') ?>
 								</div>
@@ -43,7 +44,7 @@
 							<div class="form-group">
 								<label for="tanggalJatuhTempo">Tanggal Jatuh Tempo*</label>
 								<input class="form-control <?php echo form_error('tanggalJatuhTempo') ? 'is-invalid':'' ?>"
-								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalJatuhTempo" placeholder="Tanggal Jatuh Tempo" />
+								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalJatuhTempo" placeholder="Tanggal Jatuh Tempo" value="<?php echo $faktur->tanggalJatuhTempo ?>" />
 								<div class="invalid-feedback">
 									<?php echo form_error('tanggalJatuhTempo') ?>
 								</div>

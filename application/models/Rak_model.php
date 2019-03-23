@@ -4,9 +4,6 @@ class Rak_model extends CI_Model
 {
     public $_table = "rak";
 
-    public $idRak;
-    public $namaRak;
-
     public function getAll(){
         return $this->db->get($this->_table)->result();
     }

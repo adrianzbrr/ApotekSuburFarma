@@ -81,20 +81,19 @@ class Faktur extends CI_Controller
     public function deleteFaktur($id=null)
     {
         if (!isset($id)) show_404();
-        $this->produkBeli->deleteFaktur($id);
-        $this->faktur_model->delete($id){
+        if($this->produkBeli_model->deleteFaktur($id)){
             redirect(site_url('admin/faktur'))
         };
     }
 
-    public function deleteProduk($id=null)
+    public function deleteBatch($id=null)
     {
         if (!isset($id)) show_404();
-        $this->produkBeli->deleteBatch($id);
-        $this->batch_model->delete($id){
-            redirect(site_url('admin/faktur'))
-        };
+        if($this->faktur_model->deleteBatch($id)){
+            redirect(site_url('admin/faktur'));
+        }
     }
+
 
     public function print()
     {

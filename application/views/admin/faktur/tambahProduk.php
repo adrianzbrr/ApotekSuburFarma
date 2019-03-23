@@ -115,10 +115,13 @@
 								<th>No Batch</th>
 								<th>Tanggal Kadaluarsa</th>
 								<th>Kuota</th>
+								<th>Harga Satuan</th>
+								<th>Diskon</th>
 								<th>Harga</th>
 								<th>Aksi</th>
 							</tr>
 						</thead>
+
 						<tbody>
 							<?php foreach ($batchProduk as $data): ?>
 								<tr>
@@ -135,10 +138,16 @@
 										<?php echo $data->kuotaBeli ?>
 									</td>
 									<td>
-										<?php echo $data->HargaBeli ?>
+										<?php echo $data->hargaSatuan ?>
+									</td>
+									<td>
+										<?php echo $data->diskon ?>
+									</td>
+									<td>
+										<?php echo $data->hargaBeli ?>
 									</td>
 									<td width="250">
-										<a onclick="deleteConfirm('<?php echo site_url('admin/faktur/delete/'.$data->noFaktur) ?>')"
+										<a onclick="deleteConfirm('<?php echo site_url('admin/faktur/delete/'.$data->noBatch) ?>')"
 										 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
 									</td>
 								</tr>

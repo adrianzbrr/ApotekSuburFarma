@@ -37,9 +37,4 @@ class ProdukBeli_model extends CI_Model
     {
         return $this->db->delete($this->_table, array("noFaktur" => $id));
     }
-
-    public function deleteBatch($id)
-    {
-        return $this->db->delete($this->_table, array("noBatch" => $id));
-    }
 }

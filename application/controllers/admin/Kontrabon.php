@@ -38,10 +38,11 @@ class Kontrabon extends CI_Controller
 
     public function tambahFaktur($id = null)
     {
+        $idPerusahaan = $this->kontraBon_model->getPerusahaan($id);
         $data = array(
             'noKontraBon' => $this->kontraBon_model->getById($id),
             'noFaktur' => $this->kontraBon_model->getFakturById($id),
-            'notFaktur' => $this->kontraBon_model->getFakturByPerusahaan($id)
+            'notFaktur' => $this->kontraBon_model->getFakturByPerusahaan($idPerusahaan->idPerusahaan)
         );
         $faktur = $this->faktur_model;
         $validation = $this->form_validation;
@@ -57,7 +58,6 @@ class Kontrabon extends CI_Controller
     public function edit($id = null)
     {
         if (!isset($id)) redirect('admin/kontrabon');
-       
         $kontrabon = $this->kontraBon_model;
         $validation = $this->form_validation;
         $validation->set_rules($kontrabon->rules());

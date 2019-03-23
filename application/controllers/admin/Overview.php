@@ -12,7 +12,8 @@ class Overview extends CI_Controller {
 	{
 	// load view admin/overview.php
 	$data = array(
-		'tunggak' => $this->overview_model->getAll()
+		'tunggak' => $this->overview_model->getAll(),
+		'kdl'=> $this->overview_model->getNumKadaluarsa()
 	    );
         $this->load->view("admin/overview",$data);
 	}

@@ -39,13 +39,15 @@
 									<form action="<?php base_url('admin/faktur/tambahProduk') ?>" method="post" >
 										<div class="form-group">
 											<label for="idProduk"> Nama Produk*</label>
-												<select class="form-control <?php echo form_error('idProduk') ? 'is-invalid':'' ?>"
-												type="number" name="idProduk" min="0" placeholder="Nama Produk">
+												<input class="form-control <?php echo form_error('idProduk') ? 'is-invalid':'' ?>"
+												list="produklist" type="text" name="idProduk" min="0" placeholder="Nama Produk">
+												<datalist id=produklist>
 												<?php
-												foreach($produk as $data){ 
-													echo "<option value= ".$data->idProduk.">".$data->namaProduk."</option>";
+												foreach($produk as $data){
+													echo "<option value= ".$data->namaProduk."></option>";
 												}
 												?>
+												</datalist>
 											</select>
 										<div class="form-group">
 											<label for="noBatch">No Batch*</label>
@@ -57,20 +59,20 @@
 										</div>
 
 										<div class="form-group">
-											<label for="exp">Tanggal Kadaluarsa*</label>
-											<input class="form-control <?php echo form_error('exp') ? 'is-invalid':'' ?>"
-											type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="exp" />
+											<label for="tanggalKadaluarsa">Tanggal Kadaluarsa*</label>
+											<input class="form-control <?php echo form_error('tanggalKadaluarsa') ? 'is-invalid':'' ?>"
+											type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalKadaluarsa" />
 											<div class="invalid-feedback">
-												<?php echo form_error('exp') ?>
+												<?php echo form_error('tanggalKadaluarsa') ?>
 											</div>
 										</div>
 
 										<div class="form-group">
-											<label for="kuota">Kuota Beli*</label>
-											<input class="form-control <?php echo form_error('kuota') ? 'is-invalid':'' ?>"
-											type="number" name="kuota" min="0" placeholder="Kuota Beli"/>
+											<label for="jumlah">jumlah Beli*</label>
+											<input class="form-control <?php echo form_error('jumlah') ? 'is-invalid':'' ?>"
+											type="number" name="jumlah" min="0" placeholder="jumlah Beli"/>
 											<div class="invalid-feedback">
-												<?php echo form_error('kuota') ?>
+												<?php echo form_error('jumlah') ?>
 											</div>
 										</div>
 
@@ -114,7 +116,7 @@
 								<th>Nama Produk</th>
 								<th>No Batch</th>
 								<th>Tanggal Kadaluarsa</th>
-								<th>Kuota</th>
+								<th>jumlah</th>
 								<th>Harga Satuan</th>
 								<th>Diskon</th>
 								<th>Harga</th>
@@ -132,10 +134,10 @@
 										<?php echo $data->noBatch ?>
 									</td>
 									<td>
-										<?php echo $data->exp ?>
+										<?php echo $data->tanggalKadaluarsa ?>
 									</td>
 									<td>
-										<?php echo $data->kuotaBeli ?>
+										<?php echo $data->jumlahBeli ?>
 									</td>
 									<td>
 										<?php echo $data->hargaSatuan ?>
@@ -147,7 +149,7 @@
 										<?php echo $data->hargaBeli ?>
 									</td>
 									<td width="250">
-										<a onclick="deleteConfirm('<?php echo site_url('admin/faktur/delete/'.$data->noBatch) ?>')"
+										<a onclick="deleteConfirm('<?php echo site_url('admin/faktur/deleteBatch/'.'1','3')?>')"
 										 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
 									</td>
 								</tr>
@@ -165,6 +167,7 @@
 
 
 		<?php $this->load->view("admin/_partials/scrolltop.php") ?>
+		<?php $this->load->view("admin/_partials/modal.php") ?>
 
 		<?php $this->load->view("admin/_partials/js.php") ?>
 		<script>

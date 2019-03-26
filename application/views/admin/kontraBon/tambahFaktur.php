@@ -40,13 +40,13 @@
 										<div class="form-group">
 											<label for="noFaktur"> Nomor Faktur*</label>
 												<select class="form-control <?php echo form_error('noFaktur') ? 'is-invalid':'' ?>"
-												type="text" name="noFaktur" min="0" placeholder="Nomor Faktur">
+												type="text" name="noFaktur" placeholder="Nomor Faktur">
 												<?php
 												foreach($notFaktur as $data){ 
 													echo "<option value= ".$data->noFaktur.">".$data->noFaktur."</option>";
 												}
 												?>
-											</select>
+												</select>
 										</div>
 										<input class="btn btn-success" type="submit" name="btn" value="Tambah" />
 									</form>
@@ -77,21 +77,20 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach ($noFaktur as $noFaktur): ?>
+								<?php foreach ($noFaktur as $data): ?>
 								<tr>
 									<td width="150">
-										<?php echo $noFaktur->noFaktur ?>
+										<?php echo $data->noFaktur ?>
 									</td>
 									<td>
-										<?php echo $noFaktur->namaPerusahaan ?>
+										<?php echo $data->namaPerusahaan ?>
 									</td>
 									<td>
-										<?php echo $noFaktur->totalPembayaran ?>
+										<?php echo $data->totalPembayaran ?>
 									</td>
-
 									<td width="250">
-										<a href="<?php echo site_url('admin/faktur/tambahProduk/'.$noFaktur->noFaktur) ?>"
-										class="btn btn-sm text-success"><i class="fas fa-plus-circle"></i>Tambah Faktur</a>
+										<a href="<?php echo site_url('admin/kontraBon/deleteFaktur/'.$data->noFaktur) ?>"
+										class="btn btn-sm text-danger"><i class="fas fa-trash"></i> Hapus</a>
 									</td>
 								</tr>
 								<?php endforeach; ?>

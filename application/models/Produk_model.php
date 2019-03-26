@@ -20,10 +20,6 @@ class Produk_model extends CI_Model
                 'rules' => 'required'
             ],
 
-            // ['field' => 'hargaProduk',
-            // 'label' => 'Harga Produk',
-            // 'rules' => 'numeric'],
-
             [
                 'field' => 'idJenis',
                 'label' => 'Jenis Produk',
@@ -49,9 +45,9 @@ class Produk_model extends CI_Model
         return $this->db->get($this->_tableView)->result();
     }
 
-    public function getById($id)
+    public function getProduk($id)
     {
-        return $this->db->get_where($this->_tableView, ["idProduk" => $id])->row();
+        return $this->db->get_where($this->_tableView, ["namaProduk" => $id])->row();
     }
 
     public function save()

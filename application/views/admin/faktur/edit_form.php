@@ -85,13 +85,6 @@
 		<!-- /#wrapper -->
 
 		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script>
-    var alertTheSelectedValue = function() {
-      var val = document.getElementById('idPerusahaan').value;
-      var text = $('#listPerusahaan').find('option[value="' + val + '"]').attr('id');
-      alert(text);
-    }
-  </script>
 
 
 		<?php $this->load->view("admin/_partials/scrolltop.php") ?>

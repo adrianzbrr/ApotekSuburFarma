@@ -38,10 +38,10 @@
 											<?php echo $batch->noBatch ?>
 										</td>
 										<td>
-											<?php echo $batch->exp ?>
+											<?php echo $batch->tanggalKadaluarsa ?>
 										</td>
 										<td>
-											<?php echo $batch->kuota ?>
+											<?php echo $batch->jumlah ?>
 										</td>
 									</tr>
 									<?php endforeach; ?>

@@ -5,11 +5,14 @@ class Faktur_model extends CI_Model
     private $_table = "faktur";
     private $_tableView = "faktur_view";
     private $_tablePB = "ProdukBeli";
+    private $_tablePBView = "ProdukBeli_view";
+    private $_tablePerusahaan = "Perusahaan";
+    private $_tableProduk = "produk";
+    private $_tableBatch = "batch";
 
     public $noFaktur;
     public $tanggalCetak;
     public $tanggalJatuhTempo;
-    public $noKontraBon;
     public $idPerusahaan;
 
     public function rules()
@@ -33,30 +36,33 @@ class Faktur_model extends CI_Model
             ];
     }
 
-    public function rules1()
-    {
+    public function rules1(){
         return [
-                ['field' => 'noKontraBon',
-                'label' => 'noKontraBon',
-                'rules' => 'required']
-            ];
+            ['field' => 'noFaktur',
+            'label' => 'noFaktur',
+            'rules' => 'required']
+        ];
+
     }
 
     public function getAll(){
         return $this->db->get($this->_tableView)->result();
     }
 
-    public function getById($id){
+    public function getFaktur($id){
         return $this->db->get_where($this->_table, ["noFaktur" => $id])->row();
     }
 
-    public function getProdukById($id){
-        $this->db->select('produkbeli_view.noFaktur,produk.namaProduk, produkbeli_view.noBatch, batch.exp, produkbeli_view.kuotaBeli, produkbeli_view.hargaSatuan, produkbeli_view.diskon, produkBeli_view.hargaBeli');
-        $this->db->from('ProdukBeli_view');
-        $this->db->join('Batch','produkbeli_view.noBatch = batch.noBatch');
-        $this->db->join('Produk','batch.idProduk = produk.idProduk');
-        $this->db->where('ProdukBeli_view.noFaktur',$id);
-        return $query = $this->db->get()->result();
+    public function getPerusahaan($id){
+        return $this->db->get_where($this->_tablePerusahaan, ["namaPerusahaan" => $id])->row();
+    }
+
+    public function getProduk($id){
+        return $this->db->get_where($this->_tableProduk, ["namaProduk" => $id])->row();
+    }
+    
+    public function getProdukByNo($id){
+        return $this->db->get_where($this->_tablePBView, ["noFaktur" => $id])->result();
     }
 
     public function save(){
@@ -64,7 +70,7 @@ class Faktur_model extends CI_Model
         $this->noFaktur = $post["noFaktur"];
         $this->tanggalCetak = $post["tanggalCetak"];
         $this->tanggalJatuhTempo = $post["tanggalJatuhTempo"];
-        $this->idPerusahaan = $post["idPerusahaan"];        
+        $this->idPerusahaan = $this->getPerusahaan($post["idPerusahaan"])->idPerusahaan;       
         $this->db->insert($this->_table,$this);
     }
     
@@ -74,23 +80,38 @@ class Faktur_model extends CI_Model
         $this->noFaktur = $post["noFaktur"];
         $this->tanggalCetak = $post["tanggalCetak"];
         $this->tanggalJatuhTempo = $post["tanggalJatuhTempo"];
-        $this->noKontraBon = $post["noKontraBon"];
-        $this->idPerusahaan = $post["idPerusahaan"];
+        $this->idPerusahaan = $this->getPerusahaan($post["idPerusahaan"])->idPerusahaan;
         $this->db->update($this->_table, $this, array('noFaktur' => $post["id"]));
     }
 
     public function masukKontrabon($id)
     {
-        $this->db->set('noKontraBon', $noKontraBon);
+        $post = $this->input->post();
+        $this->db->set('idKontraBon', $id);
         $this->db->where('noFaktur', $post["noFaktur"]);
         $this->db->update('faktur');
     }
 
-    public function deleteBatch($id)
+    public function deleteKontraBon($id)
     {
-        return $this->db->delete($this->_tablePB, array("noBatch" => $id));
+        $this->db->set('idKontraBon',NULL);
+        $this->db->where('noFaktur',$id);
+        $this->db->update('faktur');
     }
 
+    public function deleteAllKontraBon($id)
+    {
+        $this->db->set('idKontraBon',NULL);
+        $this->db->where('idKontraBon',$id);
+        $this->db->update('faktur');
+    }
+
+
+    public function deleteBatch($idF,$idB)
+    {
+        $this->db->where('idBatch',$idB);
+        return $this->db->delete($this->_tablePB);
+    }
 
     public function delete($id)
     {

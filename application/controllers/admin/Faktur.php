@@ -40,21 +40,19 @@ class Faktur extends CI_Controller
     public function tambahProduk($id = null)
     {
         $data = array(
-            'faktur' => $this->faktur_model->getById($id),
-            'batchProduk' => $this->faktur_model->getProdukById($id),
+            'faktur' => $this->faktur_model->getFaktur($id),
+            'batchProduk' => $this->faktur_model->getProdukByNo($id),
             'produk' => $this->produk_model->getAll(),
-            'batch' => $this->batch_model->getAll(),
-            'jenis' => $this->jenis_model->getAll(),
-            'bentuk' => $this->bentuk_model->getAll(),
-            'rak' => $this->rak_model->getAll()
+            'batch' => $this->batch_model->getAll()
         );
         $batch = $this->batch_model;
+        $idFaktur = $this->faktur_model->getFaktur($id);
         $pb = $this->produkBeli_model;
         $validation = $this->form_validation;
         $validation->set_rules($pb->rules());      
         if ($validation->run()) {
             $batch->save();
-            $pb->save($id);
+            $pb->save($idFaktur->idFaktur);
             $this->session->set_flashdata('success', 'Berhasil disimpan');
         }
         $this->load->view("admin/faktur/tambahProduk",$data);
@@ -81,19 +79,19 @@ class Faktur extends CI_Controller
     public function deleteFaktur($id=null)
     {
         if (!isset($id)) show_404();
-        if($this->produkBeli_model->deleteFaktur($id)){
-            redirect(site_url('admin/faktur'))
-        };
-    }
-
-    public function deleteBatch($id=null)
-    {
-        if (!isset($id)) show_404();
-        if($this->faktur_model->deleteBatch($id)){
+        if($this->produkBeli_model->deleteFaktur($this->faktur_model->getFaktur($id)->idFaktur) && $this->faktur_model->delete($id)){
             redirect(site_url('admin/faktur'));
         }
     }
 
+    public function deleteBatch($idF=null,$idB=null)
+    {
+        
+        if (!isset($idF)) show_404();
+        if($this->faktur_model->deleteBatch($idF,$this->batch_model->getBatch($idB)->idBatch)){
+            redirect(site_url('admin/faktur/'));
+        }
+    }
 
     public function print()
     {

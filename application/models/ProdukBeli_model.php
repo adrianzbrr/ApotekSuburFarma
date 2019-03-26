@@ -3,10 +3,11 @@
 class ProdukBeli_model extends CI_Model
 {
     private $_table = "ProdukBeli";
+    private $_tableBatch = "Batch";
 
-    public $noFaktur;
-    public $noBatch;
-    public $kuotaBeli;
+    public $idFaktur;
+    public $idBatch;
+    public $jumlahBeli;
     public $diskon;
 
     public function rules()
@@ -23,11 +24,15 @@ class ProdukBeli_model extends CI_Model
         return $this->db->get($this->_table)->result();
     }
 
+    public function getBatch($id){
+        return $this->db->get_where($this->_tableBatch, ["noBatch" => $id])->row();
+    }
+
     public function save($id){
         $post = $this->input->post();
-        $this->noFaktur = $id;
-        $this->noBatch = $post["noBatch"];
-        $this->kuotaBeli = $post["kuota"];
+        $this->idFaktur = $id;
+        $this->idBatch = $this->getBatch($post["noBatch"])->idBatch;
+        $this->jumlahBeli = $post["jumlah"];
         $this->diskon= $post["diskon"];
         $this->hargaBeli = $post["hargaBeli"];      
         $this->db->insert($this->_table,$this);
@@ -35,6 +40,6 @@ class ProdukBeli_model extends CI_Model
 
     public function deleteFaktur($id)
     {
-        return $this->db->delete($this->_table, array("noFaktur" => $id));
+        return $this->db->delete($this->_table, array("idFaktur" => $id));
     }
 }

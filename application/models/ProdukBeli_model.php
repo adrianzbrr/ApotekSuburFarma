@@ -25,7 +25,9 @@ class ProdukBeli_model extends CI_Model
     }
 
     public function getBatch($id){
-        return $this->db->get_where($this->_tableBatch, ["noBatch" => $id])->row();
+        $this->db->where("noBatch",$id);
+        $this->db->order_by("idBatch",'DESC');
+        return $this->db->get($this->_tableBatch)->row();
     }
 
     public function save($id){
@@ -36,10 +38,16 @@ class ProdukBeli_model extends CI_Model
         $this->diskon= $post["diskon"];
         $this->hargaBeli = $post["hargaBeli"];      
         $this->db->insert($this->_table,$this);
+        echo $this->db->get_where($this->_tableBatch, ["noBatch" => $id])->row();
     }
 
     public function deleteFaktur($id)
     {
         return $this->db->delete($this->_table, array("idFaktur" => $id));
+    }
+
+    public function deleteBatch($idF,$idB)
+    {
+        return $this->db->delete($this->_table,array("idFaktur"=>$idF,"idBatch"=>$idB));
     }
 }

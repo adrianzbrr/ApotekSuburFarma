@@ -18,12 +18,6 @@
 
                 <?php $this->load->view("admin/_partials/breadcrumb.php") ?>
 
-                <?php if ($this->session->flashdata('success')) : ?>
-                <div class="alert alert-success" role="alert">
-                    <?php echo $this->session->flashdata('success'); ?>
-                </div>
-                <?php endif; ?>
-
                 <div class="card mb-3">
                     <div class="card-header">
 

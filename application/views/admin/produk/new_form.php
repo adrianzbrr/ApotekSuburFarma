@@ -18,12 +18,6 @@
 
 				<?php $this->load->view("admin/_partials/breadcrumb.php") ?>
 
-				<?php if ($this->session->flashdata('success')): ?>
-				<div class="alert alert-success" role="alert">
-					<?php echo $this->session->flashdata('success'); ?>
-				</div>
-				<?php endif; ?>
-
 				<div class="card mb-3">
 					<div class="card-header">
 						<a href="<?php echo site_url('admin/produk/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
@@ -37,6 +31,15 @@
 								 type="text" name="namaProduk" placeholder="Nama" />
 								<div class="invalid-feedback">
 									<?php echo form_error('namaProduk') ?>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="MinimalStok">Minimal Stok*</label>
+								<input class="form-control <?php echo form_error('namaProduk') ? 'is-invalid':'' ?>"
+								 type="number" min="0" name="minimalStok" placeholder="Minimal Stok" value=10 />
+								<div class="invalid-feedback">
+									<?php echo form_error('minimalStok') ?>
 								</div>
 							</div>
 
@@ -56,10 +59,24 @@
 							<div class="form-group">
 								<label for="idBentuk"> Bentuk*</label>
 								<select class="form-control <?php echo form_error('idBentuk') ? 'is-invalid':'' ?>"
-								type="number" name="idBentuk" min="0" placeholder="Bentuk"><option value='0'>--PILIH--</option>
+								type="number" name="idBentuk" min="0" placeholder="Bentuk">
+								<option value='0'>--PILIH--</option>
 								<?php
           						foreach($bentuk as $data){ 
             						echo "<option value= ".$data->idBentuk.">".$data->namaBentuk."</option>";
+          						}
+          						?>
+								</select> 
+							</div>
+
+							<div class="form-group">
+								<label for="idSatuan"> Satuan*</label>
+								<select class="form-control <?php echo form_error('idSatuan') ? 'is-invalid':'' ?>"
+								type="number" name="idSatuan" placeholder="Satuan">
+								<option value='0'>--PILIH--</option>
+								<?php
+          						foreach($satuan as $data){ 
+            						echo "<option value= ".$data->idSatuan.">".$data->namaSatuan."</option>";
           						}
           						?>
 								</select> 

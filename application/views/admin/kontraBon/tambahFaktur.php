@@ -62,7 +62,7 @@
 				</div><!-- Modal Dialog-->
 			</div>
 		</div>
-	</div>
+	<div class="card mb-3">
 					<div class="card-body">
 			
 	
@@ -97,6 +97,8 @@
 							</body>
 						</table>
 					</div>
+					<a href="<?php echo site_url('admin/kontraBon/finalize/'.$noKontraBon->noKontraBon) ?>"
+					class="btn btn-small text-success"><i class="fas fa-check-circle"></i> Finalize</a>
 					</div>	
 				</div>
 			<!-- Sticky Footer -->

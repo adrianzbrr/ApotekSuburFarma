@@ -35,6 +35,14 @@ class KontraBon_model extends CI_Model
         return $this->db->get($this->_tableView)->result();
     }
 
+    public function getAllF(){
+        return $this->db->get_where($this->_tableView, ["finalize" => 1])->result();
+    }
+
+    public function getAllNF(){
+        return $this->db->get_where($this->_tableView, ["finalize" => 0])->result();
+    }
+
     public function getKontraBon($id){
         return $this->db->get_where($this->_table, ["noKontraBon" => $id])->row();
     }
@@ -56,6 +64,7 @@ class KontraBon_model extends CI_Model
         $this->db->from('faktur');
         $this->db->where('idKontraBon',NULL);
         $this->db->where('idPerusahaan',$id);
+        $this->db->where('finalize',1);
         return $query = $this->db->get()->result();
     }
 
@@ -76,15 +85,24 @@ class KontraBon_model extends CI_Model
         $this->db->update($this->_table, $this, array('noKontraBon' => $post[$id]));
     }
 
-    public function masukFaktur($id)
+    public function paid($id)
     {
-        return $this->db->update($this->_table, array("idPerusahaan" => $id));
+        $this->db->set('idStatus',1);
+        $this->db->where('noKontraBon',$id);
+        return $this->db->update($this->_table);
     }
 
     public function delete($id)
     {
         $this->db->where('idKontraBon',$id);
         return $this->db->delete($this->_table);
+    }
+
+    public function finalize($id)
+    {
+        $this->db->set('finalize',1);
+        $this->db->where('noKontraBon',$id);
+        return $this->db->update($this->_table);
     }
 
 }

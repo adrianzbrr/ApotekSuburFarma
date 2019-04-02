@@ -15,30 +15,18 @@
 		<div id="content-wrapper">
 
 			<div class="container-fluid">
-				<?php if ($this->session->flashdata('success')): ?>
+			<?php if ($this->session->flashdata('success')): ?>
 				<div class="alert alert-success" role="alert">
 					<?php echo $this->session->flashdata('success'); ?>
 				</div>
 				<?php endif; ?>
 
-                <?php if ($this->session->flashdata('danger')): ?>
-				<div class="alert alert-danger" role="alert">
-					<?php echo $this->session->flashdata('danger'); ?>
-				</div>
-				<?php endif; ?>
-
-                <?php if ($this->session->flashdata('warning')): ?>
-				<div class="alert alert-warning" role="alert">
-					<?php echo $this->session->flashdata('warning'); ?>
-				</div>
-				<?php endif; ?>
-
 				<!-- DataTables -->
 				<div class="card mb-3">
-					<div class="card-header">
-						<a href="<?php echo site_url('admin/faktur/tambahFaktur') ?>"><i class="fas fa-plus"></i> Tambah</a>
-					</div>
-					<div class="card-body">
+			<div class="card-header">
+                        FAKTUR AKHIR
+                    </div>
+				<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
 								<thead>
@@ -49,21 +37,20 @@
 										<th>Perusahaan</th>
 										<th>Jumlah</th>
 										<th>Total Pembayaran</th>
-										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($fakturNF as $faktur): ?>
+									<?php foreach ($fakturF as $faktur): ?>
 									<tr>
 										<td width="150">
-										<a href="<?php echo site_url('admin/faktur/tambahProduk/'.$faktur->noFaktur) ?>">
+											<a href="<?php echo site_url('admin/faktur/listProduk/'.$faktur->noFaktur) ?>">
 											<?php echo $faktur->noFaktur ?>
 											</a>
 										</td>
-										<td width="150">
+										<td>
 											<?php echo $faktur->tanggalCetak ?>
 										</td>
-										<td width="140">
+										<td>
 											<?php echo $faktur->tanggalJatuhTempo ?>
 										</td>
 										<td>
@@ -72,16 +59,8 @@
 										<td>
 											<?php echo $faktur->jumlahProduk ?>
 										</td>
-										<td width ="200">
+										<td>
 											<?php echo $faktur->totalPembayaran ?>
-										</td>
-										<td width ="200">
-											<a href="<?php echo site_url('admin/faktur/tambahProduk/'.$faktur->noFaktur) ?>"
-											 class="btn btn-small text-success"><i class="fas fa-plus-circle"></i></a>
-											<a href="<?php echo site_url('admin/faktur/edit/'.$faktur->noFaktur) ?>"
-											 class="btn btn-small"><i class="fas fa-edit"></i> </a>
-											<a onclick="deleteConfirm('<?php echo site_url('admin/faktur/deleteFaktur/'.$faktur->noFaktur) ?>')"
-											 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> </a>
 										</td>
 									</tr>
 									<?php endforeach; ?>

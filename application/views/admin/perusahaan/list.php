@@ -17,6 +17,24 @@
             <div class="container-fluid">
 
                 <?php $this->load->view("admin/_partials/breadcrumb.php") ?>
+                
+                <?php if ($this->session->flashdata('success')): ?>
+				<div class="alert alert-success" role="alert">
+					<?php echo $this->session->flashdata('success'); ?>
+				</div>
+				<?php endif; ?>
+
+                <?php if ($this->session->flashdata('danger')): ?>
+				<div class="alert alert-danger" role="alert">
+					<?php echo $this->session->flashdata('danger'); ?>
+				</div>
+				<?php endif; ?>
+
+                <?php if ($this->session->flashdata('warning')): ?>
+				<div class="alert alert-warning" role="alert">
+					<?php echo $this->session->flashdata('warning'); ?>
+				</div>
+				<?php endif; ?>
 
                 <!-- DataTables -->
                 <div class="card mb-3">

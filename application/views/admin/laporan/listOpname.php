@@ -29,6 +29,7 @@
 									<tr>
 										<th>Nomor Batch</th>
 										<th>Nama Produk</th>
+										<th>Rak</th>
 										<th>Sisa Hari</th>
 										<th>Aksi</th>
 									</tr>
@@ -43,9 +44,13 @@
 											<?php echo $kdl->namaProduk ?>
 										</td>
 										<td>
+											<?php echo $kdl->namaRak ?>
+										</td>
+										<td>
 											<?php echo $kdl->Sisa ?>
 										</td>
 										<td width="250">
+											<a onclick="deleteConfirm('<?php echo site_url('admin/produk/delete/' . $kdl->noBatch) ?>')" href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
 										</td>
 									</tr>
 									<?php endforeach; ?>

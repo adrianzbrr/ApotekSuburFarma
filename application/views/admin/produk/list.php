@@ -18,6 +18,25 @@
 
                 <?php $this->load->view("admin/_partials/breadcrumb.php") ?>
 
+                <?php if ($this->session->flashdata('success')): ?>
+				<div class="alert alert-success" role="alert">
+					<?php echo $this->session->flashdata('success'); ?>
+				</div>
+				<?php endif; ?>
+
+                <?php if ($this->session->flashdata('danger')): ?>
+				<div class="alert alert-danger" role="alert">
+					<?php echo $this->session->flashdata('danger'); ?>
+				</div>
+				<?php endif; ?>
+
+                <?php if ($this->session->flashdata('warning')): ?>
+				<div class="alert alert-warning" role="alert">
+					<?php echo $this->session->flashdata('warning'); ?>
+				</div>
+				<?php endif; ?>
+
+
                 <!-- DataTables -->
                 <div class="card mb-3">
                     <div class="card-header">
@@ -30,11 +49,12 @@
                                 <thead>
                                     <tr>
                                         <th>Nama</th>
-                                        <!-- <th>Harga</th> -->
+                                        <th>Minimal Stok</th>
                                         <th>Jenis</th>
                                         <th>Bentuk</th>
                                         <th>Rak</th>
                                         <th>Jumlah</th>
+                                        <th>Satuan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -44,6 +64,9 @@
                                         <td width="150">
                                             <a href="<?php echo site_url('admin/produk/getBatch/' . $produk->idProduk) ?>">
                                                 <?php echo $produk->namaProduk ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $produk->minimalStok ?>
                                         </td>
                                         <td>
                                             <?php echo $produk->namaJenis ?>
@@ -56,6 +79,9 @@
                                         </td>
                                         <td>
                                             <?php echo $produk->Jumlah ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $produk->namaSatuan ?>
                                         </td>
                                         <td width="250">
                                             <a href="<?php echo site_url('admin/produk/edit/' . $produk->idProduk) ?>" class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>

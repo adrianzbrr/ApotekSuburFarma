@@ -26,22 +26,26 @@
 							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
 								<thead>
 									<tr>
+										<th>Tanggal Masuk</th>
 										<th>Nama</th>
 										<th>Expired Date</th>
 										<th>Kuota</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($batch as $batch): ?>
+									<?php foreach ($batch as $data): ?>
 									<tr>
+										<td>
+											<?php echo $data->tanggalCetak ?>
+										</td>
 										<td width="150">
-											<?php echo $batch->noBatch ?>
+											<?php echo $data->noBatch ?>
 										</td>
 										<td>
-											<?php echo $batch->tanggalKadaluarsa ?>
+											<?php echo $data->tanggalKadaluarsa ?>
 										</td>
 										<td>
-											<?php echo $batch->jumlah ?>
+											<?php echo $data->jumlah ?>
 										</td>
 									</tr>
 									<?php endforeach; ?>

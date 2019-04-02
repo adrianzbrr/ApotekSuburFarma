@@ -15,7 +15,8 @@ class Kontrabon extends CI_Controller
 
     public function index()
     {
-        $data["kontraBon"] = $this->kontraBon_model->getAll();
+        $data["kontraBonF"] = $this->kontraBon_model->getAllF();
+        $data["kontraBonNF"] = $this->kontraBon_model->getAllNF();
         $this->load->view("admin/kontraBon/list",$data);
     }
 
@@ -31,8 +32,19 @@ class Kontrabon extends CI_Controller
         if ($validation->run()) {
             $kontrabon->save();
             $this->session->set_flashdata('success', 'Berhasil disimpan');
+            redirect(site_url('admin/kontraBon'));
         }
         $this->load->view("admin/kontraBon/tambah",$data);
+    }
+
+    public function listFaktur($id)
+    {
+        
+        $data = array(
+            'noKontraBon' => $this->kontraBon_model->getKontraBon($id),
+            'noFaktur' => $this->kontraBon_model->getFakturById($id)
+        );
+        $this->load->view("admin/kontraBon/listFaktur",$data);
     }
 
     public function tambahFaktur($id = null)
@@ -48,9 +60,9 @@ class Kontrabon extends CI_Controller
         $validation = $this->form_validation;
         $validation->set_rules($faktur->rules1());        
         if ($validation->run()) {
-            echo $idKontraBon->idKontraBon;
             $faktur->masukKontraBon($idKontraBon->idKontraBon);
             $this->session->set_flashdata('success', 'Berhasil disimpan');
+            redirect(site_url('admin/kontraBon/tambahFaktur/',$id));
         }
         $this->load->view("admin/kontraBon/tambahFaktur",$data);
     }
@@ -89,8 +101,21 @@ class Kontrabon extends CI_Controller
             redirect($this->uri->uri_string('Faktur berhasil'));
             $this->session->set_flashdata('danger', 'Faktur berhasil dihapus');
         }
-
     }
+
+    public function paid($id){
+        $this->kontraBon_model->paid($id);
+        $data["kontraBon"] = $this->kontraBon_model->getAll();
+        redirect(site_url('admin/kontraBon'));
+    }
+
+    public function finalize($id){
+        $this->kontraBon_model->finalize($id);
+        $data["kontraBonF"] = $this->kontraBon_model->getAllF();
+        $data["kontraBonNF"] = $this->kontraBon_model->getAllNF();
+        redirect(site_url('admin/kontraBon'));
+    }
+
     public function print()
     {
         var_dump($this->input->post());

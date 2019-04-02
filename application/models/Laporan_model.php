@@ -3,8 +3,13 @@
 class Laporan_model extends CI_Model
 {
     private $_tableKadaluarsa = "kadaluarsa_view";
+    private $_tableHabis = "habis_view";
 
     public function getAll(){
+        return $this->db->get($this->_tableHabis)->result();
+    }
+
+    public function getAllKadaluarsa(){
         return $this->db->get($this->_tableKadaluarsa)->result();
     }
 

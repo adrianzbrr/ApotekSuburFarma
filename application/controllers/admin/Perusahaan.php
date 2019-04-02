@@ -26,6 +26,7 @@ class Perusahaan extends CI_Controller
         if ($validation->run()) {
             $perusahaan->save();
             $this->session->set_flashdata('success', 'Berhasil disimpan');
+            redirect(site_url('admin/perusahaan'));
         }
         $data["perusahaan"] = $this->perusahaan_model->getAll();
         $this->load->view("admin/perusahaan/new_form", $data);
@@ -41,7 +42,8 @@ class Perusahaan extends CI_Controller
 
         if ($validation->run()) {
             $perusahaan->update();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
+            $this->session->set_flashdata('warning', 'Berhasil diubah');
+            redirect(site_url('admin/perusahaan'));
         }
 
         $data["perusahaan"] = $perusahaan->getById($id);
@@ -54,18 +56,11 @@ class Perusahaan extends CI_Controller
         if (!isset($id)) show_404();
 
         if ($this->perusahaan_model->delete($id)) {
+            $this->session->set_flashdata('danger', 'Berhasil dihapus');
             redirect(site_url('admin/perusahaan'));
         }
     }
 
-    public function deleteNew($id = null)
-    {
-        if (!isset($id)) show_404();
-
-        if ($this->perusahaan_model->delete($id)) {
-            redirect(site_url('admin/perusahaan/add'));
-        }
-    }
     public function print()
     {
         var_dump($this->input->post());

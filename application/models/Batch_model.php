@@ -30,13 +30,14 @@ class Batch_model extends CI_Model
     }
 
     public function save(){
-        $post = $this->input->post();
-        $this->db->on_duplicate($this->_table,array(
-            'noBatch'=> $post["noBatch"], 
-            'tanggalKadaluarsa' => $post["tanggalKadaluarsa"],
-            'idProduk' => $this->getProduk($post["idProduk"])->idProduk));
+        $post=$this->input->post();
+        $this->noBatch = $post["noBatch"];
+        $this->tanggalKadaluarsa = $post["tanggalKadaluarsa"];
+        $this->jumlah= $post["jumlah"];
+        $this->idProduk = $this->getProduk($post["idProduk"])->idProduk;
+        $this->db->insert($this->_table,$this);
     }
-
+    
     public function delete($id)
     {
         return $this->db->delete($this->_table, array("noBatch" => $id));

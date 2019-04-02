@@ -49,7 +49,14 @@ class Faktur_model extends CI_Model
         return $this->db->get($this->_tableView)->result();
     }
 
-    public function getFaktur($id){
+    public function getAllF(){
+        return $this->db->get_where($this->_tableView, ["final" => 1])->result();
+    }
+    public function getAllNF(){
+        return $this->db->get_where($this->_tableView, ["final" => 0])->result();
+    }
+
+    public function getByNo($id){
         return $this->db->get_where($this->_table, ["noFaktur" => $id])->row();
     }
 
@@ -106,16 +113,16 @@ class Faktur_model extends CI_Model
         $this->db->update('faktur');
     }
 
-
-    public function deleteBatch($idF,$idB)
-    {
-        $this->db->where('idBatch',$idB);
-        return $this->db->delete($this->_tablePB);
-    }
-
     public function delete($id)
     {
         return $this->db->delete($this->_table, array("noFaktur" => $id));
+    }
+
+    public function finalize($id)
+    {
+        $this->db->set('final',1);
+        $this->db->where('noFaktur',$id);
+        return $this->db->update($this->_table);
     }
 
 

@@ -20,8 +20,14 @@ class Faktur extends CI_Controller
 
     public function index()
     {
-        $data["faktur"] = $this->faktur_model->getAll();
+        $data["fakturNF"] = $this->faktur_model->getAllNF();
         $this->load->view("admin/faktur/list",$data);
+    }
+
+    public function indexFinal()
+    {
+        $data["fakturF"] = $this->faktur_model->getAllF();
+        $this->load->view("admin/faktur/listFinal",$data);
     }
 
     public function tambahFaktur()
@@ -33,6 +39,7 @@ class Faktur extends CI_Controller
         if ($validation->run()) {
             $faktur->save();
             $this->session->set_flashdata('success', 'Berhasil disimpan');
+            redirect(site_url('admin/faktur'));
         }
         $this->load->view("admin/faktur/tambahFaktur",$data);
     }
@@ -40,13 +47,13 @@ class Faktur extends CI_Controller
     public function tambahProduk($id = null)
     {
         $data = array(
-            'faktur' => $this->faktur_model->getFaktur($id),
+            'faktur' => $this->faktur_model->getByNo($id),
             'batchProduk' => $this->faktur_model->getProdukByNo($id),
             'produk' => $this->produk_model->getAll(),
             'batch' => $this->batch_model->getAll()
         );
         $batch = $this->batch_model;
-        $idFaktur = $this->faktur_model->getFaktur($id);
+        $idFaktur = $this->faktur_model->getByNo($id);
         $pb = $this->produkBeli_model;
         $validation = $this->form_validation;
         $validation->set_rules($pb->rules());      
@@ -58,28 +65,38 @@ class Faktur extends CI_Controller
         $this->load->view("admin/faktur/tambahProduk",$data);
     }
 
+    public function listProduk($id = null)
+    {
+        $data = array(
+            'faktur' => $this->faktur_model->getByNo($id),
+            'batchProduk' => $this->faktur_model->getProdukByNo($id)
+        );
+        $this->load->view("admin/faktur/listProduk",$data);
+    }
+
     public function edit($id = null)
     {
         if (!isset($id)) redirect('admin/faktur');
-       
         $faktur = $this->faktur_model;
         $validation = $this->form_validation;
         $validation->set_rules($faktur->rules());
-
         if ($validation->run()) {
             $faktur->update();
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
+            $this->session->set_flashdata('warning', 'Berhasil diubah');
+            redirect(site_url('admin/faktur'));
         }
-        $data["faktur"] = $faktur->getById($id);
-        if (!$data["faktur"]) show_404();
-        
+        $data= array(
+            'faktur' => $this->faktur_model->getByNo($id),
+            'perusahaan' => $this->perusahaan_model->getAll()
+        );       
         $this->load->view("admin/faktur/edit_form", $data);
     }
 
     public function deleteFaktur($id=null)
     {
         if (!isset($id)) show_404();
-        if($this->produkBeli_model->deleteFaktur($this->faktur_model->getFaktur($id)->idFaktur) && $this->faktur_model->delete($id)){
+        if($this->produkBeli_model->deleteFaktur($this->faktur_model->getByNo($id)->idFaktur) && $this->faktur_model->delete($id)){
+            $this->session->set_flashdata('danger', 'Berhasil dihapus');
             redirect(site_url('admin/faktur'));
         }
     }
@@ -88,9 +105,17 @@ class Faktur extends CI_Controller
     {
         
         if (!isset($idF)) show_404();
-        if($this->faktur_model->deleteBatch($idF,$this->batch_model->getBatch($idB)->idBatch)){
+        if($this->produkBeli_model->deleteBatch($idF,$idB)){
             redirect(site_url('admin/faktur/'));
         }
+    }
+
+    public function finalize($id)
+    {
+        $this->faktur_model->finalize($id);
+        $data["fakturNF"] = $this->faktur_model->getAllNF();
+        $data["fakturF"] = $this->faktur_model->getAllF();
+        $this->load->view("admin/faktur/list",$data);
     }
 
     public function print()

@@ -4,11 +4,12 @@ class Produk_model extends CI_Model
 {
     private $_table = "produk";
     private $_tableView = "produk_view";
-
-    public $idProduk;
+    
     public $namaProduk;
+    public $minimalStok;
     public $idJenis;
     public $idBentuk;
+    public $idSatuan;
     public $idRak;
 
     public function rules()
@@ -17,6 +18,12 @@ class Produk_model extends CI_Model
             [
                 'field' => 'namaProduk',
                 'label' => 'Nama Produk',
+                'rules' => 'required'
+            ],
+
+            [
+                'field' => 'minimalStok',
+                'label' => 'Minimal Stok',
                 'rules' => 'required'
             ],
 
@@ -33,6 +40,12 @@ class Produk_model extends CI_Model
             ],
 
             [
+                'field' => 'idSatuan',
+                'label' => 'Satuan',
+                'rules' => 'required'
+            ],
+
+            [
                 'field' => 'idRak',
                 'label' => 'Rak',
                 'rules' => 'required'
@@ -45,28 +58,32 @@ class Produk_model extends CI_Model
         return $this->db->get($this->_tableView)->result();
     }
 
-    public function getProduk($id)
+    public function getById($id)
     {
-        return $this->db->get_where($this->_tableView, ["namaProduk" => $id])->row();
+        return $this->db->get_where($this->_tableView, ["idProduk" => $id])->row();
     }
 
     public function save()
     {
         $post = $this->input->post();
         $this->namaProduk = $post["namaProduk"];
+        $this->minimalStok = $post["minimalStok"];
         $this->idJenis = $post["idJenis"];
         $this->idBentuk = $post["idBentuk"];
+        $this->idSatuan = $post["idSatuan"];
         $this->idRak = $post["idRak"];
         $this->db->insert($this->_table, $this);
     }
-    public function update($id)
+    public function update()
     {
         $post = $this->input->post();
         $this->namaProduk = $post["namaProduk"];
+        $this->minimalStok = $post["minimalStok"];
         $this->idJenis = $post["idJenis"];
         $this->idBentuk = $post["idBentuk"];
+        $this->idSatuan = $post["idSatuan"];
         $this->idRak = $post["idRak"];
-        $this->db->update($this->_table, $this, array('idProduk' => $post[$id]));
+        $this->db->update($this->_table, $this, array('idProduk' => $post["id"]));
     }
 
     public function delete($id)

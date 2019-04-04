@@ -21,6 +21,11 @@
                         <?php echo $this->session->flashdata('success'); ?>
                     </div>
                 <?php endif; ?>
+                <?php if ($this->session->flashdata('danger')): ?>
+				<div class="alert alert-danger" role="alert">
+					<?php echo $this->session->flashdata('danger'); ?>
+				</div>
+				<?php endif; ?>
                 <div class="card mb-3">
                     <div class="card-header">
                         <a href="<?php echo site_url('admin/faktur/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
@@ -114,7 +119,7 @@
                 <!-- /.container-fluid -->
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
+                        <thead class="thead-dark">
                             <tr>
                                 <th>Nama Produk</th>
                                 <th>No Batch</th>
@@ -152,7 +157,7 @@
                                         <?php echo $data->hargaBeli ?>
                                     </td>
                                     <td width="250">
-                                        <a onclick="deleteConfirm('<?php echo site_url('admin/faktur/deleteBatch/'.$data->noFaktur,$data->noBatch)?>')"
+                                        <a onclick="deleteConfirm('<?php echo site_url('admin/faktur/deleteBatch/'.$data->idBatch)?>')"
                                          href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
                                     </td>
                                 </tr>
@@ -163,8 +168,12 @@
 
         </div>
             <!-- /.content-wrapper -->
-            <a href="<?php echo site_url('admin/faktur/finalize/'.$faktur->noFaktur) ?>"
-            class="btn btn-small text-success"><i class="fas fa-check-circle"></i> Finalize</a>
+            <div class="card-footer">
+                        <div class="text-right">
+                        <a href="<?php echo site_url('admin/faktur/finalize/'.$faktur->noFaktur) ?>"
+                        class="btn btn-success"><i class="fas fa-check-circle"></i> Finalize</a>
+                        </div>
+            </div>
                                             
 
     </div>

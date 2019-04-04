@@ -4,11 +4,14 @@ class KontraBon_model extends CI_Model
 {
     private $_table = "kontraBon";
     private $_tableView = "kontrabon_view";
+    private $_tableViewFinal = "kontrabonfinal_view";
     private $_tableFV = "faktur_view";
+    private $_tablePerusahaan = "perusahaan";
 
     public $noKontraBon;
     public $tanggalCetak;
     public $tanggalKembali;
+    public $idPerusahaan;
 
     public function rules()
     {
@@ -36,11 +39,15 @@ class KontraBon_model extends CI_Model
     }
 
     public function getAllF(){
-        return $this->db->get_where($this->_tableView, ["finalize" => 1])->result();
+        return $this->db->get_where($this->_tableViewFinal, ["final" => 1])->result();
+    }
+
+    public function getAllFbyId($id){
+        return $this->db->get_where($this->_tableViewFinal, ["noKontraBon" =>$id])->row();
     }
 
     public function getAllNF(){
-        return $this->db->get_where($this->_tableView, ["finalize" => 0])->result();
+        return $this->db->get_where($this->_tableView, ["final" => 0])->result();
     }
 
     public function getKontraBon($id){
@@ -48,15 +55,11 @@ class KontraBon_model extends CI_Model
     }
     
     public function getFakturById($id){
-        $this->db->select('faktur_view.noFaktur,faktur_view.totalPembayaran,perusahaan.namaPerusahaan');
-        $this->db->from('faktur_view');
-        $this->db->join('perusahaan','perusahaan.idPerusahaan=faktur_view.idPerusahaan');
-        $this->db->where('faktur_view.noKontraBon',$id);
-        return $query = $this->db->get()->result();
+        return $this->db->get_where($this->_tableFV, ["noKontraBon"=>$id])->result();
     }
 
     public function getPerusahaan($id){
-        return $this->db->get_where($this->_table, ["noKontraBon" => $id])->row();
+        return $this->db->get_where($this->_tablePerusahaan, ["namaPerusahaan" => $id])->row();
     }
 
     public function getFakturByPerusahaan($id){
@@ -64,7 +67,7 @@ class KontraBon_model extends CI_Model
         $this->db->from('faktur');
         $this->db->where('idKontraBon',NULL);
         $this->db->where('idPerusahaan',$id);
-        $this->db->where('finalize',1);
+        $this->db->where('final',1);
         return $query = $this->db->get()->result();
     }
 
@@ -73,7 +76,7 @@ class KontraBon_model extends CI_Model
         $this->noKontraBon = $post["noKontraBon"];
         $this->tanggalCetak = $post["tanggalCetak"];
         $this->tanggalKembali = $post["tanggalKembali"];  
-        $this->idPerusahaan = $post["idPerusahaan"];  
+        $this->idPerusahaan = $this->getPerusahaan($post["idPerusahaan"])->idPerusahaan;  
         $this->db->insert($this->_table,$this);
     }
     public function update($id)
@@ -81,7 +84,8 @@ class KontraBon_model extends CI_Model
         $post = $this->input->post();
         $this->noKontraBon = $post["noKontraBon"];
         $this->tanggalCetak = $post["tanggalCetak"];
-        $this->tanggalKembali = $post["tanggalKembali"];   
+        $this->tanggalKembali = $post["tanggalKembali"];  
+        $this->idPerusahaan = $this->getPerusahaan($post["idPerusahaan"])->idPerusahaan;  
         $this->db->update($this->_table, $this, array('noKontraBon' => $post[$id]));
     }
 
@@ -100,7 +104,7 @@ class KontraBon_model extends CI_Model
 
     public function finalize($id)
     {
-        $this->db->set('finalize',1);
+        $this->db->set('final',1);
         $this->db->where('noKontraBon',$id);
         return $this->db->update($this->_table);
     }

@@ -35,6 +35,7 @@
             <span>Faktur</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="<?php echo site_url('admin/faktur/tambahFaktur') ?>">Tambah Faktur</a>
             <a class="dropdown-item" href="<?php echo site_url('admin/faktur') ?>">Faktur Sementara</a>
             <a class="dropdown-item" href="<?php echo site_url('admin/faktur/indexFinal') ?>">Faktur Akhir</a>
         </div>
@@ -47,6 +48,7 @@
             <span>Kontra Bon</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="<?php echo site_url('admin/kontraBon/tambahKontraBon') ?>">Tambah Kontra Bon</a>
             <a class="dropdown-item" href="<?php echo site_url('admin/kontraBon') ?>">Kontra Bon Sementara</a>
             <a class="dropdown-item" href="<?php echo site_url('admin/kontraBon/indexFinal') ?>">Kontra Bon AKhir</a>
         </div>

@@ -61,6 +61,7 @@ class Faktur extends CI_Controller
             $batch->save();
             $pb->save($idFaktur->idFaktur);
             $this->session->set_flashdata('success', 'Berhasil disimpan');
+            redirect($this->uri->uri_string());
         }
         $this->load->view("admin/faktur/tambahProduk",$data);
     }
@@ -101,12 +102,13 @@ class Faktur extends CI_Controller
         }
     }
 
-    public function deleteBatch($idF=null,$idB=null)
+    public function deleteBatch($id=null)
     {
         
-        if (!isset($idF)) show_404();
-        if($this->produkBeli_model->deleteBatch($idF,$idB)){
-            redirect(site_url('admin/faktur/'));
+        if (!isset($id)) show_404();
+        if($this->produkBeli_model->deleteBatch($id) && $this->batch_model->delete($id)){
+            $this->session->set_flashdata('danger', 'Berhasil dihapus');
+            redirect($this->uri->uri_string());
         }
     }
 

@@ -26,7 +26,7 @@
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-								<thead>
+								<thead class="thead-dark">
 									<tr>
 										<th>Nama Produk</th>
 										<th>Minimal Stok</th>

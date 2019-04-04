@@ -15,12 +15,33 @@
 		<div id="content-wrapper">
 
 			<div class="container-fluid">
-				<?php $this->load->view("admin/_partials/breadcrumb.php") ?>
-				
-				<!-- /.container-fluid -->
-				<div class="table-responsive">
-					<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-						<thead>
+				<?php if ($this->session->flashdata('success')): ?>
+				<div class="alert alert-success" role="alert">
+					<?php echo $this->session->flashdata('success'); ?>
+				</div>
+				<?php endif; ?>
+
+                <?php if ($this->session->flashdata('danger')): ?>
+				<div class="alert alert-danger" role="alert">
+					<?php echo $this->session->flashdata('danger'); ?>
+				</div>
+				<?php endif; ?>
+
+                <?php if ($this->session->flashdata('warning')): ?>
+				<div class="alert alert-warning" role="alert">
+					<?php echo $this->session->flashdata('warning'); ?>
+				</div>
+				<?php endif; ?>
+
+				<!-- DataTables -->
+				<div class="card mb-3">
+					<div class="card-header">
+						<a href="<?php echo site_url('admin/faktur/tambahFaktur') ?>"><i class="fas fa-plus"></i> Tambah</a>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+						<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+						<thead class="thead-dark">
 							<tr>
 								<th>Nama Produk</th>
 								<th>No Batch</th>
@@ -60,25 +81,36 @@
 							<?php endforeach; ?>
 						</body>
 					</table>
-				</div>
+						</div>
+						
+					</div>
+					</div>
+			</div>
+			
+			<!-- /.container-fluid -->
+
 			<!-- Sticky Footer -->
 			<?php $this->load->view("admin/_partials/footer.php") ?>
+
 		</div>
-			<!-- /.content-wrapper -->
+		<!-- /.content-wrapper -->
 
 	</div>
-		<!-- /#wrapper -->
+	<!-- /#wrapper -->
 
 
-		<?php $this->load->view("admin/_partials/scrolltop.php") ?>
-		<?php $this->load->view("admin/_partials/modal.php") ?>
+	<?php $this->load->view("admin/_partials/scrolltop.php") ?>
+	<?php $this->load->view("admin/_partials/modal.php") ?>
 
-		<?php $this->load->view("admin/_partials/js.php") ?>
-		<script>
-			function deleteConfirm(url){
-				$('#btn-delete').attr('href', url);
-				$('#deleteModal').modal();
-				}
-		</script>
+	<?php $this->load->view("admin/_partials/js.php") ?>
+
+    <script>
+    function deleteConfirm(url){
+        $('#btn-delete').attr('href', url);
+        $('#deleteModal').modal();
+        }
+    </script>
+
 </body>
+
 </html>

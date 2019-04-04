@@ -40,6 +40,6 @@ class Batch_model extends CI_Model
     
     public function delete($id)
     {
-        return $this->db->delete($this->_table, array("noBatch" => $id));
+        return $this->db->delete($this->_table, array("idBatch" => $id));
     }
 }

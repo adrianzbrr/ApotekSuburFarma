@@ -56,7 +56,7 @@
 								<datalist id="listPerusahaan">
 								<?php
           						foreach($perusahaan as $data){
-            						echo "<option value= ".$data->idPerusahaan." >".$data->namaPerusahaan."</option>";
+            						echo "<option value= ".$data->namaPerusahaan." ></option>";
 								}
 								?>
 								</datalist>	

@@ -23,8 +23,8 @@
 					<div class="card-header"></div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-								<thead>
+							<table class="table table-small" id="dataTable" width="100%" cellspacing="0">
+								<thead class="thead-dark">
 									<tr>
 										<th>Tanggal Masuk</th>
 										<th>Nama</th>

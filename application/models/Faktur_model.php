@@ -124,6 +124,4 @@ class Faktur_model extends CI_Model
         $this->db->where('noFaktur',$id);
         return $this->db->update($this->_table);
     }
-
-
 }

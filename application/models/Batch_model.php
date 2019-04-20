@@ -42,4 +42,11 @@ class Batch_model extends CI_Model
     {
         return $this->db->delete($this->_table, array("idBatch" => $id));
     }
+
+    public function makeZero($id)
+    {
+        $this->db->set('jumlah',0);
+        $this->db->where('idBatch',$id);
+        $this->db->update('Batch');
+    }
 }

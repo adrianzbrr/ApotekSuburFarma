@@ -38,7 +38,6 @@ class ProdukBeli_model extends CI_Model
         $this->diskon= $post["diskon"];
         $this->hargaBeli = $post["hargaBeli"];      
         $this->db->insert($this->_table,$this);
-        echo $this->db->get_where($this->_tableBatch, ["noBatch" => $id])->row();
     }
 
     public function deleteFaktur($id)

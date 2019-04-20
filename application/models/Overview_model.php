@@ -5,6 +5,7 @@ class Overview_model extends CI_Model
     private $_tableTunggak = "totalTunggakan_view";
     private $_tableKadaluarsa = "totalKadaluarsa";
     private $_tableHabis = "totalHabis_view";
+    private $_tableJumlahProduk = "jumlahProduk_view";
 
     public function getAll(){
         return $this->db->get($this->_tableTunggak)->result();
@@ -16,5 +17,9 @@ class Overview_model extends CI_Model
 
     public function getNumHabis(){
         return $this->db->get($this->_tableHabis)->result();
+    }
+
+    public function getNumProduct(){
+        return $this->db->get($this->_tableJumlahProduk)->row();
     }
 }

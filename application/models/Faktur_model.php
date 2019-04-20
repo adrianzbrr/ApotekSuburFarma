@@ -60,6 +60,10 @@ class Faktur_model extends CI_Model
         return $this->db->get_where($this->_table, ["noFaktur" => $id])->row();
     }
 
+    public function getByNama($id){
+        return $this->db->get_where($this->_table, ["noFaktur" => $id])->num_rows();
+    }
+
     public function getPerusahaan($id){
         return $this->db->get_where($this->_tablePerusahaan, ["namaPerusahaan" => $id])->row();
     }
@@ -72,12 +76,17 @@ class Faktur_model extends CI_Model
         return $this->db->get_where($this->_tablePBView, ["noFaktur" => $id])->result();
     }
 
+    public function getPesanan($id){
+        return $this->db->get_where($this->_table, ["idPesanan" => $id])->num_rows();
+    }
+
     public function save(){
         $post = $this->input->post();
         $this->noFaktur = $post["noFaktur"];
         $this->tanggalCetak = $post["tanggalCetak"];
         $this->tanggalJatuhTempo = $post["tanggalJatuhTempo"];
-        $this->idPerusahaan = $this->getPerusahaan($post["idPerusahaan"])->idPerusahaan;       
+        $this->idPerusahaan = $this->getPerusahaan($post["idPerusahaan"])->idPerusahaan;
+        $this->idPesanan = $post["idPesanan"];       
         $this->db->insert($this->_table,$this);
     }
     

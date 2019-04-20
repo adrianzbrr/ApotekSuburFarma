@@ -9,8 +9,13 @@ class Laporan_model extends CI_Model
         return $this->db->get($this->_tableHabis)->result();
     }
 
+    public function getLimit(){
+        return $this->db->get($this->_tableHabis,5)->result();
+    }
+
     public function getAllKadaluarsa(){
         return $this->db->get($this->_tableKadaluarsa)->result();
     }
+    
 
 }

@@ -2,6 +2,9 @@
 
 class Pengguna_model extends CI_Model
 {
+    private $_table = "pengguna";
+    private $_tableView = "pengguna_view";
+
     public function rules()
     {
         return [
@@ -14,36 +17,47 @@ class Pengguna_model extends CI_Model
                 'rules' => 'required']
             ];
     }
-    public function cek($data){
-        $this->db->select('username','password');
+    public function login($post){
         $this->db->from('pengguna');
-        $this->db->where(array(
-            'username'=>$data['username'],
-            'password'=>$data['password']
-        ));
-        $this->db->limit(1);
-        $query=$this->db->get();
-        if($query->num_row()==1){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    public function get_login($data){
-        $this->db->select('username'.'password');
-        $this->db->from('pengguna');
-        $this->db->where(array('username'=>$data['username']));
-        $this->db->limit(1);
-        $query=$this->db->get();
-        if($query->num_row()==1){
-            return true;
-        }else{
-            return false;
-        }
+        $this->db->where('username',$post['username']);
+        $this->db->where('password',$post['password']);
+        $query = $this->db->get();
+        return $query;
     }
 
-    function cek_login($table,$where){		
-		return $this->db->get_where($table,$where);
-	}	
+    public function getAll(){
+        return $this->db->get($this->_tableView)->result();
+    }
+
+    public function getByNama($id){
+        return $this->db->get_where($this->_table, ["username" => $id])->num_rows();
+    }
+
+    public function getById($id = null){
+        return $this->db->get_where($this->_table, ["username" => $id])->row();
+    }
+
+    public function register(){
+        $post = $this->input->post();
+        $this->username = $post["username"];
+        $this->password = $post["password"];
+        $this->idJabatan = $post["idJabatan"];
+        $this->namaPengguna = $post["namaPengguna"];
+        $this->db->insert($this->_table, $this);
+    }
+
+    public function update(){
+        $post = $this->input->post();
+        $this->password = $post["password"];
+        $this->idJabatan = $post["idJabatan"];
+        $this->namaPengguna = $post["namaPengguna"];
+        $this->db->update($this->_table, $this, ["username"=> $post["username"]]);
+    }
+
+    public function delete($id)
+    {
+        return $this->db->delete($this->_table, array("username" => $id));
+    }
+
 }
 ?>

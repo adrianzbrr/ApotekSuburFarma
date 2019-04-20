@@ -63,6 +63,11 @@ class Produk_model extends CI_Model
         return $this->db->get_where($this->_tableView, ["idProduk" => $id])->row();
     }
 
+    public function getByNama($id)
+    {
+        return $this->db->get_where($this->_tableView, ["namaProduk" => $id])->num_rows();
+    }
+
     public function save()
     {
         $post = $this->input->post();

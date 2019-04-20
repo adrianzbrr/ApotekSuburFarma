@@ -3,6 +3,7 @@
 class Perusahaan_model extends CI_Model
 {
     private $_table = "perusahaan";
+    private $_tableView = "perusahaan_view";
 
     public $idPerusahaan;
     public $namaPerusahaan;
@@ -34,7 +35,7 @@ class Perusahaan_model extends CI_Model
 
     public function getAll()
     {
-        return $this->db->get($this->_table)->result();
+        return $this->db->get($this->_tableView)->result();
     }
 
     public function getById($id)

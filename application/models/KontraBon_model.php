@@ -11,7 +11,7 @@ class KontraBon_model extends CI_Model
     public $noKontraBon;
     public $tanggalCetak;
     public $tanggalKembali;
-    public $idPerusahaan;
+    public $idPerusahaan; 
 
     public function rules()
     {
@@ -52,6 +52,10 @@ class KontraBon_model extends CI_Model
 
     public function getKontraBon($id){
         return $this->db->get_where($this->_table, ["noKontraBon" => $id])->row();
+    }
+    
+    public function getByNama($id){
+        return $this->db->get_where($this->_table, ["noKontraBon" => $id])->num_rows();
     }
     
     public function getFakturById($id){

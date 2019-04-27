@@ -25,7 +25,7 @@
 					<div class="card-header">
 						<a href="<?php echo site_url('kontraBon/indexFinal') ?>"><i class="fas fa-arrow-left"></i> Kembali</a>
 						<div class="text-right">
-							<h4>Tagihan :<?php echo $kontraBonF->sisaRp ?></h4>
+							<h4>Tagihan : Rp <?php echo number_format($kontraBonF->sisa,0,',','.')?></h4>
 						</div>
 					</div>
 					<div class="card-body">
@@ -48,7 +48,7 @@
 											<?php echo $data->namaPerusahaan ?>
 										</td>
 										<td>
-											<?php echo $data->totalPembayaran ?>
+											Rp <?php echo number_format($data->totalPembayaran,0,',','.')?>
 										</td>
 									</tr>
 									<?php endforeach; ?>
@@ -79,7 +79,7 @@
 											<?php echo $data->tanggalAngsuran ?>
 										</td>
 										<td>
-											<?php echo $data->jumlahAngsuranRp ?>
+											Rp <?php echo number_format($data->jumlahAngsuran,0,',','.')?>
 										</td>
 									</tr>
 									<?php endforeach; ?>

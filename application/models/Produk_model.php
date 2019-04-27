@@ -4,6 +4,8 @@ class Produk_model extends CI_Model
 {
     private $_table = "produk";
     private $_tableView = "produk_view";
+    private $_tableLaporan = "laporan_view";
+    
     
     public $namaProduk;
     public $minimalStok;
@@ -66,6 +68,12 @@ class Produk_model extends CI_Model
     public function getByNama($id)
     {
         return $this->db->get_where($this->_tableView, ["namaProduk" => $id])->num_rows();
+    }
+    
+    public function getLaporan($id){
+        $this->db->where("idProduk",$id);
+        $this->db->order_by("idLaporan",'DESC');
+        return $this->db->get($this->_tableLaporan)->result();
     }
 
     public function save()

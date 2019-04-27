@@ -29,6 +29,7 @@
 										<th>Nomor Kontra Bon</th>
 										<th>Tanggal Cetak</th>
 										<th>Tanggal Kembali</th>
+										<th>Sisa Hari</th>
 										<th>Jumlah Faktur</th>
 										<th>Nama Perusahaan</th>
 										<th>Total Pembayaran</th>
@@ -38,7 +39,11 @@
 								</thead>
 								<tbody>
 									<?php foreach ($kontraBonF as $data): ?>
+									<?php if($data->sisaHari<=7 && $data->sisa!=0){?>
+									<tr class="table-warning">
+									<?php } else{?>
 									<tr>
+									<?php }?>
 										<td>
 											<a
 												href="<?php echo site_url('kontraBon/listFaktur/'.$data->noKontraBon) ?>">
@@ -52,16 +57,19 @@
 											<?php echo $data->tanggalKembali ?>
 										</td>
 										<td>
+											<?php echo $data->sisaHari ?>
+										</td>
+										<td>
 											<?php echo $data->jumlahFaktur ?>
 										</td>
 										<td>
 											<?php echo $data->namaPerusahaan ?>
 										</td>
 										<td>
-											<?php echo $data->totalPembayaran ?>
+											Rp <?php echo number_format($data->totalPembayaran,0,',','.')?>
 										</td>
 										<td>
-											<?php echo $data->sisaRp ?>
+											Rp <?php echo number_format($data->sisa,0,',','.')?>
 										</td>
 										<td>
 											<?php 

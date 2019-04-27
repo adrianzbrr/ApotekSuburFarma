@@ -45,7 +45,7 @@
 								<thead class="thead-dark">
 									<tr>
 										<th>ID Pesanan</th>
-										<th>Tanggal Pemesanan</th>
+										<th>Tanggal Pesanan</th>
 										<th>Total Barang</th>
 										<th>Perusahaan</th>
 									</tr>
@@ -54,12 +54,12 @@
 									<?php foreach ($pesananF as $data): ?>
 									<tr>
 										<td width="150">
-										<a href="<?php echo site_url('pesanan/listProduk/'.$data->idPemesanan) ?>">
-											<?php echo $data->idPemesanan ?>
+										<a href="<?php echo site_url('pesanan/listProduk/'.$data->idPesanan) ?>">
+											<?php echo $data->idPesanan ?>
 											</a>
 										</td>
 										<td width="150">
-											<?php echo $data->tanggalPemesanan ?>
+											<?php echo $data->tanggalPesanan ?>
 										</td>
 										<td width="140">
 											<?php echo $data->totalBarang ?>

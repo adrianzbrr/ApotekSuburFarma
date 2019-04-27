@@ -91,11 +91,12 @@ CREATE TABLE Pesanan(
     idPesanan VARCHAR(20),
     tanggalPesanan date,
     idPerusahaan int,
+    final int,
     PRIMARY KEY(idPesanan),
     FOREIGN KEY(idPerusahaan) REFERENCES Perusahaan(idPerusahaan)
 );
 CREATE TABLE PesananProduk(
-    idPemesanan int,
+    idPemesanan int AUTO_INCREMENT,
     idPesanan VARCHAR(20),
     idProduk int,
     jumlahBeli int DEFAULT 0,
@@ -110,7 +111,7 @@ CREATE TABLE Faktur(
     tanggalJatuhTempo date,
     idPerusahaan int,
     idKontraBon int,
-    idPesanan int,
+    idPesanan VARCHAR(20),
     final int DEFAULT 0,
     PRIMARY KEY(idFaktur),
     FOREIGN KEY(idPerusahaan) REFERENCES Perusahaan(idPerusahaan),
@@ -135,18 +136,17 @@ CREATE TABLE Angsuran(
     PRIMARY KEY (idAngsuran),
     FOREIGN KEY(idKontraBon) REFERENCES KontraBon(idKontraBon)
 );
+CREATE TABLE Laporan(
+    idLaporan int AUTO_INCREMENT,
+    tanggalLaporan date,
+    jenisLaporan int,
+    idBatch int,
+    sisa int,
+    PRIMARY KEY (idLaporan),
+    FOREIGN KEY(idBatch) REFERENCES Batch(idBatch)
+);
 
-CREATE FUNCTION fRupiah (number BIGINT) 
-RETURNS VARCHAR (255) 
-CHARSET latin1
-DETERMINISTIC
-BEGIN
-    DECLARE hasil VARCHAR(255);
-    SET hasil = REPLACE(REPLACE(REPLACE(FORMAT(number, 0), '.', '|'), ',', '.'), '|', ',');
-    RETURN (hasil);
-END$$
-
-CREATE FUNCTION `fHitungSatuan` (harga int,diskon int,jumlah int) RETURNS INT
+CREATE FUNCTION 'fHitungSatuan' (harga int,diskon int,jumlah int) RETURNS INT
 DETERMINISTIC
 BEGIN
     DECLARE hasil int;
@@ -191,31 +191,32 @@ CREATE OR REPLACE VIEW perusahaan_view AS
     GROUP BY a.idPerusahaan 
 
 CREATE OR REPLACE VIEW batch_view AS
-    SELECT a.idBatch, a.noBatch, a.tanggalKadaluarsa, a.jumlah, a.idProduk, c.namaProduk, d.tanggalCetak
+    SELECT a.idBatch, a.noBatch, a.tanggalKadaluarsa, a.jumlah, a.idProduk, c.namaProduk, d.tanggalCetak, b.jumlahBeli, c.Jumlah as total
     FROM Batch as a
     LEFT JOIN ProdukBeli as b on b.idBatch = a.idBatch
-    INNER JOIN Produk as c on c.idProduk = a.idProduk
+    INNER JOIN Produk_view as c on c.idProduk = a.idProduk
     INNER JOIN Faktur as d on d.idFaktur = b.idFaktur
     ORDER BY a.idBatch DESC
 
 
 CREATE OR REPLACE VIEW produkBeli_view AS
-    SELECT a.idFaktur, b.noFaktur, a.idBatch, c.noBatch, d.namaProduk, a.jumlahBeli, c.tanggalKadaluarsa, CONCAT('Rp ',fRupiah(fHitungSatuan(a.hargaBeli,a.diskon,a.jumlahBeli))) as hargaSatuan, a.diskon, CONCAT('Rp ',fRupiah(IFNULL(hargaBeli,0))) as hargaBeli, b.final
+    SELECT a.idFaktur, b.noFaktur, a.idBatch, c.noBatch, d.namaProduk, a.jumlahBeli, c.tanggalKadaluarsa, fHitungSatuan(a.hargaBeli,a.diskon,a.jumlahBeli) as hargaSatuan, a.diskon, IFNULL(hargaBeli,0) as hargaBeli, b.final
     FROM produkbeli as a
         INNER JOIN Faktur as b on b.idFaktur = a.idFaktur
         INNER JOIN Batch as c on c.idBatch = a.idBatch 
         INNER JOIN Produk as d on c.idProduk = d.idProduk
 
 CREATE OR REPLACE VIEW faktur_view AS
-    SELECT a.idFaktur, a.noFaktur, a.tanggalCetak, a.tanggalJatuhTempo, a.idKontraBon, d.noKontraBon, a.idPerusahaan, b.namaPerusahaan, COUNT(c.idBatch) as jumlahProduk, CONCAT('Rp ',fRupiah(IFNULL(SUM(c.hargaBeli),0))) as totalPembayaran, IFNULL(SUM(c.hargaBeli),0) as total, a.final
+    SELECT a.idFaktur, a.noFaktur, a.tanggalCetak, a.tanggalJatuhTempo, a.idKontraBon, d.noKontraBon, a.idPerusahaan, b.namaPerusahaan, COUNT(c.idBatch) as jumlahProduk, IFNULL(SUM(c.hargaBeli),0) as totalPembayaran, e.idPesanan,a.final
     FROM Faktur AS a
         LEFT JOIN perusahaan AS b on b.idPerusahaan = a.idPerusahaan
         LEFT JOIN produkBeli AS c on c.idFaktur = a.idFaktur
         LEFT JOIN kontraBon AS d on d.idKontraBon = a.idKontraBon
+        LEFT JOIN pesanan AS e on e.idPesanan = a.idPesanan
     GROUP BY noFaktur
 
 CREATE OR REPLACE VIEW kontraBon_view AS
-    SELECT a.idKontraBon, a.noKontraBon, a.tanggalCetak, a.tanggalKembali, a.idPerusahaan ,c.namaPerusahaan, CONCAT('Rp ',fRupiah(IFNULL(SUM(b.total),0))) as totalPembayaran, IFNULL(COUNT(b.idFaktur),0) as jumlahFaktur, IFNULL(SUM(b.total),0) as total, a.final
+    SELECT a.idKontraBon, a.noKontraBon, a.tanggalCetak, a.tanggalKembali, a.idPerusahaan ,c.namaPerusahaan, IFNULL(SUM(b.totalPembayaran),0) as totalPembayaran, IFNULL(COUNT(b.idFaktur),0) as jumlahFaktur, a.final
     FROM KontraBon AS a
         LEFT JOIN faktur_view AS b on b.idKontraBon = a.idKontraBon
         LEFT JOIN perusahaan AS c on c.idPerusahaan = a.idPerusahaan
@@ -228,36 +229,33 @@ CREATE OR REPLACE VIEW kadaluarsa_view AS
     WHERE TIMESTAMPDIFF(DAY,CURRENT_DATE,tanggalKadaluarsa) <= 90 && TIMESTAMPDIFF(DAY,CURRENT_DATE,tanggalKadaluarsa) > 0 && a.jumlah > 0 
     ORDER BY Sisa ASC
 
-CREATE OR REPLACE VIEW totalKadaluarsa AS  
-    SELECT   IFNULL(COUNT(noBatch),0) as total
-    FROM kadaluarsa_view
-
 CREATE OR REPLACE VIEW totalAngsuran_view AS
     SELECT idKontraBon, IFNULL(SUM(jumlahAngsuran),0) as totalAngsuran
     FROM Angsuran 
     GROUP BY idKontraBon
 
 CREATE OR REPLACE VIEW kontraBonTunggak_view AS
-    SELECT a.idKontraBon, a.totalAngsuran, b.total, IFNULL((b.total-a.TotalAngsuran),0) as sisa
+    SELECT a.idKontraBon, a.totalAngsuran, b.totalPembayaran, IFNULL((b.totalPembayaran-a.TotalAngsuran),0) as sisa
     FROM totalAngsuran_view as a
          JOIN kontraBon_view as b on b.idKontraBon = a.idKontraBon
     GROUP BY idKontraBon
 
 CREATE OR REPLACE VIEW fakturTunggak_view AS
-    SELECT IFNULL(SUM(a.total),0) as total, a.idKontraBon
+    SELECT IFNULL(SUM(a.totalPembayaran),0) as total, a.idKontraBon
     FROM faktur_view as a
         LEFT JOIN KontraBon as b on b.idKontraBon = a.idKontraBon
     WHERE a.idKontraBon IS NULL
 
 CREATE OR REPLACE VIEW kontraBonFinal_view AS
-    SELECT a.idKontraBon, a.noKontraBon, a.tanggalCetak, a.tanggalKembali, a.idPerusahaan ,a.namaPerusahaan, a.totalPembayaran, a.jumlahFaktur, a.total, a.final, IFNULL(b.sisa,a.total) as sisa, CONCAT('Rp ',fRupiah(IFNULL(b.sisa,a.total))) as sisaRp
+    SELECT a.idKontraBon, a.noKontraBon, a.tanggalCetak, a.tanggalKembali, a.idPerusahaan ,a.namaPerusahaan, a.totalPembayaran, a.jumlahFaktur, a.final, TIMESTAMPDIFF(DAY,CURRENT_DATE,a.tanggalKembali) as sisaHari,IFNULL(b.sisa,a.totalPembayaran) as sisa
     FROM KontraBon_view AS a
         LEFT JOIN kontraBonTunggak_view AS b on b.idKontraBon = a.idKontraBon
     WHERE a.final = 1
     GROUP BY a.noKontraBon
+    ORDER BY sisaHari ASC
 
 CREATE OR REPLACE VIEW totalTunggakan_view AS
-    SELECT CONCAT('Rp ',fRupiah(IFNULL(SUM(sisa),0))) as hutang
+    SELECT IFNULL(SUM(sisa),0) as hutang
     FROM kontraBonFinal_view
 
 CREATE OR REPLACE VIEW habis_view AS
@@ -265,16 +263,11 @@ CREATE OR REPLACE VIEW habis_view AS
     FROM produk_view 
     WHERE jumlah <= minimalStok
 
-CREATE OR REPLACE VIEW totalHabis_view AS  
-    SELECT IFNULL(COUNT(idProduk),0) as total
-    FROM habis_view
-
 CREATE OR REPLACE VIEW angsuran_view AS
-    SELECT a.idAngsuran, b.idKontraBon, b.noKontraBon, a.tanggalAngsuran, a.jumlahAngsuran, CONCAT('Rp ',fRupiah(IFNULL(a.jumlahAngsuran,0))) as jumlahAngsuranRp
+    SELECT a.idAngsuran, b.idKontraBon, b.noKontraBon, a.tanggalAngsuran, a.jumlahAngsuran
         FROM Angsuran AS a
         JOIN kontraBon AS b on b.idKontraBon = a.idKontraBon
-    ORDER BY a.tanggalAngsuran
-    
+    ORDER BY a.tanggalAngsuran    
 
 CREATE OR REPLACE VIEW pesananproduk_view AS
     SELECT a.idPemesanan, a.idPesanan, a.idProduk, a.jumlahBeli, b.tanggalPesanan,c.namaProduk,d.namaPerusahaan, b.final
@@ -296,7 +289,7 @@ CREATE OR REPLACE VIEW pengguna_view AS
     JOIN Jabatan as b on b.idJabatan = a.idJabatan
 
 CREATE OR REPLACE VIEW jumlahProduk_view AS
-    SELECT CONCAT(fRupiah(IFNULL(SUM(Jumlah),0))) as jumlah
+    SELECT IFNULL(SUM(Jumlah),0) as jumlah
     FROM produk_view
 
 CREATE OR REPLACE VIEW rak_view AS
@@ -305,6 +298,9 @@ CREATE OR REPLACE VIEW rak_view AS
     LEFT JOIN Produk as b on b.idRak = a.idRak
     GROUP BY a.idRak 
 
-
-
+CREATE OR REPLACE VIEW laporan_view AS
+    SELECT a.idLaporan, a.tanggalLaporan, a.jenisLaporan, b.idBatch, b.noBatch, b.idProduk, b.namaProduk, b.jumlahBeli, b.tanggalKadaluarsa, a.sisa
+    FROM Laporan as a
+    JOIN batch_view as b on b.idBatch=a.idBatch
+    JOIN produk_view as c on c.idProduk=b.idProduk
 

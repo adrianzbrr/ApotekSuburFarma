@@ -64,7 +64,7 @@
 									<?php foreach ($produk as $produk) : ?>
 									<tr>
 										<td width="150">
-											<a href="<?php echo site_url('produk/getBatch/' . $produk->idProduk) ?>">
+											<a href="<?php echo site_url('produk/getLaporan/' . $produk->idProduk) ?>">
 												<?php echo $produk->namaProduk ?>
 										</td>
 										<td>

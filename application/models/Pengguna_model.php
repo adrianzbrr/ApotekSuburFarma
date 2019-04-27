@@ -30,11 +30,11 @@ class Pengguna_model extends CI_Model
     }
 
     public function getByNama($id){
-        return $this->db->get_where($this->_table, ["username" => $id])->num_rows();
+        return $this->db->get_where($this->_tableView, ["username" => $id])->num_rows();
     }
 
     public function getById($id = null){
-        return $this->db->get_where($this->_table, ["username" => $id])->row();
+        return $this->db->get_where($this->_tableView, ["username" => $id])->row();
     }
 
     public function register(){

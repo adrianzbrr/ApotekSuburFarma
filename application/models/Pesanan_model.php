@@ -76,6 +76,13 @@ class Pesanan_model extends CI_Model
         $this->idPerusahaan = $this->getPerusahaan($post["namaPerusahaan"])->idPerusahaan;       
         $this->db->insert($this->_table,$this);
     }
+
+    public function update(){
+        $post = $this->input->post();
+        $this->tanggalPesanan = $post["tanggalPesanan"];
+        $this->idPerusahaan = $this->getPerusahaan($post["namaPerusahaan"])->idPerusahaan;
+        $this->db->update($this->_table, $this, ["idPesanan"=> $post["idPesanan"]]);
+    }
     
     public function addProduk($id){
         $post = $this->input->post();
@@ -87,8 +94,13 @@ class Pesanan_model extends CI_Model
 
     public function delete($id)
     {
-        $this->db->delete($this->_table, array("idPesanan" => $id));
         $this->db->delete($this->_tablePP, array("idPesanan" => $id));
+        return $this->db->delete($this->_table, array("idPesanan" => $id));
+    }
+
+    public function deleteProduk($id)
+    {
+        return $this->db->delete($this->_tablePP, array("idPemesanan" => $id));
     }
 
     public function finalize($id)

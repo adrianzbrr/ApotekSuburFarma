@@ -28,14 +28,14 @@
 				<div class="row">
 					<?php if($this->session->userdata('idJabatan')==1){ ?>
 					<div class="col-xl-3 col-sm-6 mb-3">
-						<div class="card text-white bg-warning o-hidden h-100">
+						<div class="card text-white bg-success o-hidden h-100">
 							<div class="card-body">
 								<div class="card-body-icon">
 									<i class="fas fa-fw fa-money"></i>
 								</div>
 								<div class="mr-5">Jumlah Tunggakan</div>
 								<?php foreach ($tunggak as $data): ?>
-								<div class="h4"><?php echo $data->hutang ?></div>
+								<div class="h4">Rp <?php echo number_format($data->hutang,0,',','.')?></div>
 								<?php endforeach; ?>
 							</div>
 							<a class="card-footer text-white clearfix small z-1"
@@ -72,9 +72,7 @@
 								<div class="card-body-icon">
 									<i class="fas fa-fw fa-warning"></i>
 								</div>
-								<?php foreach ($kdl as $data): ?>
-								<div class="h4"><?php echo $data->total ?></div>
-								<?php endforeach; ?>
+								<div class="h4"><?php echo $kdl ?></div>
 								<div class="mr-5">Produk Segera Kadaluarsa</div>
 							</div>
 							<a class="card-footer text-white clearfix small z-1"
@@ -86,13 +84,31 @@
 							</a>
 						</div>
 					</div>
+					<div class="col-xl-3 col-sm-6 mb-3">
+						<div class="card text-white bg-warning o-hidden h-100">
+							<div class="card-body">
+								<div class="card-body-icon">
+									<i class="fas fa-fw fa-money"></i>
+								</div>
+								<div class="h4"><?php echo $exp ?></div>
+								<div class="mr-5">Kontra Bon habis < 7 hari </div>
+							</div>
+							<a class="card-footer text-white clearfix small z-1"
+								href="<?php echo site_url('kontrabon/indexFinal') ?>">
+								<span class="float-left">View Details</span>
+								<span class="float-right">
+									<i class="fas fa-angle-right"></i>
+								</span>
+							</a>
+						</div>
+					</div>
+					
 				</div>
 
 				<div class="card mb-3">
 					<div class="card-header">
-						<?php foreach ($hbs as $data): ?>
-						<div class="h4"><?php echo $data->total ?></div>
-						<?php endforeach; ?> PRODUK SEGERA HABIS
+						<div class="h4"><?php echo $hbs ?></div>
+						PRODUK SEGERA HABIS
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">

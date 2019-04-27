@@ -73,14 +73,13 @@
 										<?php echo $data->jumlahBeli ?>
 									</td>
 									<td>
-										<?php echo $data->hargaSatuan ?>
+										Rp <?php echo number_format($data->hargaSatuan,0,',','.')?>
 									</td>
 									<td>
 										<?php echo $data->diskon ?>
 									</td>
 									<td>
-										<?php echo $data->hargaBeli ?>
-									</td>
+									Rp <?php echo number_format($data->hargaBeli,0,',','.')?>
 								</tr>
 							<?php endforeach; ?>
 						</body>

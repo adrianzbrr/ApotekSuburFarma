@@ -57,7 +57,7 @@
 											<?php echo $faktur->jumlahProduk ?>
 										</td>
 										<td>
-											<?php echo $faktur->totalPembayaran ?>
+											Rp <?php echo number_format($faktur->totalPembayaran,0,',','.')?>
 										</td>
 									</tr>
 									<?php endforeach; ?>

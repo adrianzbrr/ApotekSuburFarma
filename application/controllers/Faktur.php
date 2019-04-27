@@ -13,7 +13,9 @@ class Faktur extends CI_Controller
         $this->load->model("faktur_model");
         $this->load->model("produkBeli_model");
         $this->load->model("pesanan_model");
+        $this->load->model("laporan_model");
         $this->load->library('form_validation');
+        $this->load->library('user_agent');
     }
 
     public function index()
@@ -28,6 +30,7 @@ class Faktur extends CI_Controller
         check_not_login();//memeriksa session, user telah login
         $data["fakturF"] = $this->faktur_model->getAllF();
         $this->load->view("faktur/listFinal",$data);
+        
     }
 
     public function add()
@@ -68,15 +71,17 @@ class Faktur extends CI_Controller
         );
         $batch = $this->batch_model;
         $pb = $this->produkBeli_model;
+        $laporan = $this->laporan_model;
         $validation = $this->form_validation;
         $validation->set_rules($pb->rules());
         if ($validation->run()) {
             $batch->save();
             $pb->save($idFaktur->idFaktur);
+            $laporan->in();
             $this->session->set_flashdata('success', 'Produk berhasil disimpan');
             redirect($this->uri->uri_string());
         }
-        $this->load->view("faktur/add_product_form",$data);
+        $this->load->view("faktur/add_product_form",$data); 
     }
 
     public function listProduct($id = null)
@@ -120,11 +125,12 @@ class Faktur extends CI_Controller
 
     public function deleteBatch($id=null)
     {
-        check_not_login();//memeriksa session, user telah login       
+        check_not_login();//memeriksa session, user telah login    
         if (!isset($id)) show_404();
+        $this->laporan_model->delete($id);
         if($this->produkBeli_model->deleteBatch($id) && $this->batch_model->delete($id)){
             $this->session->set_flashdata('danger', 'Produk berhasil dihapus');
-            redirect($this->uri->uri_string());
+            redirect($this->agent->referrer());
         }
     }
 
@@ -134,7 +140,7 @@ class Faktur extends CI_Controller
         $this->faktur_model->finalize($id);
         $data["fakturNF"] = $this->faktur_model->getAllNF();
         $data["fakturF"] = $this->faktur_model->getAllF();
-        $this->load->view("faktur/list",$data);
+        $this->load->view("faktur/listFinal",$data);
     }
 
     public function print()

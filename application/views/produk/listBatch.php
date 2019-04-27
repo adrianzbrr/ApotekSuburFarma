@@ -28,26 +28,39 @@
 							<table class="table table-small" id="dataTable" width="100%" cellspacing="0">
 								<thead class="thead-dark">
 									<tr>
-										<th>Tanggal Masuk</th>
-										<th>Nama</th>
+										<th>Tanggal</th>
+										<th>Jenis</th>
+										<th>No Batch</th>
 										<th>Expired Date</th>
-										<th>Kuota</th>
+										<th>Jumlah</th>
+										<th>Total</th>
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($batch as $data): ?>
+									<?php foreach ($laporan as $data): ?>
 									<tr>
 										<td>
-											<?php echo $data->tanggalCetak ?>
+											<?php echo $data->tanggalLaporan ?>
 										</td>
-										<td width="150">
+										<td>
+											<?php if($data->jenisLaporan==0){
+                                                    echo "<span class='text-success'>MASUK</span>";
+                                                }else{
+                                                    echo "<span class='text-danger'>KELUAR</span>";
+												}
+											?>
+										</td>
+										<td>
 											<?php echo $data->noBatch ?>
 										</td>
 										<td>
 											<?php echo $data->tanggalKadaluarsa ?>
 										</td>
 										<td>
-											<?php echo $data->jumlah ?>
+											<?php echo $data->jumlahBeli ?>
+										</td>
+										<td>
+											<?php echo $data->sisa ?>
 										</td>
 									</tr>
 									<?php endforeach; ?>

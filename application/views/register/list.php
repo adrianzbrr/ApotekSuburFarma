@@ -69,9 +69,11 @@
 										<td width="250">
 											<a href="<?php echo site_url('pengguna/edit/' .$data->username) ?>"
 												class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
+											<?php if($this->user->user_login()->username != $data->username) {?>
 											<a onclick="deleteConfirm('<?php echo site_url('pengguna/delete/' .$data->username) ?>')"
 												href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i>
 												Hapus</a>
+											<?php } ?>
 										</td>
 									</tr>
 									<?php endforeach; ?>

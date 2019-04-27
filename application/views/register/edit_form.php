@@ -43,19 +43,22 @@
 									<?php echo form_error('namaPengguna') ?>
 								</div>
 							</div>
-
+							<?php if($this->user->user_login()->username != $pengguna->username) {?>
 							<div class="form-group">
 								<label for="idJabatan"> Jabatan*</label>
 								<select class="form-control <?php echo form_error('idJabatan') ? 'is-invalid':'' ?>"
-								 type="number" name="idJabatan" min="0" placeholder="Jenis" value="<?php echo $pengguna->idJabatan ?>">
-								<option value='0'>--PILIH--</option>
+								 type="number" name="idJabatan" min="0" placeholder="Jenis">
+								<?php echo "<option value= ".$pengguna->idJabatan.">".$pengguna->namaJabatan."</option>"; ?>
 								<?php
           						foreach($jabatan as $data){ 
-            						echo "<option value= ".$data->idJabatan.">".$data->namaJabatan."</option>";
+									if($data->idJabatan != $pengguna->idJabatan){
+									echo "<option value= ".$data->idJabatan.">".$data->namaJabatan."</option>";
+									}
           						}
           						?>
 								</select> 
 							</div>
+							<?php } ?>
 							<input class="btn btn-success float-right" type="submit" name="btn" value="Simpan" />
 						</form>
 					</div>

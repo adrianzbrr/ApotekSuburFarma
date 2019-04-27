@@ -54,11 +54,13 @@
 								<label for="idJenis"> Jenis*</label>
 								<select class="form-control <?php echo form_error('idJenis') ? 'is-invalid':'' ?>"
 								 type="number" name="idJenis" min="0" placeholder="Jenis">
-								<option value='0'>--PILIH--</option>
 								<?php
+								echo "<option value= ".$produk->idJenis.">".$produk->namaJenis."</option>";
           						foreach($jenis as $data){ 
+									if($data->idJenis != $produk->idJenis){
             						echo "<option value= ".$data->idJenis.">".$data->namaJenis."</option>";
-          						}
+									}  
+								}
           						?>
 								</select> 
 							</div>
@@ -67,11 +69,13 @@
 								<label for="idBentuk"> Bentuk*</label>
 								<select class="form-control <?php echo form_error('idBentuk') ? 'is-invalid':'' ?>"
 								type="number" name="idBentuk" min="0" placeholder="Bentuk">
-								<option value='0'>--PILIH--</option>
 								<?php
+								echo "<option value= ".$produk->idBentuk.">".$produk->namaBentuk."</option>";
           						foreach($bentuk as $data){ 
+									if($data->idBentuk != $produk->idBentuk){
             						echo "<option value= ".$data->idBentuk.">".$data->namaBentuk."</option>";
-          						}
+									}
+								}
           						?>
 								</select> 
 							</div>
@@ -80,11 +84,13 @@
 								<label for="idSatuan"> Satuan*</label>
 								<select class="form-control <?php echo form_error('idSatuan') ? 'is-invalid':'' ?>"
 								type="number" name="idSatuan" placeholder="Satuan">
-								<option value='0'>--PILIH--</option>
 								<?php
+								echo "<option value= ".$produk->idSatuan.">".$produk->namaSatuan."</option>";
           						foreach($satuan as $data){ 
+									if($data->idSatuan != $produk->idSatuan){
             						echo "<option value= ".$data->idSatuan.">".$data->namaSatuan."</option>";
-          						}
+									}
+								}
           						?>
 								</select> 
 							</div>
@@ -93,10 +99,12 @@
 								<label for="idRak"> Rak*</label>
 								<select class="form-control <?php echo form_error('idRak') ? 'is-invalid':'' ?>"
 								 type="number" name="idRak" min="0" placeholder="Rak">
-								 <option value='0'>--PILIH--</option>
 								<?php
+								echo "<option value= ".$produk->idRak.">".$produk->namaRak."</option>";
           						foreach($rak as $data){ 
-            						echo "<option value= ".$data->idRak.">".$data->namaRak."</option>";
+									if($data->idRak != $produk->idRak){
+									echo "<option value= ".$data->idRak.">".$data->namaRak."</option>";
+									}
           						}
 								  ?>
 								  </select>

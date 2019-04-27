@@ -55,7 +55,7 @@
 							<div class="form-group">
 								<label for="idPerusahaan"> Perusahaan*</label>
 								<input class="form-control" list="listPerusahaan" <?php echo form_error('idPerusahaan') ? 'is-invalid':'' ?>
-								 type="text" name="idPerusahaan" id="idPerusahaan" placeholder="Perusahaan">
+								 type="text" name="idPerusahaan" id="idPerusahaan" placeholder="Perusahaan" value="<?php echo $faktur->namaPerusahaan ?>">
 								<datalist id="listPerusahaan">
 								<?php
           						foreach($perusahaan as $data){
@@ -63,6 +63,21 @@
 								}
 								?>
 								</datalist>
+							</div>
+
+							<div class="form-group">
+								<label for="idPesanan"> Pesanan Terkait*</label>
+								<select class="form-control <?php echo form_error('idPesanan') ? 'is-invalid':'' ?>"
+								 type="number" name="idPesanan" min="0" placeholder="Pesanan terkait">
+								<?php
+									echo "<option value= ".$faktur->idPesanan.">".$faktur->idPesanan."</option>";
+          						foreach($pesanan as $data){ 
+									if($data->idPesanan != $faktur->idPesanan){
+            						echo "<option value= ".$data->idPesanan.">".$data->idPesanan."</option>";
+									}  
+								}
+          						?>
+								</select> 
 							</div>
 							<input class="btn btn-success float-right" type="submit" onclick="alertTheSelectedValue()" name="btn" value="Simpan" />
 						</form>

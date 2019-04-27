@@ -37,10 +37,11 @@
 
 				<!-- DataTables -->
 				<div class="card mb-3">
-					<div class="card-body">
+					
 					<div class="card-header">
-						<a href="<?php echo site_url('pesanan/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
+						<a href="<?php echo site_url('pesanan/indexFinal') ?>"><i class="fas fa-arrow-left"></i> Back</a>
 					</div>
+					<div class="card-body">
 						<div class="table-responsive">
 						<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
 						<thead class="thead-dark">
@@ -53,7 +54,7 @@
 						<tbody>
 							<?php foreach ($pesanan as $data): ?>
 								<tr>
-									<td width="150">
+									<td>
 										<?php echo $data->namaProduk ?>
 									</td>
 									<td>
@@ -66,7 +67,7 @@
 						</div>
 						
 					</div>
-					</div>
+	
 			</div>
 			
 			<!-- /.container-fluid -->

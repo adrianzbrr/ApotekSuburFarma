@@ -57,7 +57,7 @@ class Faktur_model extends CI_Model
     }
 
     public function getByNo($id){
-        return $this->db->get_where($this->_table, ["noFaktur" => $id])->row();
+        return $this->db->get_where($this->_tableView, ["noFaktur" => $id])->row();
     }
 
     public function getByNama($id){
@@ -112,7 +112,7 @@ class Faktur_model extends CI_Model
     {
         $this->db->set('idKontraBon',NULL);
         $this->db->where('noFaktur',$id);
-        $this->db->update('faktur');
+        return $this->db->update('faktur');
     }
 
     public function deleteAllKontraBon($id)

@@ -75,7 +75,7 @@
 											<?php echo $faktur->jumlahProduk ?>
 										</td>
 										<td width ="200">
-											<?php echo $faktur->totalPembayaran ?>
+											Rp <?php echo number_format($faktur->totalPembayaran,0,',','.')?>
 										</td>
 										<td width ="200">
 											<a href="<?php echo site_url('faktur/addProduct/'.$faktur->noFaktur) ?>"

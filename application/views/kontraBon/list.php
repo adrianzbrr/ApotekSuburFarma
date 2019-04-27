@@ -78,7 +78,7 @@
 											<?php echo $data->namaPerusahaan ?>
 										</td>
 										<td>
-											<?php echo $data->totalPembayaran ?>
+											Rp <?php echo number_format($data->totalPembayaran,0,',','.')?>
 										</td>
 										<td width="250">
 											<a href="<?php echo site_url('kontraBon/addFaktur/'.$data->noKontraBon) ?>"

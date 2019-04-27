@@ -23,10 +23,10 @@ class Produk extends CI_Controller
         $this->load->view("produk/list", $data);
     }
 
-    public function getBatch($id)
+    public function getLaporan($id)
     {
         check_not_login();//memeriksa session, user telah login
-        $data["batch"] = $this->batch_model->getByProduk($id);
+        $data["laporan"] = $this->produk_model->getLaporan($id);
         $this->load->view("produk/listBatch", $data);
     }
 
@@ -55,7 +55,6 @@ class Produk extends CI_Controller
 					window.location='".site_url('produk/add')."';
 					</script>";
             }
-            
         }
         $this->load->view("produk/new_form", $data);
     }

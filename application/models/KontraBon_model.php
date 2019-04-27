@@ -66,6 +66,11 @@ class KontraBon_model extends CI_Model
         return $this->db->get_where($this->_tablePerusahaan, ["namaPerusahaan" => $id])->row();
     }
 
+    public function getNumKontraBonExp(){
+        return $this->db->get_where($this->_tableViewFinal, ["sisaHari <=" => 7,"sisa !=" =>0])->num_rows();
+    }
+
+
     public function getFakturByPerusahaan($id){
         $this->db->select('noFaktur');
         $this->db->from('faktur');

@@ -12,6 +12,7 @@ class Pesanan extends CI_Controller
         $this->load->model("pesanan_model");
         $this->load->model("faktur_model");
         $this->load->library('form_validation');
+        $this->load->library('user_agent');
     }
 
     public function index()
@@ -85,13 +86,13 @@ class Pesanan extends CI_Controller
             redirect(site_url('pesanan'));
         }
         $data= array(
-            'pesanan' => $this->pesanan_model->getByNo($id),
+            'pesanan' => $this->pesanan_model->getById($id),
             'perusahaan' => $this->perusahaan_model->getAll()
         );       
         $this->load->view("pesanan/edit_form", $data);
     }
 
-    public function deletePesanan($id=null)
+    public function delete($id=null)
     {
         check_not_login();//memeriksa session, user telah login
         if (!isset($id)) show_404();
@@ -101,13 +102,21 @@ class Pesanan extends CI_Controller
         }
     }
 
+    public function deleteProduk($id=null)
+    {
+        check_not_login();//memeriksa session, user telah login
+        if (!isset($id)) show_404();
+        if($this->pesanan_model->deleteProduk($id)){
+            $this->session->set_flashdata('danger', 'Produk berhasil dihapus');
+            redirect($this->agent->referrer());
+        }
+    }
+
     public function finalize($id)
     {
         check_not_login();//memeriksa session, user telah login
         $this->pesanan_model->finalize($id);
-        $data["pesananNF"] = $this->pesanan_model->getAllNF();
-        $data["pesananF"] = $this->pesanan_model->getAllF();
-        $this->load->view("pesanan/list",$data);
+        redirect(site_url('pesanan/indexFinal'));
     }
 
     public function print()

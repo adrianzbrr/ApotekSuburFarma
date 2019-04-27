@@ -96,6 +96,7 @@
 								<tr>
 									<th>Nama Produk</th>
 									<th>Jumlah Beli</th>
+									<th> Aksi </th>
 								</tr>
 							</thead>
 
@@ -107,6 +108,10 @@
 									</td>
 									<td>
 										<?php echo $data->jumlahBeli ?>
+									</td>
+									<td>
+									<a onclick="deleteConfirm('<?php echo site_url('pesanan/deleteProduk/'.$data->idPemesanan) ?>')"
+									href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> </a>
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -140,6 +145,13 @@
 					$('#deleteModal').modal();
 				}
 
+			</script>
+
+<script>
+				function finalizeConfirm(url) {
+					$('#btn-finalize').attr('href', url);
+					$('#finalizeModal').modal();
+				}
 			</script>
 			</body>
 

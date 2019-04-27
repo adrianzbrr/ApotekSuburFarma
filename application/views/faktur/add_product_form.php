@@ -16,6 +16,7 @@
 
 			<div class="container-fluid">
 				<?php $this->load->view("_partials/breadcrumb.php") ?>
+				
 				<?php if ($this->session->flashdata('success')): ?>
 				<div class="alert alert-success" role="alert">
 					<?php echo $this->session->flashdata('success'); ?>
@@ -43,6 +44,7 @@
 								<div class="modal-body">
 									<div class="card-body">
 										<form action="<?php base_url('faktur/addProduct') ?>" method="post">
+										<input type="hidden" name="tanggal" value="<?php echo $faktur->tanggalCetak ?>" />
 											<div class="form-group">
 												<label for="idProduk"> Nama Produk*</label>
 												<input
@@ -159,13 +161,13 @@
 										<?php echo $data->jumlahBeli ?>
 									</td>
 									<td>
-										<?php echo $data->hargaSatuan ?>
+										Rp <?php echo number_format($data->hargaSatuan,0,',','.')?>
 									</td>
 									<td>
 										<?php echo $data->diskon ?>
 									</td>
 									<td>
-										<?php echo $data->hargaBeli ?>
+									Rp <?php echo number_format($data->hargaBeli,0,',','.')?>
 									</td>
 									<td width="250">
 										<a onclick="deleteConfirm('<?php echo site_url('faktur/deleteBatch/'.$data->idBatch)?>')"
@@ -229,6 +231,7 @@
 																<form action="<?php base_url('faktur/addProduct') ?>"
 																	method="post">
 																	<input type="hidden" name="idProduk" value="<?php echo $data->namaProduk ?>" />
+																	<input type="hidden" name="tanggal" value="<?php echo $faktur->tanggalCetak ?>" />
 																	<div class="form-group">
 																		<label for="idProduk"> Nama Produk*</label>
 																		<input

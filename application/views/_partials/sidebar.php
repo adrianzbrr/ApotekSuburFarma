@@ -1,12 +1,12 @@
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
-    <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'active': '' ?>">
+    <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'pasive': '' ?>">
         <a class="nav-link" href="<?php echo site_url('overview') ?>">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Overview</span>
         </a>
     </li>
-    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'products' ? 'active': '' ?>">
+    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'products' ? 'pasive': '' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-fw fa-boxes"></i>
@@ -20,7 +20,7 @@
         </div>
     </li>
     <?php if($this->session->userdata('idJabatan')==1){ ?>
-    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'perusahaan' ? 'active': '' ?>">
+    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'perusahaan' ? 'pasive': '' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-fw fa-building"></i>
@@ -33,21 +33,23 @@
     </li>
     <?php } ?>
 
-    <?php if($this->session->userdata('idJabatan')==1){ ?>
-    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'rak' ? 'active': '' ?>">
+    
+    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'rak' ? 'pasive': '' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-fw fa-inbox"></i>
             <span>Rak</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <a class="dropdown-item" href="<?php echo site_url('rak/add') ?>">Tambah Rak</a>
+            <?php if($this->session->userdata('idJabatan')==1){ ?>
+                <a class="dropdown-item" href="<?php echo site_url('rak/add') ?>">Tambah Rak</a>
+            <?php } ?>
             <a class="dropdown-item" href="<?php echo site_url('rak') ?>">Daftar Rak</a>
         </div>
     </li>
-    <?php } ?>
+    
 
-    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'faktur' ? 'active': '' ?>">
+    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'faktur' ? 'pasive': '' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-fw fa-envelope"></i>
@@ -62,7 +64,7 @@
         </div>
     </li>
     <?php if($this->session->userdata('idJabatan')==1){ ?>
-    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'faktur' ? 'active': '' ?>">
+    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'faktur' ? 'pasive': '' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-fw fa-file"></i>
@@ -77,7 +79,7 @@
     <?php } ?>
 
     <?php if($this->session->userdata('idJabatan')==1){ ?>
-    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'kontraBon' ? 'active': '' ?>">
+    <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'kontraBon' ? 'pasive': '' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
@@ -91,22 +93,22 @@
     </li>
     <?php } ?>
 
-    <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'active': '' ?>">
+    <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'pasive': '' ?>">
         <a class="nav-link" href="<?php echo site_url('laporan') ?>">
             <i class="fas fa-fw fa-tasks"></i>
             <span>Laporan Defekta</span>
         </a>
     </li>
-    <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'active': '' ?>">
+    <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'pasive': '' ?>">
         <a class="nav-link" href="<?php echo site_url('laporan/expiredReport') ?>">
             <i class="fas fa-fw fa-history"></i>
             <span>Laporan Kadaluarsa</span>
         </a>
     </li>
-    <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'active': '' ?>">
+    <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'pasive': '' ?>">
         <a class="nav-link" href="<?php echo site_url('pengguna') ?>">
             <i class="fas fa-fw fa-users"></i>
-            <span>User</span>
+            <span>Pengguna</span>
         </a>
     </li>
 </ul>

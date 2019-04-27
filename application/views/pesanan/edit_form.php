@@ -20,42 +20,29 @@
 
 				<div class="card mb-3">
 					<div class="card-header">
-						<a href="<?php echo site_url('faktur/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
+						<a href="<?php echo site_url('pesanan/') ?>"><i class="fas fa-arrow-left"></i> Back</a>
 					</div>
 					<div class="card-body">
-						<form action="<?php base_url('faktur/') ?>" method="post" >
-						<input type="hidden" name="id" value="<?php echo $faktur->noFaktur ?>" />
+						<form action="<?php base_url('pesanan/edit') ?>" method="post" >
+						<input type="hidden" name="idPesanan" value="<?php echo $pesanan->idPesanan ?>" />
+						<div class="form-group">
+								<label>ID Pesanan*</label>
+								<input class="form-control" value="<?php echo $pesanan->idPesanan ?>" DISABLED/>
+							</div>
+
 							<div class="form-group">
-								<label for="noFaktur">Nomor Faktur*</label>
-								<input class="form-control <?php echo form_error('noFaktur') ? 'is-invalid':'' ?>"
-								 type="text" name="noFaktur" placeholder="Nomor Faktur" value="<?php echo $faktur->noFaktur ?>" />
+								<label for="tanggalPesanan">Tanggal Pesanan*</label>
+								<input class="form-control <?php echo form_error('tanggalPesanan') ? 'is-invalid':'' ?>"
+								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalPesanan" placeholder="Tanggal Pesanan" value="<?php echo $pesanan->tanggalPesanan ?>"/>
 								<div class="invalid-feedback">
-									<?php echo form_error('noFaktur') ?>
+									<?php echo form_error('tanggalPesanan') ?>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label for="tanggalCetak">Tanggal Cetak*</label>
-								<input class="form-control <?php echo form_error('tanggalCetak') ? 'is-invalid':'' ?>"
-								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalCetak" placeholder="Tanggal Cetak" value="<?php echo $faktur->tanggalCetak ?>"/>
-								<div class="invalid-feedback">
-									<?php echo form_error('tanggalCetak') ?>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="tanggalJatuhTempo">Tanggal Jatuh Tempo*</label>
-								<input class="form-control <?php echo form_error('tanggalJatuhTempo') ? 'is-invalid':'' ?>"
-								 type="date" data-date-inline-picker="false" data-date-open-on-focus="true" name="tanggalJatuhTempo" placeholder="Tanggal Jatuh Tempo" value="<?php echo $faktur->tanggalJatuhTempo ?>" />
-								<div class="invalid-feedback">
-									<?php echo form_error('tanggalJatuhTempo') ?>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label for="idPerusahaan"> Perusahaan*</label>
+								<label for="namaPerusahaan"> Perusahaan*</label>
 								<input class="form-control" list="listPerusahaan" <?php echo form_error('idPerusahaan') ? 'is-invalid':'' ?>
-								 type="text" name="idPerusahaan" id="idPerusahaan" placeholder="Perusahaan">
+								 type="text" name="namaPerusahaan" id="namaPerusahaan" placeholder="Perusahaan" value="<?php echo $pesanan->namaPerusahaan ?>">
 								<datalist id="listPerusahaan">
 								<?php
           						foreach($perusahaan as $data){

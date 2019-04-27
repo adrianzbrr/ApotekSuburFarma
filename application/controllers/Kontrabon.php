@@ -12,6 +12,7 @@ class Kontrabon extends CI_Controller
         $this->load->model("perusahaan_model");
         $this->load->model("angsuran_model");
         $this->load->library('form_validation');
+        $this->load->library('user_agent');
     }
 
     public function index()
@@ -131,14 +132,14 @@ class Kontrabon extends CI_Controller
         if (!isset($id)) show_404();
         if($this->faktur_model->deleteKontraBon($id)){
             $this->session->set_flashdata('danger', 'Faktur berhasil dihapus');
-            redirect($this->uri->uri_string());
+            redirect($this->agent->referrer());
         }
     }
 
     public function finalize($id){
         check_not_login();//memeriksa session, user telah login
         $this->kontraBon_model->finalize($id);
-        redirect(site_url('kontraBon'));
+        redirect(site_url('kontraBon/indexFinal'));
     }
 
     public function print()

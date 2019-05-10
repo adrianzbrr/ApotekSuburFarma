@@ -5,8 +5,6 @@ class Angsuran_model extends CI_Model
     private $_table = "angsuran";
     private $_tableView = "angsuran_view";
 
-    public $jumlahAngsuran;
-    public $tanggalAngsuran;
 
     public function rules()
     {
@@ -35,9 +33,9 @@ class Angsuran_model extends CI_Model
         return $this->db->get_where($this->_tableView, ["idAngsuran" => $id])->row();
     }
 
-    public function getByKontraBon($id)
+    public function getByKontraBon($no)
     {
-        return $this->db->get_where($this->_tableView, ["noKontraBon" => $id])->result();
+        return $this->db->get_where($this->_tableView, ["idKontraBon" => $no])->result();
     }
 
     public function save()
@@ -59,6 +57,6 @@ class Angsuran_model extends CI_Model
 
     public function delete($id)
     {
-        return $this->db->delete($this->_table, array("idAngsuran" => $id));
+        $this->db->delete($this->_table, array("idAngsuran" => $id));
     }
 }

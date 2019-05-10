@@ -40,7 +40,7 @@
 									<?php foreach ($fakturF as $faktur): ?>
 									<tr>
 										<td width="150">
-											<a href="<?php echo site_url('faktur/listProduct/'.$faktur->noFaktur) ?>">
+											<a href="<?php echo site_url('faktur/listProduct/'.$faktur->idFaktur) ?>">
 											<?php echo $faktur->noFaktur ?>
 											</a>
 										</td>

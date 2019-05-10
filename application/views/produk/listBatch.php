@@ -54,7 +54,7 @@
 											<?php echo $data->noBatch ?>
 										</td>
 										<td>
-											<?php echo $data->tanggalKadaluarsa ?>
+											<?php echo $data->tanggalKedaluwarsa ?>
 										</td>
 										<td>
 											<?php echo $data->jumlahBeli ?>
@@ -69,6 +69,12 @@
 						</div>
 					</div>
 				</div>
+				<div class="card-footer">
+					<div class="text-right">
+						<a href="<?php echo site_url('produk/print/'.$produk->idProduk) ?>"
+						class="btn btn-small text-warning"><i class="fas fa-file"></i> Cetak</a>
+					</div>
+					</div>
 
 			</div>
 			

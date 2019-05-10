@@ -32,7 +32,7 @@ class Rak_model extends CI_Model
         return $this->db->get_where($this->_tableView, ["idRak" => $id])->row();
     }
 
-    public function getByNama($id)
+    public function getNumRow($id)
     {
         return $this->db->get_where($this->_tableView, ["namaRak" => $id])->num_rows();
     }
@@ -52,6 +52,6 @@ class Rak_model extends CI_Model
 
     public function delete($id)
     {
-        return $this->db->delete($this->_table, array("idRak" => $id));
+        $this->db->delete($this->_table, array("idRak" => $id));
     }
 }

@@ -69,16 +69,14 @@
 											<?php echo $data->namaPerusahaan ?>
 										</td>
 										<td width ="200">
-										<?php if($this->session->userdata('idJabatan')==1){ ?>
+										<?php if($this->session->userdata('idJabatan')<=2){ ?>
 											<a href="<?php echo site_url('pesanan/addProduct/'.$data->idPesanan) ?>"
 											 class="btn btn-small text-success"><i class="fas fa-plus-circle"></i> Tambah</a>
 											<a href="<?php echo site_url('pesanan/edit/'.$data->idPesanan) ?>"
 											 class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
 											<a onclick="deleteConfirm('<?php echo site_url('pesanan/delete/'.$data->idPesanan) ?>')"
 											 href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
-										<?php } else{ 
-											echo "<span class='text-success'>LUNAS</span>";
-										} ?>
+										<?php } ?>
 											
 										</td>
 									</tr>

@@ -25,7 +25,7 @@
 					<div class="card-header">
 						<a href="<?php echo site_url('kontraBon/indexFinal') ?>"><i class="fas fa-arrow-left"></i> Kembali</a>
 						<div class="text-right">
-							<h4>Tagihan : Rp <?php echo number_format($kontraBonF->sisa,0,',','.')?></h4>
+							<h4>Tagihan : Rp <?php echo number_format($kontraBon->sisa,0,',','.')?></h4>
 						</div>
 					</div>
 					<div class="card-body">
@@ -39,7 +39,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($noFaktur as $data): ?>
+									<?php foreach ($faktur as $data): ?>
 									<tr>
 										<td>
 											<?php echo $data->noFaktur ?>
@@ -90,7 +90,7 @@
 					</div>
 					<div class="card-footer">
 						<div class="text-right">
-							<?php if($kontraBonF->sisa != 0){ ?>
+							<?php if($kontraBon->sisa != 0){ ?>
 							<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">
 								<i class="fas fa-check-square"></i>
 								Bayar
@@ -112,13 +112,13 @@
 													<form action="<?php base_url('kontraBon/listFaktur') ?>"
 														method="post">
 														<input type="hidden" name="id"
-															value="<?php echo $kontraBonF->idKontraBon ?>" />
+															value="<?php echo $kontraBon->idKontraBon ?>" />
 														<div class="form-group">
 															<label for="jumlahAngsuran"> Jumlah Bayar*</label>
 															<input
 																class="form-control <?php echo form_error('jumlahAngsuran') ? 'is-invalid':'' ?>"
 																type="number" name="jumlahAngsuran"
-																max="<?php echo $kontraBonF->sisa ?>"
+																max="<?php echo $kontraBon->sisa ?>"
 																placeholder="Jumlah Bayar" />
 															<div class="invalid-feedback">
 																<?php echo form_error('jumlahAngsuran') ?>

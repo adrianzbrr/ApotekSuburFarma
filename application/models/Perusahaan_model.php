@@ -5,11 +5,6 @@ class Perusahaan_model extends CI_Model
     private $_table = "perusahaan";
     private $_tableView = "perusahaan_view";
 
-    public $idPerusahaan;
-    public $namaPerusahaan;
-    public $alamatPerusahaan;
-    public $noTelp;
-
     public function rules()
     {
         return [

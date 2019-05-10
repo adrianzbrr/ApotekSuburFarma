@@ -4,39 +4,36 @@ class Faktur_model extends CI_Model
 {
     private $_table = "faktur";
     private $_tableView = "faktur_view";
-    private $_tablePB = "ProdukBeli";
-    private $_tablePBView = "ProdukBeli_view";
-    private $_tablePerusahaan = "Perusahaan";
-    private $_tableProduk = "produk";
-    private $_tableBatch = "batch";
-
-    public $noFaktur;
-    public $tanggalCetak;
-    public $tanggalJatuhTempo;
-    public $idPerusahaan;
+    private $_tablePB = "ProdukBeli_view";
+    private $_tablePerusahaan = "Perusahaan_view";
+    private $_tableProduk = "produk_view";
 
     public function rules()
     {
         return [
                 ['field' => 'noFaktur',
-                'label' => 'noFaktur',
+                'label' => 'Nomor Faktur',
                 'rules' => 'required'],
                 
                 ['field' => 'tanggalCetak',
-                'label' => 'tanggalCetak',
+                'label' => 'tanggal tetak',
                 'rules' => 'required'],
 
                 ['field' => 'tanggalJatuhTempo',
-                'label' => 'tanggalJatuhTempo',
+                'label' => 'tanggal jatuh tempo',
                 'rules' => 'required'],
 
                 ['field' => 'idPerusahaan',
-                'label' => 'idPerusahaan',
+                'label' => 'Perusahaan',
+                'rules' => 'required'],
+
+                ['field' => 'idPesanan',
+                'label' => 'Pesanan',
                 'rules' => 'required']
             ];
     }
 
-    public function rules1(){
+    public function rulesKontra(){
         return [
             ['field' => 'noFaktur',
             'label' => 'noFaktur',
@@ -56,28 +53,20 @@ class Faktur_model extends CI_Model
         return $this->db->get_where($this->_tableView, ["final" => 0])->result();
     }
 
-    public function getByNo($id){
-        return $this->db->get_where($this->_tableView, ["noFaktur" => $id])->row();
+    public function getById($id){
+        return $this->db->get_where($this->_tableView, ["idFaktur" => $id])->row();
     }
 
-    public function getByNama($id){
-        return $this->db->get_where($this->_table, ["noFaktur" => $id])->num_rows();
+    public function getNumRow($no){
+        return $this->db->get_where($this->_table, ["noFaktur" => $no])->num_rows();
     }
 
-    public function getPerusahaan($id){
-        return $this->db->get_where($this->_tablePerusahaan, ["namaPerusahaan" => $id])->row();
-    }
-
-    public function getProduk($id){
-        return $this->db->get_where($this->_tableProduk, ["namaProduk" => $id])->row();
+    public function getProduk($nama){
+        return $this->db->get_where($this->_tableProduk, ["namaProduk" => $nama])->row();
     }
     
-    public function getProdukByNo($id){
-        return $this->db->get_where($this->_tablePBView, ["noFaktur" => $id])->result();
-    }
-
-    public function getPesanan($id){
-        return $this->db->get_where($this->_table, ["idPesanan" => $id])->num_rows();
+    public function getProdukById($id){
+        return $this->db->get_where($this->_tablePB, ["idFaktur" => $id])->result();
     }
 
     public function save(){
@@ -85,7 +74,7 @@ class Faktur_model extends CI_Model
         $this->noFaktur = $post["noFaktur"];
         $this->tanggalCetak = $post["tanggalCetak"];
         $this->tanggalJatuhTempo = $post["tanggalJatuhTempo"];
-        $this->idPerusahaan = $this->getPerusahaan($post["idPerusahaan"])->idPerusahaan;
+        $this->idPerusahaan = $post["idPerusahaan"];
         $this->idPesanan = $post["idPesanan"];       
         $this->db->insert($this->_table,$this);
     }
@@ -96,11 +85,11 @@ class Faktur_model extends CI_Model
         $this->noFaktur = $post["noFaktur"];
         $this->tanggalCetak = $post["tanggalCetak"];
         $this->tanggalJatuhTempo = $post["tanggalJatuhTempo"];
-        $this->idPerusahaan = $this->getPerusahaan($post["idPerusahaan"])->idPerusahaan;
+        $this->idPerusahaan = $post["idPerusahaan"];
         $this->db->update($this->_table, $this, array('noFaktur' => $post["id"]));
     }
 
-    public function masukKontrabon($id)
+    public function inputKontrabon($id)
     {
         $post = $this->input->post();
         $this->db->set('idKontraBon', $id);
@@ -108,14 +97,14 @@ class Faktur_model extends CI_Model
         $this->db->update('faktur');
     }
 
-    public function deleteKontraBon($id)
+    public function removeKontraBon($id)
     {
         $this->db->set('idKontraBon',NULL);
         $this->db->where('noFaktur',$id);
-        return $this->db->update('faktur');
+        $this->db->update('faktur');
     }
 
-    public function deleteAllKontraBon($id)
+    public function removeAllKontraBon($id)
     {
         $this->db->set('idKontraBon',NULL);
         $this->db->where('idKontraBon',$id);
@@ -124,13 +113,13 @@ class Faktur_model extends CI_Model
 
     public function delete($id)
     {
-        return $this->db->delete($this->_table, array("noFaktur" => $id));
+        $this->db->delete($this->_table, array("idFaktur" => $id));
     }
 
     public function finalize($id)
     {
         $this->db->set('final',1);
-        $this->db->where('noFaktur',$id);
-        return $this->db->update($this->_table);
+        $this->db->where('idFaktur',$id);
+        $this->db->update($this->_table);
     }
 }

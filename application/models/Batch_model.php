@@ -4,24 +4,10 @@ class Batch_model extends CI_Model
 {
     private $_table = "batch";
     private $_tableView = "batch_view";
-    private $_tableKadaluarsa = "kadaluarsa_view";
-    private $_tableProduk = "produk";
-
-    public $noBatch;
-    public $tanggalKadaluarsa;
-    public $jumlah;
-    public $idProduk;
+    private $_tableProduk = "produk_view";
 
     public function getAll(){
-        return $this->db->get($this->_table)->result();
-    }
-
-    public function getBatch($id){
-        return $this->db->get_where($this->_table, ["noBatch" => $id])->row();
-    }
-
-    public function getByProduk($id){
-        return $this->db->get_where($this->_tableView, ["idProduk" => $id])->result();
+        return $this->db->get($this->_tableView)->result();
     }
 
     public function getProduk($id)
@@ -32,7 +18,7 @@ class Batch_model extends CI_Model
     public function save(){
         $post=$this->input->post();
         $this->noBatch = $post["noBatch"];
-        $this->tanggalKadaluarsa = $post["tanggalKadaluarsa"];
+        $this->tanggalKedaluwarsa = $post["tanggalKedaluwarsa"];
         $this->jumlah= $post["jumlah"];
         $this->idProduk = $this->getProduk($post["idProduk"])->idProduk;
         $this->db->insert($this->_table,$this);
@@ -40,7 +26,7 @@ class Batch_model extends CI_Model
     
     public function delete($id)
     {
-        return $this->db->delete($this->_table, array("idBatch" => $id));
+        $this->db->delete($this->_table, array("idBatch" => $id));
     }
 
     public function makeZero($id)

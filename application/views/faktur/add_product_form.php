@@ -49,16 +49,15 @@
 												<label for="idProduk"> Nama Produk*</label>
 												<input
 													class="form-control <?php echo form_error('idProduk') ? 'is-invalid':'' ?>"
-													list="produklist" type="text" name="idProduk" min="0"
+													list="produklist" type="text" name="idProduk"
 													placeholder="Nama Produk">
 												<datalist id=produklist>
 													<?php
                                                 foreach($produk as $data){
-                                                    echo "<option value= ".$data->namaProduk."></option>";
+                                                    echo "<option value=\"".$data->namaProduk."\"></option>";
                                                 }
                                                 ?>
 												</datalist>
-												</select>
 												<div class="form-group">
 													<label for="noBatch">No Batch*</label>
 													<input
@@ -70,13 +69,13 @@
 												</div>
 
 												<div class="form-group">
-													<label for="tanggalKadaluarsa">Tanggal Kadaluarsa*</label>
+													<label for="tanggalKedaluwarsa">Tanggal Kedaluwarsa*</label>
 													<input
-														class="form-control <?php echo form_error('tanggalKadaluarsa') ? 'is-invalid':'' ?>"
+														class="form-control <?php echo form_error('tanggalKedaluwarsa') ? 'is-invalid':'' ?>"
 														type="date" data-date-inline-picker="false"
-														data-date-open-on-focus="true" name="tanggalKadaluarsa" />
+														data-date-open-on-focus="true" name="tanggalKedaluwarsa" />
 													<div class="invalid-feedback">
-														<?php echo form_error('tanggalKadaluarsa') ?>
+														<?php echo form_error('tanggalKedaluwarsa') ?>
 													</div>
 												</div>
 
@@ -136,7 +135,7 @@
 								<tr>
 									<th>Nama Produk</th>
 									<th>No Batch</th>
-									<th>Tanggal Kadaluarsa</th>
+									<th>Tanggal Kedaluwarsa</th>
 									<th>Jumlah</th>
 									<th>Harga Satuan</th>
 									<th>Diskon</th>
@@ -155,7 +154,7 @@
 										<?php echo $data->noBatch ?>
 									</td>
 									<td>
-										<?php echo $data->tanggalKadaluarsa ?>
+										<?php echo $data->tanggalKedaluwarsa ?>
 									</td>
 									<td>
 										<?php echo $data->jumlahBeli ?>
@@ -184,8 +183,8 @@
 				<?php if($this->session->userdata('idJabatan')==1){ ?>
 				<div class="card-footer">
 					<div class="text-right">
-						<a onclick="finalizeConfirm('<?php echo site_url('faktur/finalize/'.$faktur->noFaktur)?>')"
-							href="#!" class="btn btn-success"><i class="fas fa-check-circle"></i> Finalize</a>
+						<a onclick="finalizeConfirm('<?php echo site_url('faktur/finalize/'.$faktur->idFaktur)?>')"
+							href="#!" class="btn btn-success"><i class="fas fa-check-circle"></i> Konfirmasi</a>
 					</div>
 				</div>
 				<?php } ?>
@@ -249,16 +248,16 @@
 																		</div>
 
 																		<div class="form-group">
-																			<label for="tanggalKadaluarsa">Tanggal
-																				Kadaluarsa*</label>
+																			<label for="tanggalKedaluwarsa">Tanggal
+																				Kedaluwarsa*</label>
 																			<input
-																				class="form-control <?php echo form_error('tanggalKadaluarsa') ? 'is-invalid':'' ?>"
+																				class="form-control <?php echo form_error('tanggalKedaluwarsa') ? 'is-invalid':'' ?>"
 																				type="date"
 																				data-date-inline-picker="false"
 																				data-date-open-on-focus="true"
-																				name="tanggalKadaluarsa" />
+																				name="tanggalKedaluwarsa" />
 																			<div class="invalid-feedback">
-																				<?php echo form_error('tanggalKadaluarsa') ?>
+																				<?php echo form_error('tanggalKedaluwarsa') ?>
 																			</div>
 																		</div>
 

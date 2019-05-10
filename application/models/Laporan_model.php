@@ -3,11 +3,11 @@
 class Laporan_model extends CI_Model
 {
     private $_table="laporan";
-    private $_tableKadaluarsa = "kadaluarsa_view";
+    private $_tableKedaluwarsa = "kedaluwarsa_view";
     private $_tableHabis = "habis_view";
     private $_tableBatch = "batch_view";
 
-    public function getAll(){
+    public function getAllHabis(){
         return $this->db->get($this->_tableHabis)->result();
     }
 
@@ -15,19 +15,17 @@ class Laporan_model extends CI_Model
         return $this->db->get($this->_tableHabis,5)->result();
     }
 
-    public function getAllKadaluarsa(){
-        return $this->db->get($this->_tableKadaluarsa)->result();
+    public function getAllKedaluwarsa(){
+        return $this->db->get($this->_tableKedaluwarsa)->result();
     }
 
     public function getNumHabis(){
         return $this->db->get($this->_tableHabis)->num_rows();
     }
 
-    public function getNumKadaluarsa(){
-        return $this->db->get($this->_tableKadaluarsa)->num_rows();
+    public function getNumKedaluwarsa(){
+        return $this->db->get($this->_tableKedaluwarsa)->num_rows();
     }
-
-
 
     public function getBatch($id){
         $this->db->where("noBatch",$id);
@@ -58,10 +56,4 @@ class Laporan_model extends CI_Model
         $this->sisa = $this->getProdukByBatch($id)->total;
         $this->db->insert($this->_table, $this);
     }
-
-    public function delete($id)
-    {
-        return $this->db->delete($this->_table, array("idBatch" => $id));
-    }
-
 }

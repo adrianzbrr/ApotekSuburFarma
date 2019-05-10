@@ -42,19 +42,9 @@
               </div>
             </div>
             <div class="form-group">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="remember-me">
-                  Remember Password
-                </label>
-              </div>
             </div>
             <input class="btn btn-primary btn-block" type="submit" name="btn" value="Login" />
           </form>
-          <div class="text-center">
-            <a class="d-block small mt-3" href="register.html">Register an Account</a>
-            <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-          </div>
         </div>
       </div>
     </div>

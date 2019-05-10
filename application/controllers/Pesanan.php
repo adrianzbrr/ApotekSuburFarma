@@ -10,9 +10,9 @@ class Pesanan extends CI_Controller
         $this->load->model("produk_model");
         $this->load->model("perusahaan_model");
         $this->load->model("pesanan_model");
-        $this->load->model("faktur_model");
         $this->load->library('form_validation');
         $this->load->library('user_agent');
+        $this->load->library('pdf');
     }
 
     public function index()
@@ -70,7 +70,7 @@ class Pesanan extends CI_Controller
             'pemesanan' => $this->pesanan_model->getById($id),
             'pesanan' => $this->pesanan_model->getProdukById($id)
         );
-        $this->load->view("pesanan/listProduk",$data);
+        $this->load->view("pesanan/product_list",$data);
     }
 
     public function edit($id = null)
@@ -119,8 +119,33 @@ class Pesanan extends CI_Controller
         redirect(site_url('pesanan/indexFinal'));
     }
 
-    public function print()
-    {
-        var_dump($this->input->post());
+    function print($id){
+        $pdf = new FPDF('l','mm','A5');
+        // membuat halaman baru
+        $pdf->AddPage();
+        // setting jenis font yang akan digunakan
+        $pdf->SetFont('Arial','B',16);
+        // mencetak string 
+        $pdf->Cell(190,7,'APOTEK SUBUR FARMA',0,1,'C');
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(190,7,'LAPORAN PESANAN',0,1,'C');
+        $pdf->Cell(190,7,date('y-m-d'),0,1,'C');
+        $pdf->Cell(190,3,'KODEPESANAN :',0,1);
+        $pdf->Cell(190,7,$id,0,1);
+        $pdf->Cell(190,3,'PERUSAHAAN :',0,1);
+        $perusahaan = $this->pesanan_model->getById($id);
+        $pdf->Cell(190,7,$perusahaan->namaPerusahaan,0,1);
+        // Memberikan space kebawah agar tidak terlalu rapat
+        $pdf->Cell(10,7,'',0,1);
+        $pdf->SetFont('Arial','B',10);
+        $pdf->Cell(50,6,'Nama Produk',1,0);
+        $pdf->Cell(27,6,'Jumlah',1,1);
+        $pdf->SetFont('Arial','',10);
+        $pesanan = $this->pesanan_model->getProdukById($id);
+        foreach ($pesanan as $row){
+            $pdf->Cell(50,6,$row->namaProduk,1,0);
+            $pdf->Cell(27,6,$row->jumlahBeli,1,0);
+        }
+        $pdf->Output();
     }
 }

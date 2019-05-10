@@ -40,7 +40,7 @@ class Kontrabon extends CI_Controller
         $validation->set_rules($kontrabon->rules());        
         if ($validation->run()) {
             $post = $this->input->post();
-            $checkNama = $this->kontraBon_model->getByNama($post["noKontraBon"]);
+            $checkNama = $this->kontraBon_model->getNumRow($post["noKontraBon"]);
             if($checkNama == 0){
                 $kontrabon->save();
                 $this->session->set_flashdata('success', 'Kontra bon berhasil disimpan');
@@ -59,9 +59,8 @@ class Kontrabon extends CI_Controller
     {
         check_not_login();//memeriksa session, user telah login
         $data = array(
-            'noKontraBon' => $this->kontraBon_model->getKontraBon($id),
-            'noFaktur' => $this->kontraBon_model->getFakturById($id),
-            'kontraBonF' => $this->kontraBon_model->getAllFbyId($id),
+            'kontraBon' => $this->kontraBon_model->getFinalById($id),
+            'faktur' => $this->kontraBon_model->getFakturById($id),
             'angsuran'=> $this->angsuran_model->getByKontraBon($id)
         );
         $angsuran = $this->angsuran_model;
@@ -78,18 +77,17 @@ class Kontrabon extends CI_Controller
     public function addFaktur($id = null)
     {
         check_not_login();//memeriksa session, user telah login
-        $idPerusahaan = $this->kontraBon_model->getKontraBon($id);
+        $idPerusahaan = $this->kontraBon_model->getById($id);
         $data = array(
-            'kontraBon' => $this->kontraBon_model->getKontraBon($id),
-            'noFaktur' => $this->kontraBon_model->getFakturById($id),
+            'kontraBon' => $this->kontraBon_model->getById($id),
+            'faktur' => $this->kontraBon_model->getFakturById($id),
             'notFaktur' => $this->kontraBon_model->getFakturByPerusahaan($idPerusahaan->idPerusahaan)
         );
         $faktur = $this->faktur_model;
-        $idKontraBon = $this->kontraBon_model->getKontraBon($id);
         $validation = $this->form_validation;
-        $validation->set_rules($faktur->rules1());        
+        $validation->set_rules($faktur->rulesKontra());        
         if ($validation->run()) {
-            $faktur->masukKontraBon($idKontraBon->idKontraBon);
+            $faktur->inputKontrabon($id);
             $this->session->set_flashdata('success', 'Faktur berhasil disimpan');
             redirect($this->uri->uri_string());
         }
@@ -119,7 +117,7 @@ class Kontrabon extends CI_Controller
     {
         check_not_login();//memeriksa session, user telah login
         if (!isset($id)) show_404();
-        $this->faktur_model->deleteAllKontraBon($id);
+        $this->faktur_model->removeAllKontraBon($id);
         if($this->kontraBon_model->delete($id)){
             redirect(site_url('kontraBon'));
             $this->session->set_flashdata('danger', 'Kontra Bon berhasil dihapus');
@@ -130,7 +128,7 @@ class Kontrabon extends CI_Controller
     {
         check_not_login();//memeriksa session, user telah login
         if (!isset($id)) show_404();
-        if($this->faktur_model->deleteKontraBon($id)){
+        if($this->faktur_model->removeKontraBon($id)){
             $this->session->set_flashdata('danger', 'Faktur berhasil dihapus');
             redirect($this->agent->referrer());
         }

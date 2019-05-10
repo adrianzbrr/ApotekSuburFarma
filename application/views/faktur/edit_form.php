@@ -54,15 +54,19 @@
 
 							<div class="form-group">
 								<label for="idPerusahaan"> Perusahaan*</label>
-								<input class="form-control" list="listPerusahaan" <?php echo form_error('idPerusahaan') ? 'is-invalid':'' ?>
-								 type="text" name="idPerusahaan" id="idPerusahaan" placeholder="Perusahaan" value="<?php echo $faktur->namaPerusahaan ?>">
-								<datalist id="listPerusahaan">
+								<select class="form-control <?php echo form_error('idPerusahaan') ? 'is-invalid':'' ?>"
+								 type="number" name="idPerusahaan" min="0" placeholder="Nama Perusahaan">
+								<option value='0'>--PILIH--</option>
 								<?php
-          						foreach($perusahaan as $data){
-            						echo "<option value= ".$data->namaPerusahaan." id=".$data->idPerusahaan." >".$data->namaPerusahaan."</option>";
-								}
-								?>
-								</datalist>
+									echo "<option value= ".$faktur->idPerusahaan.">".$faktur->namaPerusahaan."</option>";
+          						foreach($perusahaan as $data){ 
+									echo "<option value= ".$data->idPerusahaan.">".$data->namaPerusahaan."</option>";
+									if($data->idPerusahaan != $faktur->idPerusahaan){
+										echo "<option value= ".$data->idPerusahaan.">".$data->namaPerusahaan."</option>";
+										}
+          						}
+          						?>
+								</select> 
 							</div>
 
 							<div class="form-group">

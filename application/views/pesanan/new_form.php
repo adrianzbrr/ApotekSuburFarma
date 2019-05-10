@@ -43,16 +43,16 @@
 							</div>
 
 							<div class="form-group">
-								<label for="namaPerusahaan"> Perusahaan*</label>
-								<input class="form-control" list="listPerusahaan" <?php echo form_error('idPerusahaan') ? 'is-invalid':'' ?>
-								 type="text" name="namaPerusahaan" id="namaPerusahaan" placeholder="Perusahaan">
-								<datalist id="listPerusahaan">
+								<label for="idPerusahaan"> Perusahaan*</label>
+								<select class="form-control <?php echo form_error('idPerusahaan') ? 'is-invalid':'' ?>"
+								 type="number" name="idPerusahaan" min="0" placeholder="Nama Perusahaan">
+								<option value>--PILIH--</option>
 								<?php
-          						foreach($perusahaan as $data){
-            						echo "<option value= ".$data->namaPerusahaan." id=".$data->idPerusahaan." >".$data->namaPerusahaan."</option>";
-								}
-								?>
-								</datalist>
+          						foreach($perusahaan as $data){ 
+            						echo "<option value= ".$data->idPerusahaan.">".$data->namaPerusahaan."</option>";
+          						}
+          						?>
+								</select> 
 							</div>
 							<input class="btn btn-success" type="submit" name="btn" value="Save" />
 						</form>

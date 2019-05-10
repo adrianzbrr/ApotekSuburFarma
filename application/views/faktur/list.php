@@ -57,10 +57,8 @@
 								<tbody>
 									<?php foreach ($fakturNF as $faktur): ?>
 									<tr>
-										<td width="150">
-										<a href="<?php echo site_url('faktur/addProduct/'.$faktur->noFaktur) ?>">
+										<td width="150">				
 											<?php echo $faktur->noFaktur ?>
-											</a>
 										</td>
 										<td width="150">
 											<?php echo $faktur->tanggalCetak ?>
@@ -78,12 +76,12 @@
 											Rp <?php echo number_format($faktur->totalPembayaran,0,',','.')?>
 										</td>
 										<td width ="200">
-											<a href="<?php echo site_url('faktur/addProduct/'.$faktur->noFaktur) ?>"
+											<a href="<?php echo site_url('faktur/addProduct/'.$faktur->idFaktur) ?>"
 											 class="btn btn-small text-success"><i class="fas fa-plus-circle"></i> Tambah</a>
 											 <?php if($this->session->userdata('idJabatan')==1){ ?>
-												<a href="<?php echo site_url('faktur/edit/'.$faktur->noFaktur) ?>"
+												<a href="<?php echo site_url('faktur/edit/'.$faktur->idFaktur) ?>"
 												class="btn btn-small"><i class="fas fa-edit"></i> Edit</a>
-												<a onclick="deleteConfirm('<?php echo site_url('faktur/deleteFaktur/'.$faktur->noFaktur) ?>')"
+												<a onclick="deleteConfirm('<?php echo site_url('faktur/deleteFaktur/'.$faktur->idFaktur) ?>')"
 												href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
 											 <?php }?>
 										</td>

@@ -5,11 +5,6 @@ class ProdukBeli_model extends CI_Model
     private $_table = "ProdukBeli";
     private $_tableBatch = "Batch";
 
-    public $idFaktur;
-    public $idBatch;
-    public $jumlahBeli;
-    public $diskon;
-
     public function rules()
     {
         return [
@@ -42,11 +37,11 @@ class ProdukBeli_model extends CI_Model
 
     public function deleteFaktur($id)
     {
-        return $this->db->delete($this->_table, array("idFaktur" => $id));
+        $this->db->delete($this->_table, array("idFaktur" => $id));
     }
 
     public function deleteBatch($id)
     {
-        return $this->db->delete($this->_table,array("idBatch"=>$id));
+        $this->db->delete($this->_table,array("idBatch"=>$id));
     }
 }

@@ -16,10 +16,10 @@ class Overview extends CI_Controller {
 		check_not_login();//memeriksa session, user telah login
 		// load view overview.php
 		$data = array(
-			'tunggak' => $this->overview_model->getAll(),
+			'tunggak' => $this->overview_model->getTunggak(),
 			'habis' => $this->laporan_model->getLimit(),
 			'prdk'=> $this->overview_model->getNumProduct(),
-			'kdl'=> $this->laporan_model->getNumKadaluarsa(),
+			'kdl'=> $this->laporan_model->getNumKedaluwarsa(),
 			'hbs'=> $this->laporan_model->getNumHabis(),
 			'exp'=> $this->kontrabon_model->getNumKontraBonExp()
 		);

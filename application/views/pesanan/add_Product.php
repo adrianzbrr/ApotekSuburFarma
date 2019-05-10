@@ -54,7 +54,7 @@
 												<datalist id=produklist>
 													<?php
                                                 foreach($produk as $data){
-                                                    echo "<option value= ".$data->namaProduk."></option>";
+													echo "<option value=\"".$data->namaProduk."\"></option>";
                                                 }
                                                 ?>
 												</datalist>
@@ -111,7 +111,7 @@
 									</td>
 									<td>
 									<a onclick="deleteConfirm('<?php echo site_url('pesanan/deleteProduk/'.$data->idPemesanan) ?>')"
-									href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> </a>
+									href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i> Hapus</a>
 									</td>
 								</tr>
 								<?php endforeach; ?>
@@ -122,10 +122,12 @@
 				</div>
 				<!-- /.content-wrapper -->
 				<div class="card-footer">
+				<?php if($this->session->userdata('idJabatan')==1){ ?>
 					<div class="text-right">
 						<a onclick="finalizeConfirm('<?php echo site_url('pesanan/finalize/'.$pemesanan->idPesanan)?>')"
-							href="#!" class="btn btn-success"><i class="fas fa-check-circle"></i> Finalize</a>
+							href="#!" class="btn btn-success"><i class="fas fa-check-circle"></i> Konfirmasi</a>
 					</div>
+				<?php } ?>
 				</div>
 
 

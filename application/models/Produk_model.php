@@ -5,14 +5,6 @@ class Produk_model extends CI_Model
     private $_table = "produk";
     private $_tableView = "produk_view";
     private $_tableLaporan = "laporan_view";
-    
-    
-    public $namaProduk;
-    public $minimalStok;
-    public $idJenis;
-    public $idBentuk;
-    public $idSatuan;
-    public $idRak;
 
     public function rules()
     {
@@ -65,7 +57,7 @@ class Produk_model extends CI_Model
         return $this->db->get_where($this->_tableView, ["idProduk" => $id])->row();
     }
 
-    public function getByNama($id)
+    public function getNumRow($id)
     {
         return $this->db->get_where($this->_tableView, ["namaProduk" => $id])->num_rows();
     }
@@ -101,6 +93,6 @@ class Produk_model extends CI_Model
 
     public function delete($id)
     {
-        return $this->db->delete($this->_table, array("idProduk" => $id));
+        $this->db->delete($this->_table, array("idProduk" => $id));
     }
 }

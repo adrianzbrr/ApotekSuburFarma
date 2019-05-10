@@ -47,7 +47,7 @@
 								<label for="idJenis"> Jenis*</label>
 								<select class="form-control <?php echo form_error('idJenis') ? 'is-invalid':'' ?>"
 								 type="number" name="idJenis" min="0" placeholder="Jenis">
-								<option value='0'>--PILIH--</option>
+								<option value>--PILIH--</option>
 								<?php
           						foreach($jenis as $data){ 
             						echo "<option value= ".$data->idJenis.">".$data->namaJenis."</option>";
@@ -60,7 +60,7 @@
 								<label for="idBentuk"> Bentuk*</label>
 								<select class="form-control <?php echo form_error('idBentuk') ? 'is-invalid':'' ?>"
 								type="number" name="idBentuk" min="0" placeholder="Bentuk">
-								<option value='0'>--PILIH--</option>
+								<option value>--PILIH--</option>
 								<?php
           						foreach($bentuk as $data){ 
             						echo "<option value= ".$data->idBentuk.">".$data->namaBentuk."</option>";
@@ -73,7 +73,7 @@
 								<label for="idSatuan"> Satuan*</label>
 								<select class="form-control <?php echo form_error('idSatuan') ? 'is-invalid':'' ?>"
 								type="number" name="idSatuan" placeholder="Satuan">
-								<option value='0'>--PILIH--</option>
+								<option value>--PILIH--</option>
 								<?php
           						foreach($satuan as $data){ 
             						echo "<option value= ".$data->idSatuan.">".$data->namaSatuan."</option>";
@@ -86,7 +86,7 @@
 								<label for="idRak"> Rak*</label>
 								<select class="form-control <?php echo form_error('idRak') ? 'is-invalid':'' ?>"
 								 type="number" name="idRak" min="0" placeholder="Rak">
-								 <option value='0'>--PILIH--</option>
+								 <option value>--PILIH--</option>
 								<?php
           						foreach($rak as $data){ 
             						echo "<option value= ".$data->idRak.">".$data->namaRak."</option>";

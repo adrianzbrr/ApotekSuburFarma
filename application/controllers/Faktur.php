@@ -38,12 +38,12 @@ class Faktur extends CI_Controller
         check_not_login();//memeriksa session, user telah login
         $faktur = $this->faktur_model;
         $data["perusahaan"] = $this->perusahaan_model->getAll();
-        $data["pesanan"] = $this->pesanan_model->getAll();
+        $data["pesanan"] = $this->pesanan_model->getAllF();
         $validation = $this->form_validation;
         $validation->set_rules($faktur->rules());        
         if ($validation->run()) {
             $post = $this->input->post();
-            $checkNama = $this->faktur_model->getByNama($post["noFaktur"]);
+            $checkNama = $this->faktur_model->getNumRow($post["noFaktur"]);
             if($checkNama == 0){
                 $faktur->save();
                 $this->session->set_flashdata('success', 'Faktur berhasil disimpan');
@@ -60,14 +60,14 @@ class Faktur extends CI_Controller
 
     public function addProduct($id = null)
     {
-        $idFaktur = $this->faktur_model->getByNo($id);
         check_not_login();//memeriksa session, user telah login
+        $faktur=$this->faktur_model->getById($id);
         $data = array(
-            'faktur' => $this->faktur_model->getByNo($id),
-            'batchProduk' => $this->faktur_model->getProdukByNo($id),
+            'faktur' => $this->faktur_model->getById($id),
+            'batchProduk' => $this->faktur_model->getProdukById($id),
             'produk' => $this->produk_model->getAll(),
             'batch' => $this->batch_model->getAll(),
-            'pesanan' => $this->pesanan_model->getProdukById($idFaktur->idPesanan)
+            'pesanan' => $this->pesanan_model->getProdukById($faktur->idPesanan)
         );
         $batch = $this->batch_model;
         $pb = $this->produkBeli_model;
@@ -76,7 +76,7 @@ class Faktur extends CI_Controller
         $validation->set_rules($pb->rules());
         if ($validation->run()) {
             $batch->save();
-            $pb->save($idFaktur->idFaktur);
+            $pb->save($id);
             $laporan->in();
             $this->session->set_flashdata('success', 'Produk berhasil disimpan');
             redirect($this->uri->uri_string());
@@ -88,8 +88,8 @@ class Faktur extends CI_Controller
     {
         check_not_login();//memeriksa session, user telah login
         $data = array(
-            'faktur' => $this->faktur_model->getByNo($id),
-            'batchProduk' => $this->faktur_model->getProdukByNo($id)
+            'faktur' => $this->faktur_model->getById($id),
+            'batchProduk' => $this->faktur_model->getProdukById($id)
         );
         $this->load->view("faktur/product_list",$data);
     }
@@ -117,7 +117,7 @@ class Faktur extends CI_Controller
     {
         check_not_login();//memeriksa session, user telah login
         if (!isset($id)) show_404();
-        if($this->produkBeli_model->deleteFaktur($this->faktur_model->getByNo($id)->idFaktur) && $this->faktur_model->delete($id)){
+        if($this->produkBeli_model->deleteFaktur($id) && $this->faktur_model->delete($id)){
             $this->session->set_flashdata('danger', 'Faktur berhasil dihapus');
             redirect(site_url('faktur'));
         }

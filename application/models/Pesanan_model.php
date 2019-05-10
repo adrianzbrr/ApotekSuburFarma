@@ -6,7 +6,6 @@ class Pesanan_model extends CI_Model
     private $_tableView = "pesanan_view";
     private $_tablePP = "pesananproduk";
     private $_tablePPV = "pesananproduk_view";
-    private $_tablePerusahaan = "perusahaan";
     private $_tableProduk = "produk";
     
 
@@ -21,8 +20,8 @@ class Pesanan_model extends CI_Model
                 'label' => 'tanggalPesanan',
                 'rules' => 'required'],
 
-                ['field' => 'namaPerusahaan',
-                'label' => 'namaPerusahaan',
+                ['field' => 'idPerusahaan',
+                'label' => 'perusahaan',
                 'rules' => 'required']
             ];
     }
@@ -32,12 +31,12 @@ class Pesanan_model extends CI_Model
         return [
 
                 ['field' => 'namaProduk',
-                'label' => 'namaProduk',
+                'label' => 'nama produk',
                 'rules' => 'required'],
 
                 ['field' => 'jumlahBeli',
-                'label' => 'jumlahBeli',
-                'rules' => 'required']
+                'label' => 'jumlah beli',
+                'rules' => 'required'],
             ];
     }
 
@@ -57,10 +56,6 @@ class Pesanan_model extends CI_Model
         return $this->db->get_where($this->_tableView, ["idPesanan" => $id])->row();
     }
 
-    public function getPerusahaan($id){
-        return $this->db->get_where($this->_tablePerusahaan, ["namaPerusahaan" => $id])->row();
-    }
-
     public function getProduk($id){
         return $this->db->get_where($this->_tableProduk, ["namaProduk" => $id])->row();
     }
@@ -73,14 +68,14 @@ class Pesanan_model extends CI_Model
         $post = $this->input->post();
         $this->idPesanan = $post["idPesanan"];
         $this->tanggalPesanan = $post["tanggalPesanan"];
-        $this->idPerusahaan = $this->getPerusahaan($post["namaPerusahaan"])->idPerusahaan;       
+        $this->idPerusahaan =$post["idPerusahaan"];       
         $this->db->insert($this->_table,$this);
     }
 
     public function update(){
         $post = $this->input->post();
         $this->tanggalPesanan = $post["tanggalPesanan"];
-        $this->idPerusahaan = $this->getPerusahaan($post["namaPerusahaan"])->idPerusahaan;
+        $this->idPerusahaan = $post["idPerusahaan"];
         $this->db->update($this->_table, $this, ["idPesanan"=> $post["idPesanan"]]);
     }
     

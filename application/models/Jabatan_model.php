@@ -8,7 +8,7 @@ class Jabatan_model extends CI_Model
         return $this->db->get($this->_table)->result();
     }
 
-    public function getByNama($id){
+    public function getNumRow($id){
         return $this->db->get_where($this->_table, ["username" => $id])->num_rows();
     }
 }

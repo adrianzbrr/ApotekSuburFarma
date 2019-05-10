@@ -33,7 +33,7 @@ class Rak extends CI_Controller
         $validation->set_rules($rak->rules());
         if ($validation->run()) {
             $post = $this->input->post();
-            $checkNama = $this->rak_model->getByNama($post["namaRak"]);
+            $checkNama = $this->rak_model->getNumRow($post["namaRak"]);
             if($checkNama == 0){
                 $rak->save();
                 $this->session->set_flashdata('success', 'Rak berhasil disimpan');
@@ -58,7 +58,7 @@ class Rak extends CI_Controller
         $validation->set_rules($rak->rules());
         if ($validation->run()) {
             $post = $this->input->post();
-            $checkNama = $this->rak_model->getByNama($post["namaRak"]);
+            $checkNama = $this->rak_model->getNumRow($post["namaRak"]);
             if($checkNama == 0){
                 $rak->update();
                 $this->session->set_flashdata('warning', 'Rak berhasil diperbaharui');

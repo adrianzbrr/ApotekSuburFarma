@@ -52,6 +52,12 @@
 						</div>
 					</div>
 				</div>
+				<div class="card-footer">
+					<div class="text-right">
+						<a href="<?php echo site_url('laporan/print') ?>"
+						class="btn btn-small text-warning"><i class="fas fa-file"></i> Cetak</a>
+					</div>
+					</div>
 
 			</div>
 			

@@ -60,10 +60,9 @@
 									<?php foreach ($kontraBonNF as $data): ?>
 									<tr>
 										<td width="150">
-											<a
-												href="<?php echo site_url('kontraBon/addFaktur/'.$data->noKontraBon) ?>">
+
 												<?php echo $data->noKontraBon ?>
-											</a>
+	
 										</td>
 										<td>
 											<?php echo $data->tanggalCetak ?>
@@ -81,14 +80,14 @@
 											Rp <?php echo number_format($data->totalPembayaran,0,',','.')?>
 										</td>
 										<td width="250">
-											<a href="<?php echo site_url('kontraBon/addFaktur/'.$data->noKontraBon) ?>"
+											<a href="<?php echo site_url('kontraBon/addFaktur/'.$data->idKontraBon) ?>"
 												class="btn btn-small text-success"><i
-													class="fas fa-plus-circle"></i></a>
-											<a href="<?php echo site_url('kontraBon/edit/'.$data->noKontraBon) ?>"
-												class="btn btn-small"><i class="fas fa-edit"></i></a>
+													class="fas fa-plus-circle"></i>Tambah</a>
+											<a href="<?php echo site_url('kontraBon/edit/'.$data->idKontraBon) ?>"
+												class="btn btn-small"><i class="fas fa-edit"></i>Edit</a>
 											<a onclick="deleteConfirm('<?php echo site_url('kontraBon/delete/'.$data->idKontraBon) ?>')"
 												href="#!" class="btn btn-small text-danger"><i
-													class="fas fa-trash"></i></a>
+													class="fas fa-trash"></i>Hapus</a>
 										</td>
 									</tr>
 									<?php endforeach; ?>

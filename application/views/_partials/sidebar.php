@@ -13,7 +13,7 @@
             <span>Produk</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <?php if($this->session->userdata('idJabatan')==1){ ?>
+        <?php if($this->session->userdata('idJabatan')<=2){ ?>
             <a class="dropdown-item" href="<?php echo site_url('produk/add') ?>">Tambah Produk</a>
         <?php } ?>
             <a class="dropdown-item" href="<?php echo site_url('produk') ?>">Daftar Produk</a>
@@ -41,9 +41,7 @@
             <span>Rak</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <?php if($this->session->userdata('idJabatan')==1){ ?>
                 <a class="dropdown-item" href="<?php echo site_url('rak/add') ?>">Tambah Rak</a>
-            <?php } ?>
             <a class="dropdown-item" href="<?php echo site_url('rak') ?>">Daftar Rak</a>
         </div>
     </li>
@@ -56,14 +54,12 @@
             <span>Pemesanan</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-        <?php if($this->session->userdata('idJabatan')==1){ ?>
             <a class="dropdown-item" href="<?php echo site_url('pesanan/add') ?>">Tambah Pesanan</a>
             <a class="dropdown-item" href="<?php echo site_url('pesanan') ?>">Pesanan Sementara</a>
-        <?php } ?>
             <a class="dropdown-item" href="<?php echo site_url('pesanan/indexFinal') ?>">Pesanan Akhir</a>
         </div>
     </li>
-    <?php if($this->session->userdata('idJabatan')==1){ ?>
+    <?php if($this->session->userdata('idJabatan')<=2){ ?>
     <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'faktur' ? 'pasive': '' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
@@ -78,7 +74,7 @@
     </li>
     <?php } ?>
 
-    <?php if($this->session->userdata('idJabatan')==1){ ?>
+    <?php if($this->session->userdata('idJabatan')<=2){ ?>
     <li class="nav-item dropdown <?php echo $this->uri->segment(2) == 'kontraBon' ? 'pasive': '' ?>">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
@@ -105,10 +101,12 @@
             <span>Laporan Kadaluarsa</span>
         </a>
     </li>
+    <?php if($this->session->userdata('idJabatan')==1){ ?>
     <li class="nav-item <?php echo $this->uri->segment(2) == '' ? 'pasive': '' ?>">
         <a class="nav-link" href="<?php echo site_url('pengguna') ?>">
             <i class="fas fa-fw fa-users"></i>
             <span>Pengguna</span>
         </a>
     </li>
+    <?php } ?>
 </ul>

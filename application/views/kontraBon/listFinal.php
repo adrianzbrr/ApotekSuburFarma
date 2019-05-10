@@ -46,7 +46,7 @@
 									<?php }?>
 										<td>
 											<a
-												href="<?php echo site_url('kontraBon/listFaktur/'.$data->noKontraBon) ?>">
+												href="<?php echo site_url('kontraBon/listFaktur/'.$data->idKontraBon) ?>">
 												<?php echo $data->noKontraBon ?>
 											</a>
 										</td>

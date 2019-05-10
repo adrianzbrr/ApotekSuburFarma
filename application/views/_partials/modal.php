@@ -44,10 +44,10 @@
           <span aria-hidden="true">×</span>
         </button>
       </div>
-      <div class="modal-body">Dokumen yang di-Finalize tidak akan bisa dikembalikan.</div>
+      <div class="modal-body">Dokumen yang dikonfirmasi tidak akan bisa dikembalikan.</div>
       <div class="modal-footer">
         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-        <a id="btn-finalize" class="btn btn-success" href="#">Finalize</a>
+        <a id="btn-finalize" class="btn btn-success" href="#">Konfirmasi</a>
       </div>
     </div>
   </div>

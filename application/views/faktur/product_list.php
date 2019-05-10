@@ -49,7 +49,7 @@
 							<tr>
 								<th>Nama Produk</th>
 								<th>No Batch</th>
-								<th>Tanggal Kadaluarsa</th>
+								<th>Tanggal Kedaluwarsa</th>
 								<th>jumlah</th>
 								<th>Harga Satuan</th>
 								<th>Diskon</th>
@@ -67,7 +67,7 @@
 										<?php echo $data->noBatch ?>
 									</td>
 									<td>
-										<?php echo $data->tanggalKadaluarsa ?>
+										<?php echo $data->tanggalKedaluwarsa ?>
 									</td>
 									<td>
 										<?php echo $data->jumlahBeli ?>

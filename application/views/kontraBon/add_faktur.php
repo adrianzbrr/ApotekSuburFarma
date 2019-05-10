@@ -44,6 +44,7 @@
 												<select
 													class="form-control <?php echo form_error('noFaktur') ? 'is-invalid':'' ?>"
 													type="text" name="noFaktur" placeholder="Nomor Faktur">
+													<option value>--PILIH--</option>
 													<?php
                                                 foreach($notFaktur as $data){
                                                     echo "<option value= ".$data->noFaktur.">".$data->noFaktur."</option>";
@@ -78,7 +79,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<?php foreach ($noFaktur as $data): ?>
+									<?php foreach ($faktur as $data): ?>
 									<tr>
 										<td width="150">
 											<?php echo $data->noFaktur ?>
@@ -87,10 +88,10 @@
 											<?php echo $data->namaPerusahaan ?>
 										</td>
 										<td>
-											<?php echo $data->totalPembayaran ?>
+											Rp <?php echo number_format($data->totalPembayaran,0,',','.') ?>
 										</td>
 										<td width="250">
-											<a onclick="deleteConfirm('<?php echo site_url('kontraBon/deleteFaktur/'.$data->noFaktur)?>')"
+											<a onclick="deleteConfirm('<?php echo site_url('kontraBon/deleteFaktur/'.$data->idFaktur)?>')"
 											href="#!" class="btn btn-small text-danger"><i class="fas fa-trash"></i>
 											Hapus</a>
 										</td>
@@ -101,10 +102,12 @@
 						</div>
 					</div>
 					<div class="card-footer">
+					<?php if($this->session->userdata('idJabatan')==1){ ?>
 						<div class="text-right">
-							<a onclick="finalizeConfirm('<?php echo site_url('kontraBon/finalize/'.$kontraBon->noKontraBon)?>')"
-								href="#!" class="btn btn-success"><i class="fas fa-check-circle"></i> Finalize</a>
+							<a onclick="finalizeConfirm('<?php echo site_url('kontraBon/finalize/'.$kontraBon->idKontraBon)?>')"
+								href="#!" class="btn btn-success"><i class="fas fa-check-circle"></i> Konfirmasi</a>
 						</div>
+					<?php } ?>
 					</div>
 				</div>
 

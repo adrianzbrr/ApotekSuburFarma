@@ -8,7 +8,7 @@ CREATE TABLE Satuan
 CREATE TABLE Jabatan
 (
     idJabatan int NOT NULL AUTO_INCREMENT,
-    namaJabatan varchar(15),
+    namaJabatan varchar(20),
     PRIMARY KEY(idJabatan),
     CONSTRAINT jabatan_unique UNIQUE (namaJabatan)
 );
@@ -62,7 +62,7 @@ CREATE TABLE Batch
 (
     idBatch int AUTO_INCREMENT,
     noBatch varchar(20) NOT NULL,
-    tanggalKadaluarsa date,
+    tanggalKedaluwarsa date,
     jumlah int DEFAULT 0,
     idProduk int,
     PRIMARY KEY(idBatch),
@@ -91,7 +91,7 @@ CREATE TABLE Pesanan(
     idPesanan VARCHAR(20),
     tanggalPesanan date,
     idPerusahaan int,
-    final int,
+    final int DEFAULT 0,
     PRIMARY KEY(idPesanan),
     FOREIGN KEY(idPerusahaan) REFERENCES Perusahaan(idPerusahaan)
 );
@@ -119,7 +119,8 @@ CREATE TABLE Faktur(
     FOREIGN KEY(idPesanan) REFERENCES Pesanan(idPesanan),
     CONSTRAINT faktur_unique UNIQUE (noFaktur)
 );
-CREATE TABLE ProdukBeli(
+CREATE TABLE ProdukBeli
+(
     idFaktur int,
     idBatch int,
     jumlahBeli int DEFAULT 0,
@@ -146,29 +147,12 @@ CREATE TABLE Laporan(
     FOREIGN KEY(idBatch) REFERENCES Batch(idBatch)
 );
 
-CREATE FUNCTION 'fHitungSatuan' (harga int,diskon int,jumlah int) RETURNS INT
+CREATE FUNCTION fHitungSatuan (harga int,diskon int,jumlah int) RETURNS INT
 DETERMINISTIC
 BEGIN
     DECLARE hasil int;
     SET hasil = (harga * 100 / (100-diskon))/jumlah;
     RETURN(hasil);
-END$$
-
-CREATE TRIGGER update_jumlah 
-AFTER INSERT ON
-    produkBeli
-    FOR EACH ROW
-BEGIN
-    UPDATE batch SET jumlah=jumlah+New.jumlahBeli WHERE idBatch = new.idBatch;
-END$$
-
-CREATE TRIGGER update_batch
-AFTER DELETE ON 
-    produkbeli 
-    FOR EACH ROW
-BEGIN
-    UPDATE batch SET batch.jumlah = batch.jumlah - OLD.jumlahBeli
-    WHERE idBatch = OLD.idBatch;
 END$$
 
 CREATE OR REPLACE VIEW produk_view   AS
@@ -191,7 +175,7 @@ CREATE OR REPLACE VIEW perusahaan_view AS
     GROUP BY a.idPerusahaan 
 
 CREATE OR REPLACE VIEW batch_view AS
-    SELECT a.idBatch, a.noBatch, a.tanggalKadaluarsa, a.jumlah, a.idProduk, c.namaProduk, d.tanggalCetak, b.jumlahBeli, c.Jumlah as total
+    SELECT a.idBatch, a.noBatch, a.tanggalKedaluwarsa, a.jumlah, a.idProduk, c.namaProduk, d.tanggalCetak, b.jumlahBeli, c.Jumlah as total
     FROM Batch as a
     LEFT JOIN ProdukBeli as b on b.idBatch = a.idBatch
     INNER JOIN Produk_view as c on c.idProduk = a.idProduk
@@ -200,7 +184,7 @@ CREATE OR REPLACE VIEW batch_view AS
 
 
 CREATE OR REPLACE VIEW produkBeli_view AS
-    SELECT a.idFaktur, b.noFaktur, a.idBatch, c.noBatch, d.namaProduk, a.jumlahBeli, c.tanggalKadaluarsa, fHitungSatuan(a.hargaBeli,a.diskon,a.jumlahBeli) as hargaSatuan, a.diskon, IFNULL(hargaBeli,0) as hargaBeli, b.final
+    SELECT a.idFaktur, b.noFaktur, a.idBatch, c.noBatch, d.namaProduk, a.jumlahBeli, c.tanggalKedaluwarsa, fHitungSatuan(a.hargaBeli,a.diskon,a.jumlahBeli) as hargaSatuan, a.diskon, hargaBeli, b.final
     FROM produkbeli as a
         INNER JOIN Faktur as b on b.idFaktur = a.idFaktur
         INNER JOIN Batch as c on c.idBatch = a.idBatch 
@@ -222,11 +206,11 @@ CREATE OR REPLACE VIEW kontraBon_view AS
         LEFT JOIN perusahaan AS c on c.idPerusahaan = a.idPerusahaan
     GROUP BY a.noKontraBon
 
-CREATE OR REPLACE VIEW kadaluarsa_view AS
-    SELECT a.idBatch, a.noBatch, b.namaProduk, a.jumlah, b.namaRak, TIMESTAMPDIFF(DAY,CURRENT_DATE,a.tanggalKadaluarsa) as Sisa
+CREATE OR REPLACE VIEW kedaluwarsa_view AS
+    SELECT a.idBatch, a.noBatch, b.namaProduk, a.jumlah, b.namaRak, TIMESTAMPDIFF(DAY,CURRENT_DATE,a.tanggalKedaluwarsa) as Sisa
     FROM Batch as a
         JOIN produk_view as b on b.idProduk = a.idProduk
-    WHERE TIMESTAMPDIFF(DAY,CURRENT_DATE,tanggalKadaluarsa) <= 90 && TIMESTAMPDIFF(DAY,CURRENT_DATE,tanggalKadaluarsa) > 0 && a.jumlah > 0 
+    WHERE TIMESTAMPDIFF(DAY,CURRENT_DATE,tanggalKedaluwarsa) <= 90 && TIMESTAMPDIFF(DAY,CURRENT_DATE,tanggalKedaluwarsa) > 0 && a.jumlah > 0 
     ORDER BY Sisa ASC
 
 CREATE OR REPLACE VIEW totalAngsuran_view AS
@@ -299,8 +283,8 @@ CREATE OR REPLACE VIEW rak_view AS
     GROUP BY a.idRak 
 
 CREATE OR REPLACE VIEW laporan_view AS
-    SELECT a.idLaporan, a.tanggalLaporan, a.jenisLaporan, b.idBatch, b.noBatch, b.idProduk, b.namaProduk, b.jumlahBeli, b.tanggalKadaluarsa, a.sisa
+    SELECT a.idLaporan, a.tanggalLaporan, a.jenisLaporan, b.idBatch, b.noBatch, b.idProduk, b.namaProduk, b.jumlahBeli, b.tanggalKedaluwarsa, a.sisa
     FROM Laporan as a
-    JOIN batch_view as b on b.idBatch=a.idBatch
-    JOIN produk_view as c on c.idProduk=b.idProduk
+    JOIN batch_view as b on b.idBatch = a.idBatch
+    JOIN produk_view as c on c.idProduk = b.idProduk
 

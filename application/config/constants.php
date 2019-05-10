@@ -90,4 +90,4 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |
 */
 
-define('SITE_NAME', 'Apotek Subur Farma');
+define('SITE_NAME', 'Sistem Informasi Apotek');

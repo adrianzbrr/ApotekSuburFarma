@@ -26,7 +26,7 @@
 
 				<!-- Icon Cards-->
 				<div class="row">
-					<?php if($this->session->userdata('idJabatan')==1){ ?>
+					<?php if($this->session->userdata('idJabatan')<=2){ ?>
 					<div class="col-xl-3 col-sm-6 mb-3">
 						<div class="card text-white bg-success o-hidden h-100">
 							<div class="card-body">
@@ -73,7 +73,7 @@
 									<i class="fas fa-fw fa-warning"></i>
 								</div>
 								<div class="h4"><?php echo $kdl ?></div>
-								<div class="mr-5">Produk Segera Kadaluarsa</div>
+								<div class="mr-5">Produk Segera Kedaluwarsa</div>
 							</div>
 							<a class="card-footer text-white clearfix small z-1"
 								href="<?php echo site_url('laporan/expiredReport') ?>">

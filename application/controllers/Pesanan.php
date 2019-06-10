@@ -144,7 +144,7 @@ class Pesanan extends CI_Controller
         $pesanan = $this->pesanan_model->getProdukById($id);
         foreach ($pesanan as $row){
             $pdf->Cell(50,6,$row->namaProduk,1,0);
-            $pdf->Cell(27,6,$row->jumlahBeli,1,0);
+            $pdf->Cell(27,6,$row->jumlahBeli,1,1);
         }
         $pdf->Output();
     }

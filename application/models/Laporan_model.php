@@ -56,4 +56,9 @@ class Laporan_model extends CI_Model
         $this->sisa = $this->getProdukByBatch($id)->total;
         $this->db->insert($this->_table, $this);
     }
+    public function delete($id)
+    {
+        $this->db->where('idBatch',$id);
+        $this->db->delete($this->_table);
+    }
 }

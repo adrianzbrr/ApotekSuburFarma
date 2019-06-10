@@ -107,7 +107,7 @@ class Faktur extends CI_Controller
             redirect(site_url('faktur'));
         }
         $data= array(
-            'faktur' => $this->faktur_model->getByNo($id),
+            'faktur' => $this->faktur_model->getById($id),
             'perusahaan' => $this->perusahaan_model->getAll()
         );       
         $this->load->view("faktur/edit_form", $data);
@@ -117,10 +117,10 @@ class Faktur extends CI_Controller
     {
         check_not_login();//memeriksa session, user telah login
         if (!isset($id)) show_404();
-        if($this->produkBeli_model->deleteFaktur($id) && $this->faktur_model->delete($id)){
+        $this->produkBeli_model->deleteFaktur($id);
+        $this->faktur_model->delete($id);
             $this->session->set_flashdata('danger', 'Faktur berhasil dihapus');
             redirect(site_url('faktur'));
-        }
     }
 
     public function deleteBatch($id=null)
@@ -141,10 +141,5 @@ class Faktur extends CI_Controller
         $data["fakturNF"] = $this->faktur_model->getAllNF();
         $data["fakturF"] = $this->faktur_model->getAllF();
         $this->load->view("faktur/listFinal",$data);
-    }
-
-    public function print()
-    {
-        var_dump($this->input->post());
     }
 }

@@ -92,14 +92,14 @@ class KontraBon_model extends CI_Model
     public function delete($id)
     {
         $this->db->where('idKontraBon',$id);
-        return $this->db->delete($this->_table);
+        $this->db->delete($this->_table);
     }
 
     public function finalize($id)
     {
         $this->db->set('final',1);
         $this->db->where('idKontraBon',$id);
-        return $this->db->update($this->_table);
+        $this->db->update($this->_table);
     }
 
 }

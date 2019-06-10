@@ -37,7 +37,7 @@ class Laporan extends CI_Controller
 		$this->batch_model->makeZero($id);
         if ($this->laporan_model->out($id)) {
 			$this->session->set_flashdata('danger', 'Produk berhasil dihapus');
-			redirect($this->uri->uri_string());
+            redirect($this->agent->referrer());
         }        
 	}
 

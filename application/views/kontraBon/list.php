@@ -96,7 +96,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 
@@ -104,11 +103,11 @@
 			<!-- /.container-fluid -->
 
 			<!-- Sticky Footer -->
-			<?php $this->load->view("_partials/footer.php") ?>
+			
 
 		</div>
 		<!-- /.content-wrapper -->
-
+		
 	</div>
 	<!-- /#wrapper -->
 

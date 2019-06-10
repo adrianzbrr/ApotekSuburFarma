@@ -156,15 +156,21 @@ BEGIN
 END$$
 
 CREATE OR REPLACE VIEW produk_view   AS
-    SELECT a.idProduk, a.namaProduk, a.minimalStok, a.idJenis, b.namaJenis, a.idBentuk, c.namaBentuk, a.idRak, d.namaRak, IFNULL(SUM(f.jumlah),0) as Jumlah, e.idSatuan, e.namaSatuan, COUNT(f.idProduk) as rowBatch, COUNT(g.idProduk) as rowPesanan 
+    SELECT a.idProduk, a.namaProduk, a.minimalStok, a.idJenis, b.namaJenis, a.idBentuk, c.namaBentuk, a.idRak, d.namaRak, IFNULL(h.jumlah),0) as Jumlah, e.idSatuan, e.namaSatuan, COUNT(f.idProduk) as rowBatch, COUNT(g.idProduk) as rowPesanan 
     FROM produk AS a
         INNER JOIN jenis AS b ON b.idJenis = a.idJenis
         INNER JOIN bentuk AS c ON c.idBentuk = a.idBentuk
         INNER JOIN rak AS d ON d.idRak = a.idRak
         INNER JOIN satuan AS e ON e.idSatuan = a.idSatuan
-        LEFT JOIN batch as f ON f.idProduk = a.idProduk
         LEFT JOIN PesananProduk as g ON g.idProduk = a.idProduk
+        LEFT JOIN batch as f ON f.idProduk = a.idProduk
+        LEFT JOIN totalProduk as h ON h.idProduk = a.idProduk
     GROUP BY a.idProduk
+
+CREATE OR REPLACE VIEW totalProduk AS
+    SELECT idProduk, SUM(jumlah) as jumlah
+    FROM batch
+    GROUP by idProduk
 
 CREATE OR REPLACE VIEW perusahaan_view AS
     SELECT a.idPerusahaan, a.namaPerusahaan, a.alamatPerusahaan, a.noTelp, COUNT(b.idPerusahaan) as rowFaktur, COUNT(c.idPerusahaan) as rowKontra, COUNT(d.idPerusahaan) as rowPesanan
@@ -180,6 +186,7 @@ CREATE OR REPLACE VIEW batch_view AS
     LEFT JOIN ProdukBeli as b on b.idBatch = a.idBatch
     INNER JOIN Produk_view as c on c.idProduk = a.idProduk
     INNER JOIN Faktur as d on d.idFaktur = b.idFaktur
+    GROUP BY a.noBatch
     ORDER BY a.idBatch DESC
 
 

@@ -13,6 +13,11 @@ INSERT INTO `bentuk`(`namaBentuk`) VALUES ('Gas/Uap');
 INSERT INTO `satuan`(`namaSatuan`) VALUES ('BOX');
 INSERT INTO `satuan`(`namaSatuan`) VALUES ('BOTOL');
 INSERT INTO `satuan`(`namaSatuan`) VALUES ('TABLET');
+INSERT INTO `satuan`(`namaSatuan`) VALUES ('KALENG');
+INSERT INTO `satuan`(`namaSatuan`) VALUES ('KAPLET');
+INSERT INTO `satuan`(`namaSatuan`) VALUES ('PCS');
+INSERT INTO `satuan`(`namaSatuan`) VALUES ('KAPSUL');
+
 
 INSERT INTO jabatan VALUES ('1','Pemilik Apotek');
 INSERT INTO jabatan VALUES ('2','Apoteker');

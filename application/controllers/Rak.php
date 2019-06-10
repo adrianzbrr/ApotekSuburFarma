@@ -37,7 +37,7 @@ class Rak extends CI_Controller
             if($checkNama == 0){
                 $rak->save();
                 $this->session->set_flashdata('success', 'Rak berhasil disimpan');
-                redirect(site_url('rak'));   
+                redirect('rak');   
             }else{
                 echo "<script> 
 					alert('Nama Rak Sudah Terdaftar');
@@ -62,7 +62,7 @@ class Rak extends CI_Controller
             if($checkNama == 0){
                 $rak->update();
                 $this->session->set_flashdata('warning', 'Rak berhasil diperbaharui');
-                redirect(site_url('rak'));  
+                redirect('rak');  
             }else{
                 echo "<script> 
 					alert('Nama Rak Sudah Terdaftar, Silahkan ulang kembali');
